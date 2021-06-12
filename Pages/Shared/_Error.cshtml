@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
+    <link href="~/css/error1.css" rel="stylesheet" />
+    <title>ERROR</title>
+</head>
+
+<body class="fix-header card-no-border">
+    <section id="wrapper" class="error-page">
+        <div class="error-box">
+            <div class="error-body text-center">
+                @RenderBody()
+                <h3 class="text-uppercase">Страница не найдена !</h3>
+                <p class="text-muted m-t-30 m-b-30">Вы наверное пытаетесь найти путь домой !</p>
+                <a href="~/Index" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">Вернуться домой</a>
+            </div>
+            <footer class="footer text-center">© 2021 66Bit.ru.</footer>
+        </div>
+    </section>
+</body>
+
+</html>

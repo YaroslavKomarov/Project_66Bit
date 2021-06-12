@@ -1,0 +1,33 @@
+﻿.error-box {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+.error-body{
+    text-align:center;
+    padding-bottom:250px;
+}
+.text-center {
+    margin-top:-200px;
+}
+.text-uppercase{
+    position:relative;
+    top:-150px;
+}
+.text-muted {
+    position: relative;
+    top: -150px;
+}
+.btn {
+    position: relative;
+    top: -150px;
+}
+a {
+    color: white;
+    text-decoration:none;
+}
+
+div {
+    background: url("/img/error-bg.jpg") no-repeat center center #fff;
+    height: 100%;
+}

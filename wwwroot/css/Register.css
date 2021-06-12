@@ -1,0 +1,7 @@
+﻿body,html {
+}
+.login-box {
+    background: url("/img/login-register.jpg") no-repeat center center #fff !important;
+    background-size: cover;
+    border-radius:10px;
+}

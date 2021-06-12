@@ -1,0 +1,54 @@
+﻿.fixModule{
+    position:relative;
+    left:650px;
+    top:-1360px;
+    width:50px;
+}
+.formMOdule{
+    position:relative;
+    top:-10px;
+}
+.contentMOdule {
+    padding-top:20px;
+    position:relative;
+    height:150px;
+    top:-50px;
+    display: none;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+.insidecard {
+    position: relative;
+    border: 1px solid black;
+    top: -10px;
+    height: 30px;
+    width: 450px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: white;
+    padding-top: 10px;
+}
+.cardModule {
+    height: 150px;
+    width: 500px;
+}
+.lineModule{
+    width:506px;
+    position:relative;
+    top:-70px;
+}
+.nameModule{
+    position:relative;
+    top:-25px;
+}
+
+

@@ -1,0 +1,273 @@
+﻿body, html {
+    margin-top: 40px;
+    width: 100%;
+    margin-bottom: 0px;
+    background-color: #eef5f9;
+}
+.main-menu {
+    position:fixed;
+    top:10px;
+    width: 35px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    left:60px;
+}
+
+.main-menu a {
+    display: block;
+    margin-bottom: -1px;
+    padding: 8px 5px;
+    color: white;
+    text-decoration: none;
+}
+
+    .main-menu a:hover {
+        background: #5677bd;
+        border-radius: 10px;
+    }
+
+.main-menu > li {
+    position: relative;
+}
+
+    .main-menu .sub-menu {
+        position: absolute;
+        top: 35px;
+        left: 0px;
+        z-index: 10;
+        width: 150px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background: #1b58e8;
+        display: none;
+        border-radius: 10px;
+        z-index:10;
+    }
+
+    .main-menu > li:hover .sub-menu {
+        display: block;
+        z-index: 10;
+    }
+.display-4 {
+    position: fixed;
+    top: -5px;
+    left: 100px;
+    font-size: 25px;
+}
+
+.profile {
+    position: fixed;
+    background: url("/img/7.jpg") no-repeat center center  #fff;
+    background-size:50px;
+    border: 1px solid white;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    border-radius: 50px;
+}
+.hoverup {
+    position: fixed;
+    top: 0px;
+    border: 5px solid #ffffff;
+    background-color: #1e88e5;
+    height: 65px;
+    width: 99.5%;
+    left: 0px;
+    z-index: 1;
+}
+.card1 {
+    border-radius: 5px;
+    padding-left:10px;
+    background-color:white;
+    width: 700px;
+    height: 300px;
+    padding-top: 10px;
+    margin-left: 200px;
+    font-size: 20px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.nameProject {
+    outline: 1px solid #00bfff;
+    margin-left: 200px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.line {
+    position:relative;
+    border: 2px solid #00bfff;
+    height:0px;
+    top:-130px;
+    left:-10px;
+    width:706px;
+}
+.type2 {
+    position: relative;
+    left:400px;
+    top:-170px;
+    z-index:0;
+}
+.form {
+    position: relative;
+    left: 300px;
+    top: -110px;
+    z-index: 10;
+    font-size:15px;
+    color:white;
+}
+a {
+    text-decoration:none;
+}
+
+.AddProject {
+    border-radius: 5px;
+    margin-top: -1250px;
+    margin-left: 1000px;
+}
+.fix {
+    position: fixed;
+}
+.baton{
+    text-align:center;
+}
+.login {
+    width: 200px;
+}
+.batton {
+    display: none;
+    background-color: white;
+    position: relative;
+    top: 50px;
+    left:430px;
+    height: 540px;
+    width: 450px;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.form12 {
+    position: fixed;
+    margin-top: 20px;
+    font-size: 30px;
+    left: 1500px;
+    top:150px;
+    color:white;
+}
+.Customer {
+    padding:0px;
+}
+input[type="text"], select, input[type="date"] {
+    margin-top: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+.status {
+    text-align: center;
+}
+.pos {
+    border: 3px solid #808080;
+    position: relative;
+    margin: 10px 60px;
+    text-align: center;
+}
+.date{
+    text-align:left;
+    margin-left:20px;
+}
+.CustomerCard {
+    border: 3px solid #808080;
+    padding: 0px;
+    position: relative;
+    margin: 10px 60px;
+    text-align: center;
+    padding-bottom: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.btn{
+    z-index:0;
+    color:white;
+}
+.close {
+    border: 3px solid #000000;
+    position: absolute;
+    background: url("/img/danger.svg") no-repeat center center #fff;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+    .close:hover {
+        cursor: pointer;
+    }
+.form22 {
+    font-size:15px;
+    text-align:center;
+    position:relative;
+    left:150px;
+}
+form {
+    position: fixed;
+    width: 300px;
+    color:white;
+}
+
+.did input {
+    position: fixed;
+    left: 1500px;
+    width: 300px;
+    height: 42px;
+    border: 2px solid #1e88e5;
+    border-radius: 5px;
+    outline: none;
+    background: #F9F0DA;
+    color: #9E9C9C;
+    box-sizing: border-box;
+}
+
+.did button {
+    position: fixed;
+    left: 1790px;
+    top: 90px;
+    right: 0px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #1e88e5;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    background: url("https://image.flaticon.com/icons/svg/49/49116.svg") no-repeat center center #1e88e5;
+}
+
+    .did button:before {
+        font-family: FontAwesome;
+        font-size: 16px;
+        color: #F9F0DA;
+    }
+.did {
+    position: fixed;
+    top:80px;
+    right:120px;
+}
+.dop{
+    border:1px solid white;
+}
+
+.login:focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px #4d90f0;
+    border:0px;
+}
+
+    .login:focus::-moz-placeholder {
+        color: transparent;
+    }
+
+    .login:focus::-webkit-input-placeholder {
+        color: transparent;
+    }
