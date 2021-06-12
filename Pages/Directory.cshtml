@@ -1,0 +1,68 @@
+﻿@page
+@model RazorProject.Pages.DirectoryModel
+@{
+    Layout = "_Home";
+}
+<link href="~/css/style.css" rel="stylesheet">
+<link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
+<link href="~/css/index.css" rel="stylesheet">
+<link href="~/css/index2.css" rel="stylesheet">
+<div class="text-center">
+    <div class="hoverup index">
+        <ul class="main-menu index">
+            <li class="index">
+                <a href="#services" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">SW</a>
+                <ul class="sub-menu index">
+                    <li class="index"><a href="Index">Список проектов</a></li>
+                    <li class="index"><a href="Index3">Справочник по модулям</a></li>
+                </ul>
+            </li>
+        </ul>
+        <h3 class="display-4">Список проектов</h3>
+        <div>
+            <a href="prifle" class="profile"></a>
+        </div>
+    </div>
+    <div class="fixfix">
+        @{
+            for (int i = 0; i < 7; i++)
+            {
+                <div class="card1 card " id="card-@i">
+                    <div class="nameProject"><p class="size">Название модуля</p></div>
+                    <div class=""><p>Количество часов : 18</p></div>
+                    <div class="">
+                        <button class="card-@i tel-@i collapsible form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Проекты</button>
+                    </div>
+                    <div class="line" id="line-@i"></div>
+                    <div class="card-@i content" id="tel-@i">
+                        @for (int j = 0; j < 7; j++)
+                        {
+                            <div class="card2 card">
+                                <div class="nameTask"><p class="sizeTask">Название задачи</p></div>
+                                <div class="dateTask"><p>28.01.2021-15.10.2021</p></div>
+                                <div class="timeTask"><p>8 часов</p></div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<style>
+    .card3 {
+        display: none;
+        position: relative;
+    }
+
+    .fixfix {
+        z-index: 0;
+    }
+
+    .index {
+        z-index: 10;
+    }
+</style>
+<script src="~/js/index2.js">
+</script>
+

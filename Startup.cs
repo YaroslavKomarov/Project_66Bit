@@ -24,6 +24,12 @@ namespace Project_66_bit
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddRazorPages();
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddAreaPageRoute("Page", "/Index", "");
+            });
             services.AddControllersWithViews();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
@@ -38,18 +44,21 @@ namespace Project_66_bit
             {
                 app.UseDeveloperExceptionPage();
             }
-            // else
-            // {
-            //     app.UseExceptionHandler("/Home/Error");
-            //     app.UseHsts();
-            // }
-            // app.UseStaticFiles();
+            else
+            {
+                app.UseExceptionHandler("~/Pages/Index");
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
         }
     }
