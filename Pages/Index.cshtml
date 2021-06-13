@@ -26,10 +26,10 @@
     </div>
     <div class="cardFix">
         @{
-            for (int i = 0; i < 4; i++)
+            foreach(var pro in Model.Projecte)
             {
                 <div class="card1 card">
-                    <div class="nameProject"><a href="mod" class="size">Название проекта</a></div>
+                    <div class="nameProject"><a href="mod" class="size">@pro.Name</a></div>
                     <div class="type"><p>Тип : Мобильное приложение</p></div>
                     <div class="type"><p>Заказчик : OПГ Газпром</p></div>
                     <div class="type"><p>Стоимость часа : 1800Р</p></div>
@@ -52,27 +52,29 @@
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <button class="close btn waves-effect waves-light m-b-40"></button>
-            <div class="baton"><input type="text" class="login " placeholder="Название проекта" required /></div>
-            <div class="baton"><input type="text" class="login" placeholder="Тип проекта" required /></div>
-            <div class="baton">
-                <p class="status">Выберите статус проекта :</p>
-                <select name="theme">
-                    <option value="Планирование">Планирование</option>
-                    <option value="Пред.Разработка">Пред.Разработка</option>
-                    <option value="В разработке">В разработке</option>
-                    <option value="Завершен">Завершен</option>
-                </select>
-            </div>
-            <p class="status">Выберите дату проекта :</p>
-            <div class="baton date"><input type="date" name="calendar1"> - <input type="date" name="calendar2"></div>
-            <div class="Customer"><p class="pos">Заказчик</p></div>
-            <div class=" CustomerCard">
-                <div class="baton"><input type="text" class="login" placeholder="ИФО" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="email" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Телефон" required /></div>
-            </div>
-            <button class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40">Создать проект</button>
+            <form method="POST">
+                <button class="close btn waves-effect waves-light m-b-40"></button>
+                <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
+                <div class="baton">
+                    <p class="status">Выберите статус проекта :</p>
+                    <select name="theme" asp-for="Person.Status">
+                        <option value="Планирование">Планирование</option>
+                        <option value="Пред.Разработка">Пред.Разработка</option>
+                        <option value="В разработке">В разработке</option>
+                        <option value="Завершен">Завершен</option>
+                    </select>
+                </div>
+                <p class="status">Выберите дату проекта :</p>
+                <div class="baton date"><input type="date" name="calendar1"> - <input type="date" name="calendar2" asp-for="Person.Date"></div>
+                <div class="Customer"><p class="pos">Заказчик</p></div>
+                <div class=" CustomerCard">
+                    <div class="baton"><input type="text" class="login" placeholder="ФИО" required /></div>
+                    <div class="baton"><input type="text" class="login" placeholder="email" required /></div>
+                    <div class="baton"><input type="text" class="login" placeholder="Телефон" required /></div>
+                </div>
+                <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
+            </form>
         </div>
     </div>
     <div class="fixModule">
