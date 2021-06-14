@@ -8,6 +8,7 @@ namespace Project_66_bit.Models
         public string Name { get; set; }
         public int Hours { get; set; }
         public DateTime Date { get; set; }
-        public Module module { get; set; }
+        public int ModuleId { get; set; }
+        public Module Module { get; set; }
     }
 }
