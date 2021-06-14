@@ -1,6 +1,6 @@
 using System;
 
-namespace ASPNET_MVC.Models
+namespace Project_66_bit.Models
 {
     public class Project
     {

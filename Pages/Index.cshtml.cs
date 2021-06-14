@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
-using ASPNET_MVC.Models;
 
 namespace RazorProject.Pages
 {
