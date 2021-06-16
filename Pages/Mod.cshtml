@@ -8,79 +8,72 @@
 <link href="~/css/index.css" rel="stylesheet">
 <link href="~/css/index2.css" rel="stylesheet">
 <div class="text-center">
-    <div class="hoverup index">
-        <ul class="main-menu index">
-            <li class="index">
-                <a href="#services" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">SW</a>
-                <ul class="sub-menu index">
-                    <li class="index"><a href="Index">Список проектов</a></li>
-                    <li class="index"><a href="Index3">Справочник по модулям</a></li>
-                </ul>
-            </li>
-        </ul>
-        <h3 class="display-4">Список проектов</h3>
-        <div>
-            <a href="prifle" class="profile"></a>
-        </div>
-    </div>
     <div class="nameofProject">Название проекта</div>
     <div class="fixfix">
-    @{
-        for (int i = 0; i < 7; i++)
-        {
-            <div class="card1 card " id="card-@i">
-                <div class="nameProject"><p class="size">Название модуля</p></div>
-                <div class=""><p>Количество часов : 18</p></div>
-                <div class="">
-                    <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-                    <div class="card-@i tel-@i line-@i but-@i card2 card card3"  >
-                        <div class="nameInput"><input type="text" placeholder="Название задачи"></div>
-                        <div class="dateInput"><input type="date" placeholder="Дата начала">-<input type="date" placeholder="Дата конца"></div>
-                        <div class="timeInput"><input type="text" placeholder="Время задачи"></div>
-                        <div><button class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" onclick="document.getElementById(this.classList[0]).click()">Создать задачу</button></div>
+        @{
+            int i = 0;
+            foreach (var e in Model.Task)
+            {
+                <div class="card1 card " id="card-@i">
+                    <div class="nameProject"><p class="size">Название модуля</p></div>
+                    <div class=""><p>Количество часов : 18</p></div>
+                    <div class="">
+                        <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
+                        <div class="card-@i tel-@i line-@i but-@i card2 card card3" id="work-@i">
+                            <div class="nameInput"><input type="text" placeholder="Название задачи"></div>
+                            <div class="dateInput"><input type="date" placeholder="Дата начала">-<input type="date" placeholder="Дата конца"></div>
+                            <div class="timeInput"><input type="text" placeholder="Время задачи"></div>
+                            <div><button class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light clickme" onclick="document.getElementById(this.classList[0]).click()">Создать задачу</button></div>
+                        </div>
+                    </div>
+                    <div class="line" id="line-@i"></div>
+                    <button class="card-@i tel-@i line-@i but-@i collapsible tests btn" id="but-@i"></button>
+                    <div class="card-@i work-@i line-@i but-@i tel-@i content" id="tel-@i">
+                        @foreach (var pot in Model.Task)
+                        {
+                            <div class="card2 card">
+                                <div class="nameTask"><p class="sizeTask">Название задачи</p></div>
+                                <div class="dateTask"><p>28.01.2021-15.10.2021</p></div>
+                                <div class="timeTask"><p>8 часов</p></div>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="line" id="line-@i"></div>
-                <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-                <div class="card-@i content" id="tel-@i">
-                    @for (int j = 0; j < 7; j++)
-                    {
-                        <div class="card2 card">
-                            <div class="nameTask"><p class="sizeTask">Название задачи</p></div>
-                            <div class="dateTask"><p>28.01.2021-15.10.2021</p></div>
-                            <div class="timeTask"><p>8 часов</p></div>
-                        </div>
-                    }
-                </div>
-            </div>
+                i++;
+            }
         }
-    }
-    <div class="visit card">
-        <div class="type">
-            <p>
-                Статус проекта :
-                <select name="theme">
-                    <option value="Планирование">Планирование</option>
-                    <option value="Пред.Разработка">Пред.Разработка</option>
-                    <option value="В разработке">В разработке</option>
-                    <option value="Завершен">Завершен</option>
-                </select>
-            </p>
+        <div class="visit card">
+            <div class="type">
+                <p>
+                    Статус проекта :
+                    <select name="theme">
+                        <option value="Планирование">Планирование</option>
+                        <option value="Пред.Разработка">Пред.Разработка</option>
+                        <option value="В разработке">В разработке</option>
+                        <option value="Завершен">Завершен</option>
+                    </select>
+                </p>
+            </div>
+            <div class="type"><p>Тип : Мобильное приложение</p></div>
+            <div class="type"><p>Стоимость часа : 1800Р</p></div>
+            <div class="type"><p>Срок действия : 28.01.2020 - 15.10.2021</p></div>
+            <div class="Vso"><p class="pos">Заказчик</p></div>
+            <div class="CustomerCard">
+                <div class="zakaz">ОПГ Газпром</div>
+                <div class="zakaz">+7(970) - 505 - 40 - 77</div>
+                <div class="zakaz">gazik$$$@@gmail.com </div>
+            </div>
         </div>
-        <div class="type"><p>Тип : Мобильное приложение</p></div>
-        <div class="type"><p>Стоимость часа : 1800Р</p></div>
-        <div class="type"><p>Срок действия : 28.01.2020 - 15.10.2021</p></div>
-        <div class="Vso"><p class="pos">Заказчик</p></div>
-        <div class="CustomerCard">
-            <div class="zakaz">ОПГ Газпром</div>
-            <div class="zakaz">+7(970) - 505 - 40 - 77</div>
-            <div class="zakaz">gazik$$$@@gmail.com </div>
+        <div class="add">
+            <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
+            <div class="addModule card">
+                <button class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></button>
+                <div class="baton"><input type="text" class="login" placeholder="Название модуля" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Количество часов" required /></div>
+                <div><button class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" onclick="document.getElementById(this.classList[0]).click()">Создать модуль</button></div>
+            </div>
         </div>
     </div>
-    <div class="add">
-        <button class="fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-    </div>
-        </div>
 </div>
 <style>
     .nameofProject {
@@ -122,13 +115,30 @@
                 document.getElementById(content.classList[1]).style.top = "-100px";
                 document.getElementById(content.classList[2]).style.top = "-80px";
                 document.getElementById(content.classList[3]).style.top = "-200px";
-            } else {
+            }
+            else {
                 content.style.display = "block";
                 document.getElementById(content.classList[1]).style.display = "block";
                 document.getElementById(content.classList[0]).style.height = "650px";
                 document.getElementById(content.classList[1]).style.top = "0px";
-                document.getElementById(content.classList[2]).style.top = "-210px";
+                document.getElementById(content.classList[2]).style.top = "-220px";
                 document.getElementById(content.classList[3]).style.top = "-344px";
+            }
+        });
+    }
+</script>
+<script>
+    var module = document.getElementsByClassName("className");
+
+    for (var i = 0; i < module.length; i++) {
+        module[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            }
+            else {
+                content.style.display = "block";
             }
         });
     }

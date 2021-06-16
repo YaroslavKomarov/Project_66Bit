@@ -4,70 +4,6 @@
     margin-bottom: 0px;
     background-color: #eef5f9;
 }
-.main-menu {
-    position:fixed;
-    top:10px;
-    width: 35px;
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    left:60px;
-}
-
-.main-menu a {
-    display: block;
-    margin-bottom: -1px;
-    padding: 8px 5px;
-    color: white;
-    text-decoration: none;
-}
-
-    .main-menu a:hover {
-        background: #5677bd;
-        border-radius: 10px;
-    }
-
-.main-menu > li {
-    position: relative;
-}
-
-    .main-menu .sub-menu {
-        position: absolute;
-        top: 35px;
-        left: 0px;
-        z-index: 10;
-        width: 150px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        background: #1b58e8;
-        display: none;
-        border-radius: 10px;
-        z-index:10;
-    }
-
-    .main-menu > li:hover .sub-menu {
-        display: block;
-        z-index: 10;
-    }
-.display-4 {
-    position: fixed;
-    top: -5px;
-    left: 100px;
-    font-size: 25px;
-}
-
-.profile {
-    position: fixed;
-    background: url("/img/7.jpg") no-repeat center center  #fff;
-    background-size:50px;
-    border: 1px solid white;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    top: 10px;
-    border-radius: 50px;
-}
 .hoverup {
     position: fixed;
     top: 0px;
@@ -140,9 +76,9 @@ a {
 .batton {
     display: none;
     background-color: white;
-    position: relative;
-    top: 50px;
-    left:430px;
+    position:fixed;
+    top: 230px;
+    left:1430px;
     height: 540px;
     width: 450px;
     border-radius: 10px;
@@ -211,11 +147,6 @@ input[type="text"], select, input[type="date"] {
     position:relative;
     left:150px;
 }
-form {
-    position: fixed;
-    width: 300px;
-    color:white;
-}
 
 .did input {
     position: fixed;
@@ -254,9 +185,6 @@ form {
     top:80px;
     right:120px;
 }
-.dop{
-    border:1px solid white;
-}
 
 .login:focus {
     outline: none;
@@ -271,3 +199,62 @@ form {
     .login:focus::-webkit-input-placeholder {
         color: transparent;
     }
+.fixModule {
+    position: absolute;
+    left: 650px;
+    top: 40px;
+    width: 50px;
+}
+
+.formMOdule {
+    position: relative;
+    top: -10px;
+}
+
+.contentMOdule {
+    padding-top: 20px;
+    position: relative;
+    height: 150px;
+    top: -50px;
+    display: none;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+.insidecard {
+    position: relative;
+    border: 1px solid black;
+    top: -10px;
+    height: 30px;
+    width: 450px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: white;
+    padding-top: 10px;
+}
+
+.cardModule {
+    height: 150px;
+    width: 500px;
+}
+
+.lineModule {
+    width: 506px;
+    position: relative;
+    top: -70px;
+}
+
+.nameModule {
+    position: relative;
+    top: -25px;
+}

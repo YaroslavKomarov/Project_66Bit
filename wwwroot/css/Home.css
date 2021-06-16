@@ -1,7 +1,26 @@
 ﻿body, html {
     background-color: #dedddd;
 }
-.Cube {
+
+.dop {
+    border: 1px solid white;
+}
+.display-4 {
+    position: fixed;
+    top: 5px;
+    left: 100px;
+    font-size: 25px;
+}
+.profile {
+    position: fixed;
+    background: url("../img/7.jpg") no-repeat center center #fff;
+    background-size: 50px;
+    border: 1px solid white;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    border-radius: 50px;
 }
 .Cube2 {
     position: fixed;
@@ -12,4 +31,49 @@
     padding-left:20px;
     left:-10px;
     background-color:white;
+}
+.main-menu {
+    position: fixed;
+    top: 10px;
+    width: 35px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    left: 60px;
+}
+.main-menu a {
+    display: block;
+    margin-bottom: -1px;
+    padding: 8px 5px;
+    color: white;
+    text-decoration: none;
+}
+
+.main-menu a:hover {
+    background: #5677bd;
+    border-radius: 10px;
+}
+
+.main-menu > li {
+    position: relative;
+}
+
+.main-menu .sub-menu {
+    position: absolute;
+    top: 8px;
+    left: 1620px;
+    z-index: 10;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #1b58e8;
+    display: none;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.main-menu > li:hover .sub-menu {
+    display: block;
+    z-index: 10;
 }
