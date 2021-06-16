@@ -14,9 +14,6 @@ namespace RazorProject.Pages
     {
         public ApplicationDbContext db;
 
-        public string Email { get; set; }
-        public string Password { get; set; }
-        
         public EnterModel(ApplicationDbContext context)
         {
             db = context;
