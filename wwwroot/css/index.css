@@ -1,17 +1,17 @@
 ﻿body, html {
-    margin-top: 40px;
+    margin: 0;
     width: 100%;
-    margin-bottom: 0px;
     background-color: #eef5f9;
 }
-.main-menu {
-    position:fixed;
-    top:10px;
+
+.header-menu {
+    position: fixed;
+    top: 10px;
     width: 35px;
     margin: 0px;
     padding: 0px;
     list-style: none;
-    left:60px;
+    left: 60px;
 }
 
 .main-menu a {
@@ -22,34 +22,35 @@
     text-decoration: none;
 }
 
-    .main-menu a:hover {
-        background: #5677bd;
-        border-radius: 10px;
-    }
+.main-menu a:hover {
+    background: #5677bd;
+    border-radius: 10px;
+}
 
 .main-menu > li {
     position: relative;
 }
 
-    .main-menu .sub-menu {
-        position: absolute;
-        top: 35px;
-        left: 0px;
-        z-index: 10;
-        width: 150px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        background: #1b58e8;
-        display: none;
-        border-radius: 10px;
-        z-index:10;
-    }
+.main-menu .sub-menu {
+    position: absolute;
+    top: 35px;
+    left: 0px;
+    z-index: 10;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #1b58e8;
+    display: none;
+    border-radius: 10px;
+    z-index:10;
+}
 
-    .main-menu > li:hover .sub-menu {
-        display: block;
-        z-index: 10;
-    }
+.main-menu > li:hover .sub-menu {
+    display: block;
+    z-index: 10;
+}
+
 .display-4 {
     position: fixed;
     top: -5px;
@@ -105,12 +106,14 @@
     left:-10px;
     width:706px;
 }
+
 .type2 {
     position: relative;
     left:400px;
     top:-170px;
     z-index:0;
 }
+
 .form {
     position: relative;
     left: 300px;
@@ -140,9 +143,9 @@ a {
 .batton {
     display: none;
     background-color: white;
-    position: relative;
-    top: 50px;
-    left:430px;
+    position: fixed;
+    top: 70px;
+    left: 1000px;
     height: 540px;
     width: 450px;
     border-radius: 10px;
@@ -154,7 +157,7 @@ a {
     position: fixed;
     margin-top: 20px;
     font-size: 30px;
-    left: 1500px;
+    left: 1000px;
     top:150px;
     color:white;
 }
@@ -264,10 +267,14 @@ form {
     border:0px;
 }
 
-    .login:focus::-moz-placeholder {
-        color: transparent;
-    }
+.login:focus::-moz-placeholder {
+    color: transparent;
+}
 
-    .login:focus::-webkit-input-placeholder {
-        color: transparent;
-    }
+.login:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.emptyMessage {
+
+}

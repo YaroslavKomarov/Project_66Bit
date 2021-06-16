@@ -23,14 +23,20 @@
             <a href="prifle" class="profile"></a>
         </div>
     </div>
-    <div class="nameofProject">Название проекта</div>
+    <div class="nameofProject">@Model.Proj.Name</div>
     <div class="fixfix">
     @{
-        for (int i = 0; i < 7; i++)
+        if (Model.Modules.Count == 0)
         {
+            <h1 class="emptyMessage">У Вас пока нет модулей. Добавьте новый модуль</h1>
+        }
+        int i = 0;
+        foreach (var module in Model.Modules)
+        {
+            i++;
             <div class="card1 card " id="card-@i">
-                <div class="nameProject"><p class="size">Название модуля</p></div>
-                <div class=""><p>Количество часов : 18</p></div>
+                <div class="nameProject"><p class="size">@module.Name</p></div>
+                <div class=""><p>Количество часов : @module.Hours</p></div>
                 <div class="">
                     <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
                     <div class="card-@i tel-@i line-@i but-@i card2 card card3"  >
@@ -43,14 +49,18 @@
                 <div class="line" id="line-@i"></div>
                 <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
                 <div class="card-@i content" id="tel-@i">
-                    @for (int j = 0; j < 7; j++)
-                    {
+                    @if (Model.Tasks.Count == 0)
+                     {
+                        <h1 class="emptyMessage">У Вас пока нет задач. Добавьте новую задачу</h1>
+                     }
+                    @foreach (var task in Model.Tasks.Where(t => t.ModuleId == module.Id))
+                     {
                         <div class="card2 card">
-                            <div class="nameTask"><p class="sizeTask">Название задачи</p></div>
-                            <div class="dateTask"><p>28.01.2021-15.10.2021</p></div>
-                            <div class="timeTask"><p>8 часов</p></div>
+                            <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+                            <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+                            <div class="timeTask"><p>@task.Hours</p></div>
                         </div>
-                    }
+                     }
                 </div>
             </div>
         }
@@ -60,19 +70,19 @@
             <p>
                 Статус проекта :
                 <select name="theme">
-                    <option value="Планирование">Планирование</option>
-                    <option value="Пред.Разработка">Пред.Разработка</option>
-                    <option value="В разработке">В разработке</option>
-                    <option value="Завершен">Завершен</option>
+                    <option value="0">Планирование</option>
+                    <option value="1">Пред.Разработка</option>
+                    <option value="2">В разработке</option>
+                    <option value="3">Завершен</option>
                 </select>
             </p>
         </div>
-        <div class="type"><p>Тип : Мобильное приложение</p></div>
-        <div class="type"><p>Стоимость часа : 1800Р</p></div>
-        <div class="type"><p>Срок действия : 28.01.2020 - 15.10.2021</p></div>
+        <div class="type"><p>Тип : @Model.Proj.Type</p></div>
+        <div class="type"><p>Стоимость часа (руб.) : @Model.Proj.Cost</p></div>
+        <div class="type"><p>Срок действия : @Model.Proj.StartDate.ToShortDateString() - @Model.Proj.EndDate.ToShortDateString()</p></div>
         <div class="Vso"><p class="pos">Заказчик</p></div>
         <div class="CustomerCard">
-            <div class="zakaz">ОПГ Газпром</div>
+            <div class="zakaz">@Model.Customer</div></div>
             <div class="zakaz">+7(970) - 505 - 40 - 77</div>
             <div class="zakaz">gazik$$$@@gmail.com </div>
         </div>
