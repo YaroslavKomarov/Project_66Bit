@@ -7,34 +7,18 @@
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 <link href="~/css/index.css" rel="stylesheet" />
-<link href="~/css/Module.css" rel="stylesheet" />
 <div class="text-center">
-    <div class="hoverup">
-        <ul class="main-menu">
-            <li>
-                <a href="#services" class="dop btn btn-info btn-rounded waves-effect waves-light m-b-40">SW</a>
-                <ul class="sub-menu">
-                    <li><a href="Index">Список проектов</a></li>
-                    <li><a href="Index2">Справочник по модулям</a></li>
-                </ul>
-            </li>
-        </ul>
-        <h3 class="display-4">Список проектов</h3>
-        <div>
-            <a href="prifle" class="profile"></a>
-        </div>
-    </div>
     <div class="cardFix">
         @{
-            foreach(var pro in Model.Projecte)
+            foreach (var pro in Model.Projecte)
             {
                 <div class="card1 card">
                     <div class="nameProject"><a href="mod" class="size">@pro.Name</a></div>
-                    <div class="type"><p>Тип : Мобильное приложение</p></div>
+                    <div class="type"><p>Тип : @pro.Type</p></div>
                     <div class="type"><p>Заказчик : OПГ Газпром</p></div>
-                    <div class="type"><p>Стоимость часа : 1800Р</p></div>
+                    <div class="type"><p>Стоимость часа :@pro.Cost</p></div>
                     <div class="type"><p>28.01.2020 - 15.10.2021</p></div>
-                    <div class="type2"><p>Статус : в разработке</p></div>
+                    <div class="type2"><p>Статус : @pro.Status</p></div>
                     <div class="form btn btn-info btn-rounded waves-effect waves-light m-b-40"><a href="">Сформировать проект на базе текущего</a></div>
                     <div class="line"></div>
                 </div>
@@ -47,22 +31,23 @@
             <button type="submit"></button>
         </form>
     </div>
+    <div asp-validation-summary="All"></div>
     <div class="AddProject fix">
         <div class="add">
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <form method="POST">
+            <form metod="POST">
                 <button class="close btn waves-effect waves-light m-b-40"></button>
                 <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
                 <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
                 <div class="baton">
                     <p class="status">Выберите статус проекта :</p>
                     <select name="theme" asp-for="Person.Status">
-                        <option value="Планирование">Планирование</option>
-                        <option value="Пред.Разработка">Пред.Разработка</option>
-                        <option value="В разработке">В разработке</option>
-                        <option value="Завершен">Завершен</option>
+                        <option value="1">Планирование</option>
+                        <option value="2">Пред.Разработка</option>
+                        <option value="3">В разработке</option>
+                        <option value="4">Завершен</option>
                     </select>
                 </div>
                 <p class="status">Выберите дату проекта :</p>
