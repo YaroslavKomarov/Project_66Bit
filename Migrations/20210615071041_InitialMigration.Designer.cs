@@ -10,7 +10,7 @@ using Project_66_bit.Models;
 namespace Project_66_bit.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210614090050_InitialMigration")]
+    [Migration("20210615071041_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace Project_66_bit.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Mail")
+                    b.Property<string>("Email")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -55,7 +55,7 @@ namespace Project_66_bit.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -63,6 +63,32 @@ namespace Project_66_bit.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("Project_66_bit.Models.Problem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Hours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("Project_66_bit.Models.Project", b =>
@@ -73,6 +99,9 @@ namespace Project_66_bit.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("Cost")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Date")
@@ -89,39 +118,17 @@ namespace Project_66_bit.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Project_66_bit.Models.Task", b =>
+            modelBuilder.Entity("Project_66_bit.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Hours")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("moduleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("moduleId");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("Project_66_bit.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -141,18 +148,33 @@ namespace Project_66_bit.Migrations
                 {
                     b.HasOne("Project_66_bit.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Project_66_bit.Models.Task", b =>
+            modelBuilder.Entity("Project_66_bit.Models.Problem", b =>
                 {
-                    b.HasOne("Project_66_bit.Models.Module", "module")
+                    b.HasOne("Project_66_bit.Models.Module", "Module")
                         .WithMany()
-                        .HasForeignKey("moduleId");
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("module");
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("Project_66_bit.Models.Project", b =>
+                {
+                    b.HasOne("Project_66_bit.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }
