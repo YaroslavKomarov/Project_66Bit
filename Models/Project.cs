@@ -1,6 +1,6 @@
 using System;
 
-namespace ASPNET_MVC.Models
+namespace Project_66_bit.Models
 {
     public class Project
     {
@@ -10,5 +10,7 @@ namespace ASPNET_MVC.Models
         public string Type { get; set; }
         public int Cost { get; set; }
         public DateTime Date { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }
