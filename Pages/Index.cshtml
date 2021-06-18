@@ -7,7 +7,7 @@
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 <link href="~/css/index.css" rel="stylesheet" />
-<div class="text-center">
+<div>
     <div class="cardFix">
         @{
             foreach (var pro in Model.Projecte)
@@ -17,7 +17,7 @@
                     <div class="type"><p>Тип : @pro.Type</p></div>
                     <div class="type"><p>Заказчик : OПГ Газпром</p></div>
                     <div class="type"><p>Стоимость часа :@pro.Cost</p></div>
-                    <div class="type"><p>28.01.2020 - 15.10.2021</p></div>
+                    <div class="type"><p>28.01.2020 - @pro.Date</p></div>
                     <div class="type2"><p>Статус : @pro.Status</p></div>
                     <div class="form btn btn-info btn-rounded waves-effect waves-light m-b-40"><a href="">Сформировать проект на базе текущего</a></div>
                     <div class="line"></div>
@@ -41,6 +41,7 @@
                 <button class="close btn waves-effect waves-light m-b-40"></button>
                 <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
                 <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Стоимость часа" asp-for="Person.Cost" required /></div>
                 <div class="baton">
                     <p class="status">Выберите статус проекта :</p>
                     <select name="theme" asp-for="Person.Status">
@@ -93,10 +94,5 @@
 
     .form22 {
         color: white;
-    }
-
-    .cardFix {
-        position: relative;
-        left: -150px;
     }
 </style>

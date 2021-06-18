@@ -34,46 +34,71 @@
 }
 .main-menu {
     position: fixed;
-    top: 10px;
-    width: 35px;
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    left: 60px;
-}
-.main-menu a {
-    display: block;
-    margin-bottom: -1px;
-    padding: 8px 5px;
-    color: white;
-    text-decoration: none;
-}
-
-.main-menu a:hover {
-    background: #5677bd;
+    right: 20px;
+    top: 65px;
+    background: white;
+    width: 200px;
     border-radius: 10px;
-}
-
-.main-menu > li {
-    position: relative;
-}
-
-.main-menu .sub-menu {
-    position: absolute;
-    top: 8px;
-    left: 1620px;
-    z-index: 10;
-    width: 150px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    background: #1b58e8;
+    border: 2px solid gray;
     display: none;
-    border-radius: 10px;
-    z-index: 10;
+    z-index:2;
 }
-
-.main-menu > li:hover .sub-menu {
-    display: block;
-    z-index: 10;
+.photo {
+    background: url("../img/7.jpg") no-repeat center center #fff;
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    border-radius: 30px;
+}
+.hovers {
+    background: url("../img/icons8-пряничный-человечек-64.png") no-repeat center center #fff;
+    background-size: 30px;
+    width: 10px;
+    height: 10px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-left:10px;
+}
+.hovers1 {
+    background: url("../img/icons8-выключение-системы-64.png") no-repeat center center #fff;
+    background-size: 35px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+li {
+    list-style-type: none;
+}
+.hovercolor:hover {
+    background: #dedddd;
+    border-radius:10px;
+}
+.hovercolor {
+    padding-top:5px;
+    width: 200px;
+    margin-bottom:5px;
+    margin-left: -40px;
+    height: 30px;
+}
+.photo1 {
+    background: url("../img/icons8-профиль-кошки-64.png") no-repeat center center #fff;
+    background-size: 35px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-left: -30px;
+}
+.photo2 {
+    background: url("../img/icons8-электронная-почта-64.png") no-repeat center center #fff;
+    background-size: 35px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-left:-30px;
+}
+li a{
+    color:black;
 }
