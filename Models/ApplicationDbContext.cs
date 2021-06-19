@@ -12,7 +12,6 @@ namespace Project_66_bit.Models
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {
-        }
+        {}
     }
 }
