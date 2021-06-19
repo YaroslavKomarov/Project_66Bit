@@ -32,6 +32,8 @@ namespace RazorProject.Pages
             Customer = await _context.Customers.FindAsync(Project.CustomerId);
             Modules = await _context.Modules.Where(m => m.ProjectId == id).ToListAsync();
             Problems = await _context.Problems.ToListAsync();
+
+            Modules.Reverse();
         }
 
         public async Task<IActionResult> OnPostModuleAsync(int id)

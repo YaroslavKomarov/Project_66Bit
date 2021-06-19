@@ -1,7 +1,6 @@
 ﻿body, html {
-    margin-top: 40px;
+    margin: 0;
     width: 100%;
-    margin-bottom: 0px;
     background-color: #eef5f9;
 }
 .hoverup {
@@ -53,12 +52,14 @@
     left: -10px;
     width: 706px;
 }
+
 .type2 {
     position: relative;
     left:400px;
     top:-170px;
     z-index:0;
 }
+
 .form {
     position: relative;
     left: 300px;
@@ -102,7 +103,7 @@ a {
     position: fixed;
     margin-top: 20px;
     font-size: 30px;
-    left: 1500px;
+    left: 1000px;
     top:150px;
     color:white;
 }
