@@ -1,16 +1,17 @@
 ﻿body, html {
-    margin: 0;
     width: 100%;
+    margin-bottom: 0px;
     background-color: #eef5f9;
 }
 .hoverup {
     position: fixed;
     top: 0px;
+    border: 5px solid #ffffff;
     background-color: #1e88e5;
     height: 65px;
-    width: 100%;
+    width: 99.5%;
     left: 0px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .emptyTask {
@@ -27,43 +28,40 @@
 
 .card1 {
     border-radius: 5px;
-    padding-left: 10px;
-    background-color: white;
+    padding-left:10px;
+    background-color:white;
     width: 700px;
     height: 300px;
     padding-top: 10px;
-    margin-left: 200px;
     font-size: 20px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .nameProject {
     outline: 1px solid #00bfff;
-    margin-left: 200px;
     padding: 0px 20px;
     box-sizing: border-box;
     display: inline-block;
+    margin-left:40%;
 }
 
 .line {
-    position: relative;
+    position:relative;
     border: 2px solid #1e88e5;
-    height: 0px;
-    top: -130px;
-    left: -10px;
-    width: 706px;
+    height:0px;
+    top:50px;
+    left:-10px;
+    width:706px;
 }
 
 .type2 {
-    position: relative;
-    left:400px;
-    top:-170px;
-    z-index:0;
+    margin-left:400px;
+    margin-top:-170px;
 }
 
 .form {
     position: relative;
-    left: 300px;
-    top: -110px;
+    left: 340px;
+    top: 70px;
     z-index: 10;
     font-size:15px;
     color:white;
@@ -92,7 +90,7 @@ a {
     position:fixed;
     top: 230px;
     left:1430px;
-    height: 540px;
+    height: 560px;
     width: 450px;
     border-radius: 10px;
     font-size: 20px;
@@ -103,7 +101,7 @@ a {
     position: fixed;
     margin-top: 20px;
     font-size: 30px;
-    left: 1000px;
+    left: 1500px;
     top:150px;
     color:white;
 }
@@ -148,9 +146,9 @@ input[type="text"], select, input[type="date"] {
     width: 30px;
     height: 30px;
 }
-.close:hover {
-    cursor: pointer;
-}
+    .close:hover {
+        cursor: pointer;
+    }
 .form22 {
     font-size:15px;
     text-align:center;
@@ -185,11 +183,11 @@ input[type="text"], select, input[type="date"] {
     background: url("https://image.flaticon.com/icons/svg/49/49116.svg") no-repeat center center #1e88e5;
 }
 
-.did button:before {
-    font-family: FontAwesome;
-    font-size: 16px;
-    color: #F9F0DA;
-}
+    .did button:before {
+        font-family: FontAwesome;
+        font-size: 16px;
+        color: #F9F0DA;
+    }
 .did {
     position: fixed;
     top:80px;
@@ -202,18 +200,22 @@ input[type="text"], select, input[type="date"] {
     border:0px;
 }
 
-.login:focus::-moz-placeholder {
-    color: transparent;
-}
+    .login:focus::-moz-placeholder {
+        color: transparent;
+    }
 
-.login:focus::-webkit-input-placeholder {
-    color: transparent;
-}
+    .login:focus::-webkit-input-placeholder {
+        color: transparent;
+    }
 .fixModule {
     position: absolute;
-    left: 650px;
+    left: 850px;
     top: 40px;
-    width: 50px;
+    overflow-y: scroll;
+    height: 90vh;
+    width: 540px;
+    padding-left: 30px;
+    margin-top: 40px;
 }
 
 .formMOdule {
@@ -267,4 +269,12 @@ input[type="text"], select, input[type="date"] {
 .nameModule {
     position: relative;
     top: -25px;
+}
+
+.cardFix {
+    padding-left:80px;
+    overflow-y: scroll;
+    height: 89vh;
+    width:760px;
+    margin-top:80px;
 }
