@@ -34,14 +34,14 @@
 }
 .zakaz {
     text-align: center;
-    border-bottom: 2px solid #5677bd;
+    border-bottom: 2px solid #1e88e5;
     width: 240px;
     margin-left: 20px;
 }
-.type{
-    margin-left:60px;
-    border-bottom:2px solid #0323ba;
-    width:300px;
+.type {
+    margin-left: 60px;
+    border-bottom: 2px solid #1e88e5;
+    width: 300px;
 }
 .Ramka {
     margin-left: 60px;
@@ -130,4 +130,27 @@ a{
 }
 input[type="text"], input[type="date"] {
     font-size: 15px;
+}
+input[class="login"] {
+    font-size: 20px;
+}
+    .addModule {
+        display: none;
+        top: 650px;
+        right: 555px;
+        background-color: white;
+        position: fixed;
+        height: 150px;
+        width: 300px;
+        border-radius: 10px;
+        font-size: 20px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+.baton{
+    margin-top:5px;
+}
+.getModule{
+    position:fixed;
+    right:630px;
+    top:750px;
 }

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RazorProject.Pages
 {
@@ -27,44 +27,35 @@ namespace RazorProject.Pages
             NewCustomer = new Customer();
         }
 
-        public void OnGetAsync()
+        public async Task OnGetAsync()
         {
-            Projects = _context.Projects.ToList();
-            Modules = _context.Modules.ToList();
-            Customers = _context.Customers.ToList();
+            Projects = await _context.Projects.ToListAsync();
+            Modules = await _context.Modules.ToListAsync();
+            Customers = await _context.Customers.ToListAsync();
+
+            Projects.Reverse();
+            Modules.Reverse();
+            Customers.Reverse();
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                
-                _context.Customers.Add(NewCustomer);
-                await _context.SaveChangesAsync();
-                
-                NewProject.Customer = _context.Customers
-                    .OrderByDescending(t => t.Id)
-                    .FirstOrDefault();
-
-                _context.Projects.Add(NewProject);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("Index");
+                return Page();
             }
-            return Page();
-        }
 
-        public string GetProjectStatus(ProjectStatus status_enum)
-        {
-            switch (status_enum)
-            {
-                case ProjectStatus.Planning:
-                    return "Планирование";
-                case ProjectStatus.Complete:
-                    return "Завершен";
-                case ProjectStatus.InDevelopment:
-                    return "В разработке";
-                default:
-                    return "Пред. продажа";
-            }
-        }
+            await _context.Customers.AddAsync(NewCustomer);
+            await _context.SaveChangesAsync();
+
+            NewProject.Customer = await _context.Customers
+                .OrderByDescending(t => t.Id)
+                .FirstOrDefaultAsync();
+
+            await _context.Projects.AddAsync(NewProject);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+        }    
     }
 }

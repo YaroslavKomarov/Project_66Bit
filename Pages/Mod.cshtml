@@ -1,4 +1,5 @@
 ﻿@page
+@using Project_66_bit.Models
 @model RazorProject.Pages.ModModel
 @{
     Layout = "_Home";
@@ -8,89 +9,75 @@
 <link href="~/css/index.css" rel="stylesheet">
 <link href="~/css/index2.css" rel="stylesheet">
 <div class="text-center">
-    <div class="hoverup index">
-        <ul class="main-menu index">
-            <li class="index">
-                <a href="#services" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">SW</a>
-                <ul class="sub-menu index">
-                    <li class="index"><a href="Index">Список проектов</a></li>
-                    <li class="index"><a href="Index3">Справочник по модулям</a></li>
-                </ul>
-            </li>
-        </ul>
-        <h3 class="display-4">Список проектов</h3>
-        <div>
-            <a href="prifle" class="profile"></a>
-        </div>
+    <div class="nameofProj-wrapper">
+        <div class="nameofProject">@Model.Project.Name</div>
     </div>
-    <div class="nameofProject">@Model.Proj.Name</div>
     <div class="fixfix">
-    @{
-        if (Model.Modules.Count == 0)
-        {
-            <h1 class="emptyMessage">У Вас пока нет модулей. Добавьте новый модуль</h1>
-        }
-        int i = 0;
-        foreach (var module in Model.Modules)
-        {
-            i++;
-            <div class="card1 card " id="card-@i">
-                <div class="nameProject"><p class="size">@module.Name</p></div>
-                <div class=""><p>Количество часов : @module.Hours</p></div>
-                <div class="">
-                    <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-                    <div class="card-@i tel-@i line-@i but-@i card2 card card3"  >
-                        <div class="nameInput"><input type="text" placeholder="Название задачи"></div>
-                        <div class="dateInput"><input type="date" placeholder="Дата начала">-<input type="date" placeholder="Дата конца"></div>
-                        <div class="timeInput"><input type="text" placeholder="Время задачи"></div>
-                        <div><button class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" onclick="document.getElementById(this.classList[0]).click()">Создать задачу</button></div>
+        @{
+            
+            int i = 0;
+            foreach (var module in Model.Modules)
+            {
+                i++;
+                <div class="card1 card " id="card-@i">
+                    <div class="nameProject"><p class="size">@module.Name</p></div>
+                    <div class=""><p>Количество часов : @module.Hours</p></div>
+                    <div class="">
+                        <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
+                        <form method="post" class="card-@i tel-@i line-@i but-@i card2 card card3">
+                            <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
+                            <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+                            <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
+                            <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
+                        </form>
+                    </div>
+                    <div class="line" id="line-@i"></div>
+                    <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
+                    <div class="card-@i content" id="tel-@i">
+                        @if (Model.Problems.Count == 0)
+                        {
+                            <div class="emptyTask"><span>В модуле пока нет задач. Добавьте новую задачу</span></div>
+                        }
+                        @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
+                        {
+                            <div class="card2 card">
+                                <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+                                <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+                                <div class="timeTask"><p>@task.Hours</p></div>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="line" id="line-@i"></div>
-                <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-                <div class="card-@i content" id="tel-@i">
-                    @if (Model.Tasks.Count == 0)
-                     {
-                        <h1 class="emptyMessage">У Вас пока нет задач. Добавьте новую задачу</h1>
-                     }
-                    @foreach (var task in Model.Tasks.Where(t => t.ModuleId == module.Id))
-                     {
-                        <div class="card2 card">
-                            <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-                            <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-                            <div class="timeTask"><p>@task.Hours</p></div>
-                        </div>
-                     }
-                </div>
-            </div>
+            }
         }
-    }
-    <div class="visit card">
-        <div class="type">
-            <p>
-                Статус проекта :
-                <select name="theme">
-                    <option value="0">Планирование</option>
-                    <option value="1">Пред.Разработка</option>
-                    <option value="2">В разработке</option>
-                    <option value="3">Завершен</option>
-                </select>
-            </p>
+        <div class="visit card">
+            <div class="type">
+                <p>
+                    Статус проекта :
+                    <select asp-for="Project.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
+                    </select>
+                </p>
+            </div>
+            <div class="type"><p>Тип : @Model.Project.Type</p></div>
+            <div class="type"><p>Стоимость часа : @Model.Project.Cost P</p></div>
+            <div class="type"><p>Срок действия : @Html.DisplayFor(modelItem => @Model.Project.StartDate) - @Html.DisplayFor(modelItem => @Model.Project.EndDate)</p></div>
+            <div class="Vso"><p class="pos">Заказчик</p></div>
+            <div class="CustomerCard">
+                <div class="zakaz">@Model.Customer.Name</div>
+                <div class="zakaz">@Model.Customer.PhoneNumber</div>
+                <div class="zakaz">@Model.Customer.Email</div>
+            </div>
         </div>
-        <div class="type"><p>Тип : @Model.Proj.Type</p></div>
-        <div class="type"><p>Стоимость часа (руб.) : @Model.Proj.Cost</p></div>
-        <div class="type"><p>Срок действия : @Model.Proj.StartDate.ToShortDateString() - @Model.Proj.EndDate.ToShortDateString()</p></div>
-        <div class="Vso"><p class="pos">Заказчик</p></div>
-        <div class="CustomerCard">
-            <div class="zakaz">@Model.Customer</div></div>
-            <div class="zakaz">+7(970) - 505 - 40 - 77</div>
-            <div class="zakaz">gazik$$$@@gmail.com </div>
+        <div class="add">
+            <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
+            <form class="addModule card" method="post">
+                <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
+                <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
+                <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
+            </form>
         </div>
     </div>
-    <div class="add">
-        <button class="fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-    </div>
-        </div>
 </div>
 <style>
     .nameofProject {
@@ -101,19 +88,21 @@
         border-radius: 10px;
         width: 99.5%;
         color: #1e88e5;
-        width: 99.5%;
         background-color: white;
-        z-index: 1;
+        z-index: 2;
     }
-    .card3{
-        display:none;
-        position:relative;
+
+    .card3 {
+        display: none;
+        position: relative;
     }
-    .fixfix{
-        z-index:0;
+
+    .fixfix {
+        z-index: 0;
     }
-    .index{
-        z-index:10;
+
+    .index {
+        z-index: 10;
     }
 </style>
 <script src="~/js/index2.js">
@@ -132,13 +121,30 @@
                 document.getElementById(content.classList[1]).style.top = "-100px";
                 document.getElementById(content.classList[2]).style.top = "-80px";
                 document.getElementById(content.classList[3]).style.top = "-200px";
-            } else {
+            }
+            else {
                 content.style.display = "block";
                 document.getElementById(content.classList[1]).style.display = "block";
                 document.getElementById(content.classList[0]).style.height = "650px";
                 document.getElementById(content.classList[1]).style.top = "0px";
-                document.getElementById(content.classList[2]).style.top = "-210px";
+                document.getElementById(content.classList[2]).style.top = "-220px";
                 document.getElementById(content.classList[3]).style.top = "-344px";
+            }
+        });
+    }
+</script>
+<script>
+    var module = document.getElementsByClassName("className");
+
+    for (var i = 0; i < module.length; i++) {
+        module[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            }
+            else {
+                content.style.display = "block";
             }
         });
     }
