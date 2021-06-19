@@ -25,7 +25,11 @@
                     <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
                     <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
                     <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
-                    <div><a href="" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40">Сформировать проект на базе текущего</a></div>
+                    <div>
+                        <form method="post">
+                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего"/>
+                        </form>
+                    </div>
                     <div class="line"></div>
                 </div>
             }

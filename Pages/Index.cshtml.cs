@@ -56,6 +56,6 @@ namespace RazorProject.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
-        }    
+        }
     }
 }
