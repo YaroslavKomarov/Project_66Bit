@@ -10,8 +10,8 @@ using Project_66_bit.Models;
 namespace Project_66_bit.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210614094136_AddedCustomerForeignKey")]
-    partial class AddedCustomerForeignKey
+    [Migration("20210615071041_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,32 @@ namespace Project_66_bit.Migrations
                     b.ToTable("Modules");
                 });
 
+            modelBuilder.Entity("Project_66_bit.Models.Problem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Hours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Problems");
+                });
+
             modelBuilder.Entity("Project_66_bit.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -97,36 +123,12 @@ namespace Project_66_bit.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Project_66_bit.Models.Task", b =>
+            modelBuilder.Entity("Project_66_bit.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Hours")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ModuleId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ModuleId");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("Project_66_bit.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -153,6 +155,17 @@ namespace Project_66_bit.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("Project_66_bit.Models.Problem", b =>
+                {
+                    b.HasOne("Project_66_bit.Models.Module", "Module")
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+                });
+
             modelBuilder.Entity("Project_66_bit.Models.Project", b =>
                 {
                     b.HasOne("Project_66_bit.Models.Customer", "Customer")
@@ -162,17 +175,6 @@ namespace Project_66_bit.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Project_66_bit.Models.Task", b =>
-                {
-                    b.HasOne("Project_66_bit.Models.Module", "Module")
-                        .WithMany()
-                        .HasForeignKey("ModuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Module");
                 });
 #pragma warning restore 612, 618
         }
