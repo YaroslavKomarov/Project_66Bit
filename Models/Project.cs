@@ -1,6 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace ASPNET_MVC.Models
+namespace Project_66_bit.Models
 {
     public class Project
     {
@@ -9,6 +10,11 @@ namespace ASPNET_MVC.Models
         public ProjectStatus Status { get; set; }
         public string Type { get; set; }
         public int Cost { get; set; }
-        public DateTime Date { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }

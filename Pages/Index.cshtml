@@ -1,4 +1,6 @@
 ﻿@page
+@using Project_66_bit.Models
+@using Project_66_bit.Models.Extensions
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -10,16 +12,20 @@
 <div>
     <div class="cardFix">
         @{
-            foreach (var pro in Model.Projecte)
+            if (Model.Projects.Count == 0)
+            {
+                <div class="emptyMessage"><span>У Вас пока нет проектов. Добавьте новый проект</span></div>
+            }
+            foreach (var proj in Model.Projects)
             {
                 <div class="card1 card">
-                    <div class="nameProject"><a href="mod" class="size">@pro.Name</a></div>
-                    <div class="type"><p>Тип : @pro.Type</p></div>
-                    <div class="type"><p>Заказчик : OПГ Газпром</p></div>
-                    <div class="type"><p>Стоимость часа :@pro.Cost</p></div>
-                    <div class="type"><p>28.01.2020 - @pro.Date</p></div>
-                    <div class="type2"><p>Статус : @pro.Status</p></div>
-                    <div class="form btn btn-info btn-rounded waves-effect waves-light m-b-40"><a href="">Сформировать проект на базе текущего</a></div>
+                    <div class="nameProject"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
+                    <div class="type"><p>Тип : @proj.Type</p></div>
+                    <div class="type"><p>Заказчик : @proj.Customer.Name</p></div>
+                    <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
+                    <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
+                    <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
+                    <div><a href="" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40">Сформировать проект на базе текущего</a></div>
                     <div class="line"></div>
                 </div>
             }
@@ -37,47 +43,69 @@
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <form metod="POST">
-                <button class="close btn waves-effect waves-light m-b-40"></button>
-                <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Стоимость часа" asp-for="Person.Cost" required /></div>
+            <form method="post">
+                <a class="close btn waves-effect waves-light m-b-40"></a>
+                <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
+                <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
+                <div class="baton"><input class="login" placeholder="Стоимость часа" asp-for="NewProject.Cost" required /></div>
                 <div class="baton">
                     <p class="status">Выберите статус проекта :</p>
-                    <select name="theme" asp-for="Person.Status">
-                        <option value="1">Планирование</option>
-                        <option value="2">Пред.Разработка</option>
-                        <option value="3">В разработке</option>
-                        <option value="4">Завершен</option>
+                    <select asp-for="NewProject.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
                     </select>
                 </div>
                 <p class="status">Выберите дату проекта :</p>
-                <div class="baton date"><input type="date" name="calendar1"> - <input type="date" name="calendar2" asp-for="Person.Date"></div>
+                <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
                 <div class="Customer"><p class="pos">Заказчик</p></div>
                 <div class=" CustomerCard">
-                    <div class="baton"><input type="text" class="login" placeholder="ФИО" required /></div>
-                    <div class="baton"><input type="text" class="login" placeholder="email" required /></div>
-                    <div class="baton"><input type="text" class="login" placeholder="Телефон" required /></div>
+                    <div class="baton"><input class="login" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
+                    <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
+                    <div class="baton"><input class="login" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
+                    @*<div class="baton"><input type="submit" class="login" value="Добавить существующего заказчика" /></div>
+                        <div class="customersField">
+                            @{
+                                int j = 0;
+                                foreach (var customer in Model.Customers)
+                                { asp-format="{0:dd/MM/yyyy}"
+                                    j++;
+                                    <div class="card card1 cardModule" id="card-@j">
+                                        <div class="nameCustomer"><p class="size">@customer.Name</p></div>
+                                        <div class="customerEmail"><p>@customer.Email</p></div>
+                                        <div class="customerPhoneNum"><p>@customer.PhoneNumber</p></div>
+                                    </div>
+                                }
+                            }
+                        </div>*@
                 </div>
                 <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
             </form>
         </div>
     </div>
     <div class="fixModule">
-        @{
-            for (int i = 0; i < 7; i++)
+        @{  int i = 0;
+            if (Model.Modules.Count == 0)
             {
-                <div class="card card1 cardModule" id="card-@i">
-                    <div class="nameModule"><p class="size">Название модуля(Название проекта)</p></div>
-                    <div class="timeModule"><p>Количество часов : 18</p></div>
+                <div class="emptyMessage"><span>У Вас пока нет модулей. Создайте новый проект</span></div>
+            }
+            foreach (var module in Model.Modules)
+            {
+                i++;
+                <div class="card card1 cardModule">
+                    <div class="nameModule"><p class="size">@module.Name (@module.Project.Name)</p></div>
+                    <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                     <div class="line lineModule" id="line-@i"></div>
                     <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
                     <div class="card-@i contentMOdule" id="tel-@i">
-                        @for (int j = 0; j < 7; j++)
+                        @foreach (var proj in Model.Projects)
                         {
-                            <div class="card insidecard">
-                                <div class="nameModule"><p class="">Название модуля(Название проекта)</p></div>
-                            </div>
+                            foreach (var mod in Model.Modules)
+                            {
+                                if (proj.Id == mod.ProjectId)
+                                {
+                                    <div class="card insidecard">
+                                        <div class="nameModule"><p class="">@mod.Name (@proj.Name)</p></div>
+                                    </div>
+                                }
+                            }
                         }
                     </div>
                 </div>
@@ -89,7 +117,6 @@
 <script src="~/js/Module.js"></script>
 <style>
     .fixed {
-        position: fixed;
     }
 
     .form22 {

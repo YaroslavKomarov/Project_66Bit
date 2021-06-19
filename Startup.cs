@@ -28,6 +28,10 @@ namespace Project_66_bit
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
             {
+                options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizePage("/Mod");
+                options.Conventions.AuthorizePage("/Module");
+                options.Conventions.AuthorizePage("/Directory");
                 options.Conventions.AddAreaPageRoute("Page", "/Index", "");
             });
             services.AddControllersWithViews();
