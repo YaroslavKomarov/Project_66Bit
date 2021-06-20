@@ -136,7 +136,7 @@ input[type="text"], select, input[type="date"] {
 }
 .close:hover {
     cursor: pointer;
-    }
+}
 .form22 {
     font-size:15px;
     text-align:center;
@@ -266,6 +266,7 @@ input[type="text"], select, input[type="date"] {
     width:760px;
     margin-top:80px;
 }
+
 .doNotHaveAnyProject{
     text-align:center;
     margin-top:50px;
