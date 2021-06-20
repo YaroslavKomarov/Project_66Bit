@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace ASPNET_MVC.Models
+namespace Project_66_bit.Models
 {
     public class ApplicationDbContext : DbContext
     {
