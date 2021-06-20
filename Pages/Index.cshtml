@@ -74,6 +74,7 @@
     </div>
     <div class="fixModule">
         @{
+        
             if (Model.Modules.Count() == 0)
             {
                 <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый проект</div>
@@ -113,10 +114,10 @@
                             }
                         </div>
                     </div>
-                    }
                 }
             }
-        </div>
+        }
+    </div>
 </div>
 <script src="~/js/index.js"></script>
 <script src="~/js/Module.js"></script>
