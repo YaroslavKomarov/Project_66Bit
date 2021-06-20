@@ -90,12 +90,12 @@
         </div>
         <div class="add">
             <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-            <div class="addModule card">
-                <button class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></button>
-                <div class="baton"><input type="text" class="login" placeholder="Название модуля" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Количество часов" required /></div>
-                <div><button class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" onclick="document.getElementById(this.classList[0]).click()">Создать модуль</button></div>
-            </div>
+            <form class="addModule card" method="post">
+                <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
+                <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
+                <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
+            </form>
         </div>
         <button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>
         <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>

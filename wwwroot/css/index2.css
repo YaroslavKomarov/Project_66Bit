@@ -165,7 +165,7 @@ input[class="login"] {
 .addModule {
     display: none;
     top: 650px;
-    right: 565px;
+    right: 775px;
     background-color: white;
     position: fixed;
     height: 150px;
@@ -181,7 +181,7 @@ input[class="login"] {
 
 .getModule {
     position: fixed;
-    right: 650px;
+    right: 860px;
     top: 750px;
 }
 

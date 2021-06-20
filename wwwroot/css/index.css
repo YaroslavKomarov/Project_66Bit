@@ -262,8 +262,8 @@ input[type="text"], select, input[type="date"] {
     border-radius: 5px;
     padding-left: 10px;
     background-color: white;
-    padding-top: 10px;
-    margin-top:5px;
+    padding-bottom: 15px;
+    margin-top: 10px;
 }
 
 .cardModule {
