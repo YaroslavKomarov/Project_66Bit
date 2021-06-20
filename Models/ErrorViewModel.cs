@@ -1,5 +1,3 @@
-using System;
-
 namespace Project_66_bit.Models
 {
     public class ErrorViewModel

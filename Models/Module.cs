@@ -1,4 +1,4 @@
-namespace ASPNET_MVC.Models
+namespace Project_66_bit.Models
 {
     public class Module
     {
@@ -6,5 +6,6 @@ namespace ASPNET_MVC.Models
         public string Name { get; set; }
         public int Hours { get; set; }
         public Project Project { get; set; }
+        public int ProjectId { get; set; }
     }
 }

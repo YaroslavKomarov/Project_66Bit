@@ -14,18 +14,6 @@
     z-index: 2;
 }
 
-.emptyTask {
-    position: relative;
-    left: 180px;
-    font-size: 18px;
-}
-
-.emptyMessage {
-    position: relative;
-    left: 250px;
-    font-size: 22px;
-}
-
 .card1 {
     border-radius: 5px;
     padding-left:10px;
@@ -141,14 +129,15 @@ input[type="text"], select, input[type="date"] {
 }
 .close {
     position: absolute;
-    background: url("/img/danger.svg") no-repeat center center #fff;
+    border:1px solid white;
+    background: url("/img/danger.svg") no-repeat center center white;
     background-size: 30px;
     width: 30px;
     height: 30px;
 }
-    .close:hover {
-        cursor: pointer;
-    }
+.close:hover {
+    cursor: pointer;
+}
 .form22 {
     font-size:15px;
     text-align:center;
@@ -277,4 +266,14 @@ input[type="text"], select, input[type="date"] {
     height: 89vh;
     width:760px;
     margin-top:80px;
+}
+
+.doNotHaveAnyProject{
+    text-align:center;
+    margin-top:50px;
+    color:black;
+    border:3px solid #9E9C9C;
+    background:white;
+    border-radius:10px;
+    font-size:20px;
 }

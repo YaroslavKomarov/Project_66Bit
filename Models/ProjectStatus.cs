@@ -4,13 +4,13 @@ namespace Project_66_bit.Models
 {
     public enum ProjectStatus
     {
-        [Display(Name = "Планирование")]
+        [Display(Name = "РџР»Р°РЅРёСЂРѕРІР°РЅРёРµ")]
         Planning,
-        [Display(Name = "Пред. продажа")]
+        [Display(Name = "РџСЂРµРґ. РїСЂРѕРґР°Р¶Р°")]
         PreSale,
-        [Display(Name = "В разработке")]
+        [Display(Name = "Р’ СЂР°Р·СЂР°Р±РѕС‚РєРµ")]
         InDevelopment,
-        [Display(Name = "Завершен")]
+        [Display(Name = "Р—Р°РІРµСЂС€РµРЅ")]
         Complete
     }
 }
