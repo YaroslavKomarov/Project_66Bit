@@ -39,14 +39,6 @@ namespace RazorProject.Pages
             Customers.Reverse();
         }
 
-        public async Task OnGetCustomersAsync(string customerName)
-        {
-            var validCustomers = Customers.Where(c => c.Name == customerName).ToList();
-            if (validCustomers.Count <= 0)
-            {
-            }
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
