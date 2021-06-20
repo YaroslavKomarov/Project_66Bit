@@ -34,14 +34,14 @@
 }
 .zakaz {
     text-align: center;
-    border-bottom: 2px solid #5677bd;
+    border-bottom: 2px solid #1e88e5;
     width: 240px;
     margin-left: 20px;
 }
-.type{
-    margin-left:60px;
-    border-bottom:2px solid #0323ba;
-    width:300px;
+.type {
+    margin-left: 60px;
+    border-bottom: 2px solid #1e88e5;
+    width: 300px;
 }
 .Ramka {
     margin-left: 60px;
@@ -120,9 +120,6 @@ a{
 }
     .nameDate{
         height:10px;
-    }
-    .nameTime{
-
     }
 .get{
     position:relative;
