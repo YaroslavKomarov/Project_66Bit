@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ASPNET_MVC.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project_66_bit.Models;
 
 namespace Project_66_bit
 {
@@ -28,6 +25,10 @@ namespace Project_66_bit
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
             {
+                options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizePage("/Mod");
+                options.Conventions.AuthorizePage("/Module");
+                options.Conventions.AuthorizePage("/Directory");
                 options.Conventions.AddAreaPageRoute("Page", "/Index", "");
             });
             services.AddControllersWithViews();
@@ -36,6 +37,14 @@ namespace Project_66_bit
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connection)
             );
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Enter");
+                });
+
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,6 +63,7 @@ namespace Project_66_bit
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

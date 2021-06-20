@@ -2,70 +2,82 @@
     height: 130px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-.add{
-    margin-left:1200px;
-    margin-top:130px;
+
+.add {
+    margin-left: 1200px;
+    margin-top: 130px;
 }
-.size{
-    height:10px;
-    position:relative;
-    top:-10px;
+
+.size {
+    height: 10px;
+    position: relative;
+    top: -10px;
 }
-.line{
-    top:-80px;
+
+.line {
+    top: -80px;
 }
-.fixe{
-    position:fixed;
-    top:800px;
-    left:1050px;
+
+.fixe {
+    position: fixed;
+    top: 800px;
+    left: 1050px;
 }
+
 .form {
     top: -50px;
     left: 400px;
 }
-.visit{
-    position:fixed;
-    left:1000px;
-    top:150px;
-    background-color:white;
-    width:400px;
-    height:400px;
-    border-radius:20px;
+
+.visit {
+    position: fixed;
+    left: 1000px;
+    top: 150px;
+    background-color: white;
+    width: 550px;
+    height: 480px;
+    border-radius: 20px;
 }
+
 .zakaz {
     text-align: center;
-    border-bottom: 2px solid #5677bd;
     width: 240px;
-    margin-left: 20px;
+    margin-left: 100px;
 }
-.type{
-    margin-left:60px;
-    border-bottom:2px solid #0323ba;
-    width:300px;
+
+.type {
+    margin-left: 60px;
+    border-bottom: 2px solid #0323ba;
+    width: 450px;
+    white-space: nowrap;
 }
+
 .Ramka {
     margin-left: 60px;
     border: 2px solid #000000;
     padding-bottom: 5px;
     width: 275px;
 }
-select{
-    font-size:17px;
+
+select {
+    font-size: 17px;
 }
-a{
-    color:white;
+
+a {
+    color: white;
 }
 
 .tests {
     position: relative;
     top: -200px;
-    left:600px;
+    left: 600px;
     height: 30px;
     width: 30px;
     background: url("/img/images.png") no-repeat center center #fff;
     background-size: 30px;
-    border:0px;
+    border: 0px;
 }
+
 .content {
     display: none;
     overflow-y: scroll;
@@ -73,6 +85,7 @@ a{
     position: relative;
     top: -100px;
 }
+
 .card2 {
     background-color: white;
     border-radius: 5px;
@@ -80,85 +93,126 @@ a{
     height: 100px;
     width: 600px;
     margin-left: 10px;
-    border:2px solid black;
+    border: 2px solid black;
 }
-.timeTask{
-    position:relative;
-    left:400px;
-    top:-50px;
-    width:100px;
+
+.timeTask {
+    position: relative;
+    left: 400px;
+    top: -50px;
+    width: 100px;
 }
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: #808080;
     border-radius: 9em;
     box-shadow: inset 1px 1px 10px #f3faf7;
 }
-.btn{
-    border:1px solid white;
+
+.btn {
+    border: 1px solid white;
 }
+
 .sub-menu {
     z-index: 0;
 }
+
 .fixfix {
     position: relative;
     top: 70px;
-    padding-top:80px;
+    padding-top: 80px;
+    width: 1000px;
 }
+
 .card3 {
     display: none;
     position: relative;
-    left:0px;
-    height:110px;
+    left: 0px;
+    height: 110px;
 }
-.nameInput{
-    font-size:15px;
-}
-    .nameDate{
-        height:10px;
-    }
-    .nameTime{
 
-    }
-.get{
-    position:relative;
-    top:-100px;
-    left:450px;
-    height:100px;
+.nameInput {
+    font-size: 15px;
 }
+
+.nameDate {
+    height: 10px;
+}
+
+.nameTime {
+}
+
+.get {
+    position: relative;
+    top: -100px;
+    left: 450px;
+    height: 100px;
+}
+
 input[type="text"], input[type="date"] {
     font-size: 15px;
 }
+
 input[class="login"] {
     font-size: 20px;
 }
-    .addModule {
-        display: none;
-        top: 650px;
-        right: 555px;
-        background-color: white;
-        position: fixed;
-        height: 150px;
-        width: 300px;
-        border-radius: 10px;
-        font-size: 20px;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    }
-.baton{
-    margin-top:5px;
+
+.addModule {
+    display: none;
+    top: 650px;
+    right: 565px;
+    background-color: white;
+    position: fixed;
+    height: 150px;
+    width: 300px;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-.getModule{
-    position:fixed;
-    right:630px;
-    top:750px;
+
+.baton {
+    margin-top: 5px;
 }
-.card1{
-    margin-left:100px;
+
+.getModule {
+    position: fixed;
+    right: 650px;
+    top: 750px;
 }
-.nameofProject{
-    margin-top:80px;
-    margin-left:1px;
+
+.card1 {
+    margin-left: 100px;
+}
+
+.nameofProject {
+    margin-top: 80px;
+    margin-left: 1px;
+}
+
+.redact {
+    position: fixed;
+    top: 150px;
+    left: 1600px;
+    width: 200px;
+}
+
+.redact1 {
+    display: none;
+    position: fixed;
+    top: 150px;
+    left: 1600px;
+    width: 200px;
+}
+
+#redact1 {
+    height: 50px;
+    margin-top: 0px;
+    width: 450px;
+    font-size: 30px;
+    background-color: white;
 }
