@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,36 +13,22 @@ namespace RazorProject.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        public List<Project> Projects { get; set; }
-        public List<Module> Modules { get; set; }
-        public List<Customer> Customers { get; set; }
-        [BindProperty]
-        public Project NewProject { get; set; }
-        [BindProperty]
-        public Customer NewCustomer { get; set; }
+        private readonly ApplicationDbContext db;
+        public List<Project> Projecte { get; set; }
+        public Project Person { get; set; }
 
-        public IndexModel(ApplicationDbContext db)
+        public IndexModel(ApplicationDbContext logger)
         {
-            _context = db;
-            NewProject = new Project();
-            NewCustomer = new Customer();
+            db = logger;
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Projects = await _context.Projects.ToListAsync();
-            Modules = await _context.Modules.ToListAsync();
-            Customers = await _context.Customers.ToListAsync();
-
-            Projects.Reverse();
-            Modules.Reverse();
-            Customers.Reverse();
+            Projecte = db.Projects.ToList();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return Page();
             }

@@ -42,12 +42,10 @@
     left: -10px;
     width: 706px;
 }
-
 .type2 {
     margin-left: 400px;
     margin-top: -170px;
 }
-
 .form {
     position: relative;
     left: 340px;
@@ -145,6 +143,7 @@ input[type="text"], select, input[type="date"] {
 }
 
 .close {
+    border: 3px solid #000000;
     position: absolute;
     border: 1px solid white;
     background: url("/img/danger.svg") no-repeat center center white;

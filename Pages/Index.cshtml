@@ -1,6 +1,4 @@
 ﻿@page
-@using Project_66_bit.Models
-@using Project_66_bit.Models.Extensions
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -50,18 +48,22 @@
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <form method="post">
-                <a class="close btn waves-effect waves-light m-b-40"></a>
-                <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
-                <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
-                <div class="baton"><input class="login" placeholder="Стоимость часа" asp-for="NewProject.Cost" required /></div>
+            <form metod="POST">
+                <button class="close btn waves-effect waves-light m-b-40"></button>
+                <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Стоимость часа" asp-for="Person.Cost" required /></div>
                 <div class="baton">
                     <p class="status">Выберите статус проекта :</p>
-                    <select asp-for="NewProject.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
+                    <select name="theme" asp-for="Person.Status">
+                        <option value="1">Планирование</option>
+                        <option value="2">Пред.Разработка</option>
+                        <option value="3">В разработке</option>
+                        <option value="4">Завершен</option>
                     </select>
                 </div>
                 <p class="status">Выберите дату проекта :</p>
-                <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+                <div class="baton date"><input type="date" name="calendar1"> - <input type="date" name="calendar2" asp-for="Person.Date"></div>
                 <div class="Customer"><p class="pos">Заказчик</p></div>
                 <div class=" CustomerCard">
                     <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
@@ -124,7 +126,6 @@
 <script src="~/js/phoneFormat.js"></script>
 <style>
     .fixed {
-        position: fixed;
     }
 
     .form22 {
