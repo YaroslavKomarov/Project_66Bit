@@ -29,10 +29,11 @@ namespace RazorProject.Pages
             NewCustomer = new Customer();
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Projecte = db.Projects.ToList();
+            Projects = await _context.Projects.ToListAsync();
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
