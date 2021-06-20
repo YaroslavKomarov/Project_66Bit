@@ -10,7 +10,7 @@
 <link href="~/css/index2.css" rel="stylesheet">
 <div class="text-center">
     <div class="nameofProj-wrapper">
-        <div class="nameofProject">@Model.Project.Name</div>
+        <div class="nameofProject"><input type="text" id="redact1" value="@Model.Project.Name" disabled></div>
     </div>
     <div class="fixfix">
         @{
@@ -70,29 +70,35 @@
             <div class="type">
                 <p>
                     Статус проекта :
-                    <select asp-for="Project.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
+                    <select name="theme">
+                        <option value="Планирование">Планирование</option>
+                        <option value="Пред.Разработка">Пред.Разработка</option>
+                        <option value="В разработке">В разработке</option>
+                        <option value="Завершен">Завершен</option>
                     </select>
                 </p>
             </div>
-            <div class="type"><p>Тип : @Model.Project.Type</p></div>
-            <div class="type"><p>Стоимость часа : @Model.Project.Cost P</p></div>
-            <div class="type"><p>Срок действия : @Html.DisplayFor(modelItem => @Model.Project.StartDate) - @Html.DisplayFor(modelItem => @Model.Project.EndDate)</p></div>
+            <div class="type"><p>Тип :<input type="text" id="redact2" value=" @Model.Project.Type" disabled></p></div>
+            <div class="type"><p>Стоимость часа : <input type="text" id="redact3" value="@Model.Project.Cost P" disabled></p></div>
+            <div class="type"><p>Срок действия : <input type="date" id="redact4" value="@Html.DisplayFor(modelItem => @Model.Project.StartDate)" disabled> - <input type="date" id="redact5" value="@Html.DisplayFor(modelItem => @Model.Project.EndDate)" disabled></p></div>
             <div class="Vso"><p class="pos">Заказчик</p></div>
             <div class="CustomerCard">
-                <div class="zakaz">@Model.Customer.Name</div>
-                <div class="zakaz">@Model.Customer.PhoneNumber</div>
-                <div class="zakaz">@Model.Customer.Email</div>
+                <div class="zakaz"><input type="text" id="redact6" value="@Model.Customer.Name" disabled></div>
+                <div class="zakaz"><input type="text" id="redact7" value="@Model.Customer.PhoneNumber" disabled></div>
+                <div class="zakaz"><input type="text" id="redact8" value="@Model.Customer.Email" disabled></div>
             </div>
         </div>
         <div class="add">
             <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-            <form class="addModule card" method="post">
-                <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
-                <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
-                <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
-            </form>
+            <div class="addModule card">
+                <button class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></button>
+                <div class="baton"><input type="text" class="login" placeholder="Название модуля" required /></div>
+                <div class="baton"><input type="text" class="login" placeholder="Количество часов" required /></div>
+                <div><button class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" onclick="document.getElementById(this.classList[0]).click()">Создать модуль</button></div>
+            </div>
         </div>
+        <button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>
+        <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>
     </div>
 </div>
 <style>
@@ -105,20 +111,17 @@
         width: 99.5%;
         color: #1e88e5;
         background-color: white;
-        z-index: 2;
+        z-index: 1;
     }
-
-    .card3 {
-        display: none;
-        position: relative;
+    .card3{
+        display:none;
+        position:relative;
     }
-
-    .fixfix {
-        z-index: 0;
+    .fixfix{
+        z-index:0;
     }
-
-    .index {
-        z-index: 10;
+    .index{
+        z-index:10;
     }
 </style>
 <script src="~/js/index2.js">

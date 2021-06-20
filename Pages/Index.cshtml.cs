@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,20 +29,13 @@ namespace RazorProject.Pages
             NewCustomer = new Customer();
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Projects = await _context.Projects.ToListAsync();
-            Modules = await _context.Modules.ToListAsync();
-            Customers = await _context.Customers.ToListAsync();
-
-            Projects.Reverse();
-            Modules.Reverse();
-            Customers.Reverse();
+            Projecte = db.Projects.ToList();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return Page();
             }
