@@ -21,9 +21,9 @@ namespace RazorProject.Pages
         [BindProperty]
         public Customer NewCustomer { get; set; }
 
-        public IndexModel(ApplicationDbContext db)
+        public IndexModel(ApplicationDbContext context)
         {
-            _context = db;
+            _context = context;
             NewProject = new Project();
             NewCustomer = new Customer();
         }
