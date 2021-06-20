@@ -9,13 +9,9 @@
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 <link href="~/css/index.css" rel="stylesheet" />
-<div class="text-center">
+<div>
     <div class="cardFix">
         @{
-            if (Model.Projects.Count == 0)
-            {
-                <div class="emptyMessage"><span>У Вас пока нет проектов. Добавьте новый проект</span></div>
-            }
             foreach (var proj in Model.Projects)
             {
                 <div class="card1 card">
@@ -64,32 +60,14 @@
                     <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
                     <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
                     <div class="baton"><input class="login customerPhoneNumber" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
-                    @*<div class="baton"><input type="submit" class="login" value="Добавить существующего заказчика" /></div>
-                        <div class="customersField">
-                            @{
-                                int j = 0;
-                                foreach (var customer in Model.Customers)
-                                { asp-format="{0:dd/MM/yyyy}"
-                                    j++;
-                                    <div class="card card1 cardModule" id="card-@j">
-                                        <div class="nameCustomer"><p class="size">@customer.Name</p></div>
-                                        <div class="customerEmail"><p>@customer.Email</p></div>
-                                        <div class="customerPhoneNum"><p>@customer.PhoneNumber</p></div>
-                                    </div>
-                                }
-                            }
-                        </div>*@
                 </div>
                 <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
             </form>
         </div>
     </div>
     <div class="fixModule">
-        @{ int i = 0;
-            if (Model.Modules.Count == 0)
-            {
-                <div class="emptyMessage"><span>У Вас пока нет модулей. Создайте новый проект</span></div>
-            }
+        @{  
+            int i = 0;
             foreach (var module in Model.Modules)
             {
                 i++;
@@ -123,14 +101,10 @@
 <script src="~/js/phoneFormat.js"></script>
 <style>
     .fixed {
+        position: fixed;
     }
 
     .form22 {
         color: white;
-    }
-
-    .cardFix {
-        position: relative;
-        left: -150px;
     }
 </style>
