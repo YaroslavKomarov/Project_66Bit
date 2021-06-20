@@ -12,6 +12,7 @@ namespace RazorProject.Pages
     public class ModModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        public int IsOpenProblems { get; set; }
         public Project Project { get; set; }
         public Customer Customer { get; set; }
         public List<Module> Modules { get; set; }
@@ -26,8 +27,9 @@ namespace RazorProject.Pages
             _context = db;
         }
 
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(int id, int? modId)
         {
+            IsOpenProblems = modId != null ? (int)modId : -1;
             Project = await _context.Projects.FindAsync(id);
             Customer = await _context.Customers.FindAsync(Project.CustomerId);
             Modules = await _context.Modules.Where(m => m.ProjectId == id).ToListAsync();
