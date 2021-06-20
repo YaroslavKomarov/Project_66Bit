@@ -28,7 +28,6 @@
                     if (module.Id == Model.IsOpenProblems)
                     {
                         <script type="text/javascript">
-                                var isOpen = @Model.IsOpenProblems === 1;
                                 var moduleId = `but-${@i}`;
                         </script>
                     }
@@ -125,7 +124,7 @@
 <script src="~/js/index2.js">
 </script>
 <script>
-    if (isOpen) {
+    if (@Model.IsOpenProblems) {
         document.getElementById(moduleId).click();
     }
 </script>
