@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
+using Project_66_bit.Pages.Auth;
 
 namespace RazorProject.Pages
 {
@@ -27,28 +30,31 @@ namespace RazorProject.Pages
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-                if (user != null)
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
                 {
-                    await Authenticate(email);
- 
+                    return Redirect("/Enter");
+                }
+
+                string newHashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                        password: password,
+                        salt: Convert.FromBase64String(user.Salt),
+                        prf: KeyDerivationPrf.HMACSHA1,
+                        iterationCount: 10000,
+                        numBytesRequested: 256 / 8
+                ));
+
+                if (newHashedPassword == user.Password)
+                {
+                    var id = Authentication.Authenticate(email);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+
                     return Redirect("/");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
 
             return Redirect("/Enter");
-        }
-
-        private async Task Authenticate(string userName)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-            };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }
