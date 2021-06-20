@@ -21,13 +21,13 @@
                 <div class="card1 card">
                     <div class="nameProject"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
                     <div class="type"><p>Тип : @proj.Type</p></div>
-                    <div class="type"><p>Заказчик : @proj.Customer.Name</p></div>
+                    <div class="type"><span>Заказчик : </span><span>@proj.Customer.Name</span></div>
                     <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
                     <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
                     <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
                     <div>
-                        <form>
-                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего"/>
+                        <form method="post">
+                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего" asp-page-handler="Copyproject" asp-route-id="@proj.Id" />
                         </form>
                     </div>
                     <div class="line"></div>
@@ -37,7 +37,7 @@
     </div>
     <div class="did">
         <form>
-            <input type="text" placeholder="Искать здесь...">
+            <input class="search" type="text" placeholder="Искать здесь...">
             <button type="submit"></button>
         </form>
     </div>
@@ -61,9 +61,9 @@
                 <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
                 <div class="Customer"><p class="pos">Заказчик</p></div>
                 <div class=" CustomerCard">
-                    <div class="baton"><input class="login" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
+                    <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
                     <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
-                    <div class="baton"><input class="login" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
+                    <div class="baton"><input class="login customerPhoneNumber" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
                     @*<div class="baton"><input type="submit" class="login" value="Добавить существующего заказчика" /></div>
                         <div class="customersField">
                             @{
@@ -85,7 +85,7 @@
         </div>
     </div>
     <div class="fixModule">
-        @{  int i = 0;
+        @{ int i = 0;
             if (Model.Modules.Count == 0)
             {
                 <div class="emptyMessage"><span>У Вас пока нет модулей. Создайте новый проект</span></div>
@@ -119,6 +119,8 @@
 </div>
 <script src="~/js/index.js"></script>
 <script src="~/js/Module.js"></script>
+<script src="~/js/search.js"></script>
+<script src="~/js/phoneFormat.js"></script>
 <style>
     .fixed {
     }

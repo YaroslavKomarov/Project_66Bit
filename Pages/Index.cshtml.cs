@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Project_66_bit.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace RazorProject.Pages
 {
@@ -38,6 +39,14 @@ namespace RazorProject.Pages
             Customers.Reverse();
         }
 
+        public async Task OnGetCustomersAsync(string customerName)
+        {
+            var validCustomers = Customers.Where(c => c.Name == customerName).ToList();
+            if (validCustomers.Count <= 0)
+            {
+            }
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -56,6 +65,63 @@ namespace RazorProject.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
-        }    
+        }
+
+        public async Task<IActionResult> OnPostCopyprojectAsync(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var tmpProj = await _context.Projects.FindAsync(id);
+
+            Project copyProj = new Project()
+            {
+                Name = tmpProj.Name,
+                Status = tmpProj.Status,
+                Cost = tmpProj.Cost,
+                Type = tmpProj.Type,
+                StartDate = tmpProj.StartDate,
+                EndDate = tmpProj.EndDate,
+                Customer = await _context.Customers.FindAsync(tmpProj.CustomerId)
+            };
+
+            await _context.Projects.AddAsync(copyProj);
+
+            var lstOfTuples = new List<Tuple<int, Module>>();
+
+            foreach (var module in _context.Modules.Where(m => m.ProjectId == id))
+            {
+                var copyModule = new Module()
+                {
+                    Name = module.Name,
+                    Hours = module.Hours,
+                    Project = copyProj
+                };
+                await _context.Modules.AddAsync(copyModule);
+
+                lstOfTuples.Add(new Tuple<int, Module>(module.Id, copyModule));
+            }
+
+            foreach (var tuple in lstOfTuples)
+            {
+                foreach (var problem in _context.Problems.Where(p => p.ModuleId == tuple.Item1))
+                {
+                    var copyProblem = new Problem()
+                    {
+                        Name = problem.Name,
+                        Hours = problem.Hours,
+                        StartDate = problem.StartDate,
+                        EndDate = problem.EndDate,
+                        Module = tuple.Item2
+                    };
+                    await _context.Problems.AddAsync(copyProblem);
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+        }
     }
 }
