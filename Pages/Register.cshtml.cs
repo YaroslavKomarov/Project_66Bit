@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
+using Project_66_bit.Pages.Auth;
 
 namespace RazorProject.Pages
 {
@@ -43,8 +44,9 @@ namespace RazorProject.Pages
                     });
                     await db.SaveChangesAsync();
  
-                    await Authenticate(email);
- 
+                    var id = Authentication.Authenticate(email);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+
                     return Redirect("/");
                 }
                 else
@@ -54,17 +56,6 @@ namespace RazorProject.Pages
             }
             
             return Redirect("/Register");
-        }
-
-        private async Task Authenticate(string email)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, email)
-            };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
+using Project_66_bit.Pages.Auth;
 
 namespace RazorProject.Pages
 {
@@ -30,25 +31,15 @@ namespace RazorProject.Pages
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
                 if (user != null)
                 {
-                    await Authenticate(email);
- 
+                    var id = Authentication.Authenticate(email);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+
                     return Redirect("/");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
 
             return Redirect("/Enter");
-        }
-
-        private async Task Authenticate(string userName)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-            };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }
