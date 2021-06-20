@@ -34,14 +34,14 @@
 }
 .zakaz {
     text-align: center;
-    border-bottom: 2px solid #1e88e5;
+    border-bottom: 2px solid #5677bd;
     width: 240px;
     margin-left: 20px;
 }
-.type {
-    margin-left: 60px;
-    border-bottom: 2px solid #1e88e5;
-    width: 300px;
+.type{
+    margin-left:60px;
+    border-bottom:2px solid #0323ba;
+    width:300px;
 }
 .Ramka {
     margin-left: 60px;
@@ -107,6 +107,7 @@ a{
     position: relative;
     top: 70px;
     padding-top:80px;
+    width:1000px;
 }
 .card3 {
     display: none;
@@ -138,7 +139,7 @@ input[class="login"] {
     .addModule {
         display: none;
         top: 650px;
-        right: 555px;
+        right: 565px;
         background-color: white;
         position: fixed;
         height: 150px;
@@ -152,7 +153,7 @@ input[class="login"] {
 }
 .getModule{
     position:fixed;
-    right:630px;
+    right:650px;
     top:750px;
 }
 .card1{

@@ -13,19 +13,6 @@
     left: 0px;
     z-index: 2;
 }
-
-.emptyTask {
-    position: relative;
-    left: 180px;
-    font-size: 18px;
-}
-
-.emptyMessage {
-    position: relative;
-    left: 250px;
-    font-size: 22px;
-}
-
 .card1 {
     border-radius: 5px;
     padding-left:10px;
@@ -46,18 +33,16 @@
 
 .line {
     position:relative;
-    border: 2px solid #1e88e5;
+    border: 2px solid #00bfff;
     height:0px;
     top:50px;
     left:-10px;
     width:706px;
 }
-
 .type2 {
     margin-left:400px;
     margin-top:-170px;
 }
-
 .form {
     position: relative;
     left: 340px;
@@ -134,6 +119,7 @@ input[type="text"], select, input[type="date"] {
     margin: 10px 60px;
     text-align: center;
     padding-bottom: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .btn{
     z-index:0;
@@ -141,14 +127,16 @@ input[type="text"], select, input[type="date"] {
 }
 .close {
     position: absolute;
-    background: url("/img/danger.svg") no-repeat center center #fff;
+    border:1px solid white;
+    background: url("/img/danger.svg") no-repeat center center white;
     background-size: 30px;
     width: 30px;
     height: 30px;
+    border-radius: 50px;
 }
-    .close:hover {
-        cursor: pointer;
-    }
+.close:hover {
+    cursor: pointer;
+}
 .form22 {
     font-size:15px;
     text-align:center;
@@ -277,4 +265,14 @@ input[type="text"], select, input[type="date"] {
     height: 89vh;
     width:760px;
     margin-top:80px;
+}
+
+.doNotHaveAnyProject{
+    text-align:center;
+    margin-top:50px;
+    color:black;
+    border:3px solid #9E9C9C;
+    background:white;
+    border-radius:10px;
+    font-size:20px;
 }
