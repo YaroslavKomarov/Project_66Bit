@@ -83,8 +83,10 @@
                 int i = 0;
                 foreach (var module in Model.Modules)
                 {
-                    <div class="card card1 cardModule">
-                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId">@module.Name (@module.Project.Name)</a></div>
+
+                    i++;
+                    <div class="card card1 cardModule mod-@i">
+                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
                         <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                         <div class="line lineModule" id="line-@i"></div>
                         <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
@@ -97,7 +99,7 @@
                                     {
                                         if (proj.Id == mod.ProjectId)
                                         {
-                                            <a class="card insidecard" asp-page="Mod" asp-route-id="@proj.Id">
+                                            <a class="card insidecard" asp-page="Mod" asp-route-id="@proj.Id" asp-route-modId="@module.Id">
                                                 <div class="nameModule"><p class="">@mod.Name (@proj.Name)</p></div>
                                             </a>
                                             flag = false;
@@ -111,8 +113,6 @@
                             }
                         </div>
                     </div>
-                    
-                    i++;
                     }
                 }
             }

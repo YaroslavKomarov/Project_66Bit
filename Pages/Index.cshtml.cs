@@ -46,12 +46,24 @@ namespace RazorProject.Pages
                 return Page();
             }
 
-            await _context.Customers.AddAsync(NewCustomer);
-            await _context.SaveChangesAsync();
-
-            NewProject.Customer = await _context.Customers
-                .OrderByDescending(t => t.Id)
+            var tmpCustomer = await _context.Customers
+                .Where(c => c.Name == NewCustomer.Name && c.Email == NewCustomer.Email && c.PhoneNumber == NewCustomer.PhoneNumber)
                 .FirstOrDefaultAsync();
+
+            if (tmpCustomer != null)
+            {
+                NewProject.Customer = tmpCustomer;
+            }
+            else
+            {
+                await _context.Customers.AddAsync(NewCustomer); 
+                await _context.SaveChangesAsync();
+
+                NewProject.Customer = await _context.Customers
+                    .OrderByDescending(t => t.Id)
+                    .FirstOrDefaultAsync();
+            }
+
 
             await _context.Projects.AddAsync(NewProject);
             await _context.SaveChangesAsync();
