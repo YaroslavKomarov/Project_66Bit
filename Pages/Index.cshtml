@@ -1,4 +1,6 @@
 @page
+@using Project_66_bit.Models
+@using Project_66_bit.Models.Extensions
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -32,10 +34,10 @@
                         </div>
                         <div class="line"></div>
                     </div>
-                    }
                 }
             }
-        </div>
+        }
+    </div>
     <div class="did">
         <form>
             <input class="search" type="text" placeholder="Искать здесь...">
@@ -48,22 +50,18 @@
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <form metod="POST">
-                <button class="close btn waves-effect waves-light m-b-40"></button>
-                <div class="baton"><input type="text" class="login " placeholder="Название проекта" asp-for="Person.Name" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Тип проекта" asp-for="Person.Type" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Стоимость часа" asp-for="Person.Cost" required /></div>
+            <form method="post">
+                <a class="close btn waves-effect waves-light m-b-40"></a>
+                <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
+                <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
+                <div class="baton"><input class="login" placeholder="Стоимость часа" asp-for="NewProject.Cost" required /></div>
                 <div class="baton">
                     <p class="status">Выберите статус проекта :</p>
-                    <select name="theme" asp-for="Person.Status">
-                        <option value="1">Планирование</option>
-                        <option value="2">Пред.Разработка</option>
-                        <option value="3">В разработке</option>
-                        <option value="4">Завершен</option>
+                    <select asp-for="NewProject.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
                     </select>
                 </div>
                 <p class="status">Выберите дату проекта :</p>
-                <div class="baton date"><input type="date" name="calendar1"> - <input type="date" name="calendar2" asp-for="Person.Date"></div>
+                <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
                 <div class="Customer"><p class="pos">Заказчик</p></div>
                 <div class=" CustomerCard">
                     <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
@@ -76,6 +74,7 @@
     </div>
     <div class="fixModule">
         @{
+
             if (Model.Modules.Count() == 0)
             {
                 <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый проект</div>
@@ -85,6 +84,7 @@
                 int i = 0;
                 foreach (var module in Model.Modules)
                 {
+
                     i++;
                     <div class="card card1 cardModule mod-@i">
                         <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
@@ -95,14 +95,13 @@
                             @{
                                 var flag = true;
                                 foreach (var proj in Model.Projects)
-
                                 {
                                     foreach (var mod in Model.Modules)
                                     {
                                         if (proj.Id == mod.ProjectId)
                                         {
-                                            <a class="card" asp-page="Mod" asp-route-id="@proj.Id">
-                                                <div class="card nameModule1">@mod.Name (@proj.Name)</div>
+                                            <a class="card insidecard" asp-page="Mod" asp-route-id="@proj.Id" asp-route-modId="@module.Id">
+                                                <div class="nameModule"><p class="">@mod.Name (@proj.Name)</p></div>
                                             </a>
                                             flag = false;
                                         }
@@ -117,7 +116,8 @@
                     </div>
                 }
             }
-        </div>
+        }
+    </div>
 </div>
 <script src="~/js/index.js"></script>
 <script src="~/js/Module.js"></script>
