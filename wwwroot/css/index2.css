@@ -1,4 +1,4 @@
-﻿.card {
+.card {
     height: 130px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
@@ -147,11 +147,11 @@ a {
 .nameTime {
 }
 
-.get {
-    position: relative;
-    top: -100px;
-    left: 450px;
-    height: 100px;
+.get{
+    position:relative;
+    top:-100px;
+    left:450px;
+    height:100px;
 }
 
 input[type="text"], input[type="date"] {

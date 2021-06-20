@@ -1,4 +1,4 @@
-﻿body, html {
+body, html {
     width: 100%;
     margin-bottom: 0px;
     background-color: #eef5f9;
@@ -153,9 +153,9 @@ input[type="text"], select, input[type="date"] {
     border-radius: 50px;
 }
 
-    .close:hover {
-        cursor: pointer;
-    }
+.close:hover {
+    cursor: pointer;
+}
 
 .form22 {
     font-size: 15px;

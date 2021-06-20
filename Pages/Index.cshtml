@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -85,8 +85,9 @@
                 int i = 0;
                 foreach (var module in Model.Modules)
                 {
-                    <div class="card card1 cardModule" id="card-@i">
-                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId">@module.Name (@module.Project.Name)</a></div>
+                    i++;
+                    <div class="card card1 cardModule mod-@i">
+                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
                         <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                         <div class="line lineModule" id="line-@i"></div>
                         <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
@@ -94,6 +95,7 @@
                             @{
                                 var flag = true;
                                 foreach (var proj in Model.Projects)
+
                                 {
                                     foreach (var mod in Model.Modules)
                                     {
@@ -113,9 +115,6 @@
                             }
                         </div>
                     </div>
-                    
-                    i++;
-                    }
                 }
             }
         </div>
@@ -126,6 +125,7 @@
 <script src="~/js/phoneFormat.js"></script>
 <style>
     .fixed {
+        position: fixed;
     }
 
     .form22 {

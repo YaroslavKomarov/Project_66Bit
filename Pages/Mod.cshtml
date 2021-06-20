@@ -1,4 +1,5 @@
-﻿@page
+@page
+@using Project_66_bit.Models
 @model RazorProject.Pages.ModModel
 @{
     Layout = "_Home";
@@ -22,7 +23,14 @@
             {
                 foreach (var module in Model.Modules)
                 {
+
                     i++;
+                    if (module.Id == Model.IsOpenProblems)
+                    {
+                        <script type="text/javascript">
+                                var moduleId = `but-${@i}`;
+                        </script>
+                    }
                     <div class="card1 card " id="card-@i">
                         <div class="nameProject"><p class="size">@module.Name</p></div>
                         <div class=""><p>Количество часов : @module.Hours</p></div>
@@ -38,7 +46,7 @@
                         <div class="line" id="line-@i"></div>
                         <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
                         <div class="card-@i content" id="tel-@i">
-                            @if (Model.Problems.Count() == 0)
+                            @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
                             {
                                 <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div>
                             }
@@ -119,6 +127,11 @@
 <script src="~/js/index2.js">
 </script>
 <script>
+    if (@Model.IsOpenProblems) {
+        document.getElementById(moduleId).click();
+    }
+</script>
+<script>
     var colls = document.getElementsByClassName("hitOne");
 
     for (var i = 0; i < colls.length; i++) {
@@ -160,4 +173,3 @@
         });
     }
 </script>
-

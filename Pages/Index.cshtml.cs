@@ -13,13 +13,20 @@ namespace RazorProject.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext db;
-        public List<Project> Projecte { get; set; }
-        public Project Person { get; set; }
+        private readonly ApplicationDbContext _context;
+        public List<Project> Projects { get; set; }
+        public List<Module> Modules { get; set; }
+        public List<Customer> Customers { get; set; }
+        [BindProperty]
+        public Project NewProject { get; set; }
+        [BindProperty]
+        public Customer NewCustomer { get; set; }
 
-        public IndexModel(ApplicationDbContext logger)
+        public IndexModel(ApplicationDbContext context)
         {
-            db = logger;
+            _context = context;
+            NewProject = new Project();
+            NewCustomer = new Customer();
         }
 
         public void OnGet()
@@ -33,12 +40,24 @@ namespace RazorProject.Pages
                 return Page();
             }
 
-            await _context.Customers.AddAsync(NewCustomer);
-            await _context.SaveChangesAsync();
-
-            NewProject.Customer = await _context.Customers
-                .OrderByDescending(t => t.Id)
+            var tmpCustomer = await _context.Customers
+                .Where(c => c.Name == NewCustomer.Name && c.Email == NewCustomer.Email && c.PhoneNumber == NewCustomer.PhoneNumber)
                 .FirstOrDefaultAsync();
+
+            if (tmpCustomer != null)
+            {
+                NewProject.Customer = tmpCustomer;
+            }
+            else
+            {
+                await _context.Customers.AddAsync(NewCustomer); 
+                await _context.SaveChangesAsync();
+
+                NewProject.Customer = await _context.Customers
+                    .OrderByDescending(t => t.Id)
+                    .FirstOrDefaultAsync();
+            }
+
 
             await _context.Projects.AddAsync(NewProject);
             await _context.SaveChangesAsync();
