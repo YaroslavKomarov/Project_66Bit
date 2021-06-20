@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 
 namespace RazorProject.Pages
