@@ -32,6 +32,12 @@ namespace RazorProject.Pages
         public async Task OnGetAsync()
         {
             Projects = await _context.Projects.ToListAsync();
+            Modules = await _context.Modules.ToListAsync();
+            Customers = await _context.Customers.ToListAsync();
+
+            Projects.Reverse();
+            Modules.Reverse();
+            Customers.Reverse();
         }
 
         public async Task<IActionResult> OnPostAsync()
