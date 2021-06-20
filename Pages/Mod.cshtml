@@ -14,71 +14,80 @@
     </div>
     <div class="fixfix">
         @{
-            
             int i = 0;
-            foreach (var module in Model.Modules)
+            if (Model.Problems.Count() == 0)
             {
-                i++;
-                <div class="card1 card " id="card-@i">
-                    <div class="nameProject"><p class="size">@module.Name</p></div>
-                    <div class=""><p>Количество часов : @module.Hours</p></div>
-                    <div class="">
-                        <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-                        <form method="post" class="card-@i tel-@i line-@i but-@i card2 card card3">
-                            <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
-                            <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
-                            <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
-                            <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
-                        </form>
-                    </div>
-                    <div class="line" id="line-@i"></div>
-                    <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-                    <div class="card-@i content" id="tel-@i">
-                        @if (Model.Problems.Count == 0)
-                        {
-                            <div class="emptyTask"><span>В модуле пока нет задач. Добавьте новую задачу</span></div>
-                        }
-                        @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
-                        {
-                            <div class="card2 card">
-                                <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-                                <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-                                <div class="timeTask"><p>@task.Hours</p></div>
-                            </div>
-                        }
-                    </div>
-                </div>
+                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
             }
-        }
-        <div class="visit card">
-            <div class="type">
-                <p>
-                    Статус проекта :
-                    <select asp-for="Project.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
-                    </select>
-                </p>
+            else
+            { 
+                foreach (var module in Model.Modules)
+                {
+                    i++;
+                    <div class="card1 card " id="card-@i">
+                        <div class="nameProject"><p class="size">@module.Name</p></div>
+                        <div class=""><p>Количество часов : @module.Hours</p></div>
+                        <div class="">
+                            <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
+                            <form method="post" class="card-@i tel-@i line-@i but-@i card2 card card3">
+                                <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
+                                <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+                                <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
+                                <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
+                            </form>
+                        </div>
+                        <div class="line" id="line-@i"></div>
+                        <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
+                        <div class="card-@i content" id="tel-@i">
+                            @if (Model.Problems.Count() == 0)
+                            {
+                                <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div>
+                            }
+                            else
+                            {
+                                @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
+                                {
+                                    <div class="card2 card">
+                                        <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+                                        <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+                                        <div class="timeTask"><p>@task.Hours</p></div>
+                                    </div>
+                                }
+                            }
+`                       </div>
+                    </div>
+                    }
+                }
+            }
+            <div class="visit card">
+                <div class="type">
+                    <p>
+                        Статус проекта :
+                        <select asp-for="Project.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
+                        </select>
+                    </p>
+                </div>
+                <div class="type"><p>Тип : @Model.Project.Type</p></div>
+                <div class="type"><p>Стоимость часа : @Model.Project.Cost P</p></div>
+                <div class="type"><p>Срок действия : @Html.DisplayFor(modelItem => @Model.Project.StartDate) - @Html.DisplayFor(modelItem => @Model.Project.EndDate)</p></div>
+                <div class="Vso"><p class="pos">Заказчик</p></div>
+                <div class="CustomerCard">
+                    <div class="zakaz">@Model.Customer.Name</div>
+                    <div class="zakaz">@Model.Customer.PhoneNumber</div>
+                    <div class="zakaz">@Model.Customer.Email</div>
+                </div>
             </div>
-            <div class="type"><p>Тип : @Model.Project.Type</p></div>
-            <div class="type"><p>Стоимость часа : @Model.Project.Cost P</p></div>
-            <div class="type"><p>Срок действия : @Html.DisplayFor(modelItem => @Model.Project.StartDate) - @Html.DisplayFor(modelItem => @Model.Project.EndDate)</p></div>
-            <div class="Vso"><p class="pos">Заказчик</p></div>
-            <div class="CustomerCard">
-                <div class="zakaz">@Model.Customer.Name</div>
-                <div class="zakaz">@Model.Customer.PhoneNumber</div>
-                <div class="zakaz">@Model.Customer.Email</div>
+            <div class="add">
+                <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">Редактироваать инф. о проекте</button>
+                <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
+                <form class="addModule card" method="post">
+                    <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
+                    <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
+                    <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
+                    <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
+                </form>
             </div>
         </div>
-        <div class="add">
-            <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">Редактироваать инф. о проекте</button>
-            <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-            <form class="addModule card" method="post">
-                <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
-                <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
-                <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
-            </form>
-        </div>
-    </div>
 </div>
 <style>
     .nameofProject {

@@ -12,25 +12,32 @@
 <div>
     <div class="cardFix">
         @{
-            foreach (var proj in Model.Projects)
+            if (Model.Projects.Count() == 0)
             {
-                <div class="card1 card">
-                    <div class="nameProject"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
-                    <div class="type"><p>Тип : @proj.Type</p></div>
-                    <div class="type"><span>Заказчик : </span><span>@proj.Customer.Name</span></div>
-                    <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
-                    <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
-                    <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
-                    <div>
-                        <form method="post">
-                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего" asp-page-handler="Copyproject" asp-route-id="@proj.Id" />
-                        </form>
-                    </div>
-                    <div class="line"></div>
-                </div>
+                <div class="doNotHaveAnyProject">У вас пока нет проектов , добавьте новый проект</div>
             }
-        }
-    </div>
+            else
+            {
+                foreach (var proj in Model.Projects)
+                {
+                    <div class="card1 card">
+                        <div class="nameProject"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
+                        <div class="type"><p>Тип : @proj.Type</p></div>
+                        <div class="type"><span>Заказчик : </span><span>@proj.Customer.Name</span></div>
+                        <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
+                        <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
+                        <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
+                        <div>
+                            <form method="post">
+                                <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего" asp-page-handler="Copyproject" asp-route-id="@proj.Id" />
+                            </form>
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                    }
+                }
+            }
+        </div>
     <div class="did">
         <form>
             <input class="search" type="text" placeholder="Искать здесь...">
@@ -66,34 +73,49 @@
         </div>
     </div>
     <div class="fixModule">
-        @{  
-            int i = 0;
-            foreach (var module in Model.Modules)
+        @{
+            if (Model.Modules.Count() == 0)
             {
-                i++;
-                <div class="card card1 cardModule">
-                    <div class="nameModule"><p class="size">@module.Name (@module.Project.Name)</p></div>
-                    <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
-                    <div class="line lineModule" id="line-@i"></div>
-                    <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
-                    <div class="card-@i contentMOdule" id="tel-@i">
-                        @foreach (var proj in Model.Projects)
-                        {
-                            foreach (var mod in Model.Modules)
-                            {
-                                if (proj.Id == mod.ProjectId)
+                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый проект</div>
+            }
+            else
+            {
+                int i = 0;
+                foreach (var module in Model.Modules)
+                {
+                    i++;
+                    <div class="card card1 cardModule">
+                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId">@module.Name (@module.Project.Name)</a></div>
+                        <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
+                        <div class="line lineModule" id="line-@i"></div>
+                        <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
+                        <div class="card-@i contentMOdule" id="tel-@i">
+                            @{
+                                var flag = true;
+                                foreach (var proj in Model.Projects)
                                 {
-                                    <div class="card insidecard">
-                                        <div class="nameModule"><p class="">@mod.Name (@proj.Name)</p></div>
-                                    </div>
+                                    foreach (var mod in Model.Modules)
+                                    {
+                                        if (proj.Id == mod.ProjectId)
+                                        {
+                                            <a class="card insidecard" asp-page="Mod" asp-route-id="@proj.Id">
+                                                <div class="nameModule"><p class="">@mod.Name (@proj.Name)</p></div>
+                                            </a>
+                                            flag = false;
+                                        }
+                                    }
+                                }
+                                if (flag)
+                                {
+                                    <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
                                 }
                             }
-                        }
+                        </div>
                     </div>
-                </div>
+                    }
+                }
             }
-        }
-    </div>
+        </div>
 </div>
 <script src="~/js/index.js"></script>
 <script src="~/js/Module.js"></script>
