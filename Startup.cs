@@ -1,11 +1,12 @@
-using Project_66_bit.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project_66_bit.Models;
 
 namespace Project_66_bit
 {
@@ -30,6 +31,7 @@ namespace Project_66_bit
                 options.Conventions.AuthorizePage("/Directory");
                 options.Conventions.AddAreaPageRoute("Page", "/Index", "");
             });
+            services.AddControllersWithViews();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -41,7 +43,7 @@ namespace Project_66_bit
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Enter");
                 });
-            
+
             services.AddControllersWithViews();
         }
 

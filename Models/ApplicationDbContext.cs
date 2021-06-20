@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Project_66_bit.Models
+namespace ASPNET_MVC.Models
 {
     public class ApplicationDbContext : DbContext
     {
@@ -12,7 +12,6 @@ namespace Project_66_bit.Models
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {
-        }
+        {}
     }
 }
