@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +40,7 @@ namespace RazorProject.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -57,7 +55,7 @@ namespace RazorProject.Pages
             }
             else
             {
-                await _context.Customers.AddAsync(NewCustomer); 
+                await _context.Customers.AddAsync(NewCustomer);
                 await _context.SaveChangesAsync();
 
                 NewProject.Customer = await _context.Customers
