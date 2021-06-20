@@ -62,6 +62,8 @@ namespace Project_66_bit
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

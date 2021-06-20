@@ -15,7 +15,7 @@
     <div class="fixfix">
         @{
             int i = 0;
-            if (Model.Problems.Count() == 0)
+            if (Model.Modules.Count() == 0)
             {
                 <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
             }
@@ -54,7 +54,7 @@
                                     </div>
                                 }
                             }
-`                       </div>
+                       </div>
                     </div>
                     }
                 }
@@ -78,7 +78,6 @@
                 </div>
             </div>
             <div class="add">
-                <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">Редактироваать инф. о проекте</button>
                 <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
                 <form class="addModule card" method="post">
                     <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
