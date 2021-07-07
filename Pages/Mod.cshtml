@@ -1,105 +1,101 @@
 @page
 @using Project_66_bit.Models
+@using Project_66_bit.Models.Extensions
 @model RazorProject.Pages.ModModel
-@{
-    Layout = "_Home";
-}
+@{ Layout = "_Home"; }
 <link href="~/css/style.css" rel="stylesheet">
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
 <link href="~/css/index.css" rel="stylesheet">
 <link href="~/css/index2.css" rel="stylesheet">
 <div class="text-center">
     <div class="nameofProj-wrapper">
-        <div class="nameofProject"><input id="redact1" value="@Model.Project.Name" disabled></div>
+        <div class="nameofProject"><input type="text" id="redact1" value="@Model.Project.Name" disabled></div>
     </div>
-    <div class="visit card">
-        <div class="type">
-            <p>
-                Статус проекта :
-                <select asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
-                </select>
-            </p>
-        </div>
-        <div class="type"><p>Тип :<input id="redact2" value=" @Model.Project.Type" disabled></p></div>
-        <div class="type"><p>Стоимость часа : <input id="redact3" value="@Model.Project.Cost P" disabled></p></div>
-        <div class="type"><p>Срок действия : <input id="redact4" value="@Html.DisplayFor(modelItem => @Model.Project.StartDate)" disabled> - <input id="redact5" value="@Html.DisplayFor(modelItem => @Model.Project.EndDate)" disabled></p></div>
-        <div class="Vso"><p class="pos">Заказчик</p></div>
-        <div class="CustomerCard">
-            <div class="zakaz"><input id="redact6" value="@Model.Customer.Name" disabled></div>
-            <div class="zakaz"><input id="redact7" value="@Model.Customer.PhoneNumber" disabled></div>
-            <div class="zakaz"><input id="redact8" value="@Model.Customer.Email" disabled></div>
-        </div>
-        <button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>
-        <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()" asp-page-handler="Update" asp-route-id="@Model.Project.Id"> Сохранить данные</button>
-    </div>
-    <form method="post">
-        <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить проект" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" />
-    </form>
     <div class="fixfix">
-        @{
-            int i = 0;
+        @{ int i = 0;
             if (Model.Modules.Count() == 0)
             {
-                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
-            }
-            else
-            {
-                foreach (var module in Model.Modules)
-                {
-                    i++;
-                    if (module.Id == Model.IsOpenProblems)
-                    {
-                        <script type="text/javascript">
+<div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div> }
+else
+{
+foreach (var module in Model.Modules)
+{
+
+    i++;
+    if (module.Id == Model.IsOpenProblems)
+    {
+<script type="text/javascript">
                                 var moduleId = `but-${@i}`;
-                        </script>
-                    }
-                    <div class="card1 card " id="card-@i">
-                        <div class="nameProject"><p class="size">@module.Name</p></div>
-                        <div class=""><p>Количество часов : @module.Hours</p></div>
-                        <div class="">
-                            <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-                            <form method="post" class="card-@i tel-@i line-@i but-@i card2 card card3">
-                                <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
-                                <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
-                                <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
-                                <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
-                            </form>
-                        </div>
-                        <div class="line" id="line-@i"></div>
-                        <form method="post">
-                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить модуль" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-idProj="@Model.Project.Id" />
-                        </form>
-                        <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-                        <div class="card-@i content" id="tel-@i">
-                            @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
-                            {
-                                <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div>
-                            }
-                            else
-                            {
-                                @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
-                                {
-                                    <div class="card2 card">
-                                        <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-                                        <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-                                        <div class="timeTask"><p>@task.Hours</p></div>
-                                    </div>
-                                }
-                            }
-                        </div>
-                    </div>
-                }
-            }
-        }
+</script> }
+<div class="card1 card " id="card-@i">
+    <div class="nameProject"><p class="size">@module.Name</p></div>
+    <div class=""><p>Количество часов : @module.Hours</p></div>
+    <div>
+        <form method="post">
+            <input type="submit" class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="module-@i" value="Удалить модуль" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-isProj="@false" />
+        </form>
+        <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
+        <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
+            <div id="card-@i">
+                <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
+                <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+                <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
+                <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
+
+            </div>
+        </form>
+    </div>
+    <div class="line" id="line-@i"></div>
+    <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
+    <div class="card-@i content" id="tel-@i">
+        @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
+        {
+<div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div> }
+else
+{
+@foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
+{
+<div class="card2 card">
+    <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+    <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+    <div class="timeTask"><p>@task.Hours</p></div>
+</div>}}
+    </div>
+</div> }
+} }
+        <div class="visit card">
+            <div class="type">
+                <p>
+                    Статус проекта : @Model.Project.Status.DisplayName();
+                    @*<select asp-items="@Html.GetEnumSelectList<ProjectStatus>()" disabled>
+                            <option selected>@proj.Status.DisplayName()</option>
+                        </select>*@
+                </p>
+            </div>
+            <div class="type"><p>Тип :<input type="text" id="redact2" value=" @Model.Project.Type" disabled></p></div>
+            <div class="type"><p>Стоимость часа : <input type="text" id="redact3" value="@Model.Project.Cost P" disabled></p></div>
+            <div class="type"><p>Срок действия : <input type="date" id="redact4" value="@Html.DisplayFor(modelItem => @Model.Project.StartDate)" disabled> - <input type="date" id="redact5" value="@Html.DisplayFor(modelItem => @Model.Project.EndDate)" disabled></p></div>
+            <div class="Vso"><p class="pos">Заказчик</p></div>
+            <div class="CustomerCard">
+                <div class="zakaz"><input type="text" id="redact6" value="@Model.Customer.Name" disabled></div>
+                <div class="zakaz"><input type="text" id="redact7" value="@Model.Customer.PhoneNumber" disabled></div>
+                <div class="zakaz"><input type="text" id="redact8" value="@Model.Customer.Email" disabled></div>
+            </div>
+        </div>
         <div class="add">
             <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-            <form class="addModule card" method="post">
+            <form class="addModule card" method="post" autocomplete="off">
                 <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
                 <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
                 <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
                 <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
             </form>
         </div>
+        @*<button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>*@
+        <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>
+        <form method="post">
+            <input type="submit" class="deleteProject form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить проект" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" asp-route-isProj="@true" />
+        </form>
     </div>
 </div>
 <style>
@@ -114,19 +110,21 @@
         background-color: white;
         z-index: 1;
     }
-    .card3{
-        display:none;
-        position:relative;
+
+    .card3 {
+        display: none;
+        position: relative;
     }
-    .fixfix{
-        z-index:0;
+
+    .fixfix {
+        z-index: 0;
     }
-    .index{
-        z-index:10;
+
+    .index {
+        z-index: 10;
     }
 </style>
-<script src="~/js/index2.js">
-</script>
+<script src="~/js/index2.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(moduleId).click();
@@ -142,17 +140,17 @@
             if (content.style.display === "block") {
                 content.style.display = "none";
                 document.getElementById(content.classList[1]).style.display = "none";
-                document.getElementById(content.classList[0]).style.height = "130px";
+                document.getElementById(content.classList[0]).style.height = "160px";
                 document.getElementById(content.classList[1]).style.top = "-100px";
-                document.getElementById(content.classList[2]).style.top = "-80px";
+                document.getElementById(content.classList[2]).style.top = "-130px";
                 document.getElementById(content.classList[3]).style.top = "-200px";
             }
             else {
                 content.style.display = "block";
                 document.getElementById(content.classList[1]).style.display = "block";
-                document.getElementById(content.classList[0]).style.height = "650px";
+                document.getElementById(content.classList[0]).style.height = "600px";
                 document.getElementById(content.classList[1]).style.top = "0px";
-                document.getElementById(content.classList[2]).style.top = "-220px";
+                document.getElementById(content.classList[2]).style.top = "-225px";
                 document.getElementById(content.classList[3]).style.top = "-344px";
             }
         });

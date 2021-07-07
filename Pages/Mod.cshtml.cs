@@ -93,18 +93,5 @@ namespace RazorProject.Pages
 
             return RedirectToPage("Mod", new { id = projId });
         }
-
-        public async Task<IActionResult> OnPostUpdateAsync(int id)
-        {
-            if (NewModule == null)
-            {
-                return Page();
-            }
-
-            _context.Projects.Update(Project);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("Mod", new { id = id });
-        }
     }
 }

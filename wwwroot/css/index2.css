@@ -15,17 +15,17 @@
 }
 
 .line {
-    top: -80px;
+    top: -130px;
 }
 
 .fixe {
     position: fixed;
     top: 800px;
-    left: 1120px;
+    left: 1050px;
 }
 
 .form {
-    top: -50px;
+    top: -100px;
     left: 400px;
 }
 
@@ -84,6 +84,7 @@ a {
     height: 250px;
     position: relative;
     top: -100px;
+    margin-top: 50px;
 }
 
 .card2 {
@@ -147,11 +148,11 @@ a {
 .nameTime {
 }
 
-.get{
-    position:relative;
-    top:-100px;
-    left:450px;
-    height:100px;
+.get {
+    position: relative;
+    top: -95px;
+    left: 450px;
+    height: 100px;
 }
 
 input[type="text"], input[type="date"] {
@@ -165,7 +166,7 @@ input[class="login"] {
 .addModule {
     display: none;
     top: 650px;
-    right: 710px;
+    right: 775px;
     background-color: white;
     position: fixed;
     height: 150px;
@@ -181,12 +182,13 @@ input[class="login"] {
 
 .getModule {
     position: fixed;
-    right: 795px;
+    right: 860px;
     top: 750px;
 }
 
 .card1 {
     margin-left: 100px;
+    height: 160px;
 }
 
 .nameofProject {
@@ -196,16 +198,15 @@ input[class="login"] {
 
 .redact {
     position: fixed;
-    top: 170px;
-    left: 1650px;
-    width: 350px;
-    font-size: 18px;
+    top: 150px;
+    left: 1600px;
+    width: 200px;
 }
 
 .redact1 {
     display: none;
     position: fixed;
-    top: 170px;
+    top: 150px;
     left: 1600px;
     width: 200px;
 }
@@ -216,5 +217,16 @@ input[class="login"] {
     width: 450px;
     font-size: 30px;
     background-color: white;
-    border: none;
+}
+
+.deleteProject {
+    position: fixed;
+    top: 190px;
+    left: 1625px;
+}
+
+.deleteModule {
+    position: relative;
+    top: -105px;
+    left: 415px;
 }
