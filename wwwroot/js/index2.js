@@ -6,7 +6,7 @@ for (var i = 0; i < coll.length; i++) {
         var content = this.nextElementSibling;
         if (content.style.display === "block") {
             content.style.display = "none";
-            document.getElementById(content.classList[0]).style.height = "130px";
+            document.getElementById(content.classList[0]).style.height = "160px";
             document.getElementById(content.classList[1]).style.display = "none";
             document.getElementById(content.classList[2]).style.top = "-80px";
             document.getElementById(content.classList[3]).style.top = "-200px";
@@ -18,6 +18,9 @@ for (var i = 0; i < coll.length; i++) {
         }
     });
 }
+
+
+
 function buttonClick() {
     for (let i = 1; i < 10; i++) {
         let b = 'redact' + i;

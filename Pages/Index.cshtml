@@ -33,6 +33,9 @@
                             </form>
                         </div>
                         <div class="line"></div>
+                        <form method="post">
+                            <input type="submit" class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить проект" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true"/>
+                        </form>
                     </div>
                 }
             }
@@ -50,7 +53,7 @@
             <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
         </div>
         <div id="myModal" class="batton card">
-            <form method="post">
+            <form method="post" autocomplete="off">
                 <a class="close btn waves-effect waves-light m-b-40"></a>
                 <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
                 <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
@@ -90,6 +93,9 @@
                         <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
                         <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                         <div class="line lineModule" id="line-@i"></div>
+                        <form method="post">
+                            <input type="submit" class="tel-@i positionModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить модуль" asp-page-handler="Delete" asp-route-id="@module.Id" asp-route-isProj="@false"/>
+                        </form>
                         <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
                         <div class="card-@i contentMOdule" id="tel-@i">
                             @{
@@ -123,6 +129,7 @@
 <script src="~/js/Module.js"></script>
 <script src="~/js/search.js"></script>
 <script src="~/js/phoneFormat.js"></script>
+<script src="~/js/Home.js"></script>
 <style>
     .fixed {
         position: fixed;

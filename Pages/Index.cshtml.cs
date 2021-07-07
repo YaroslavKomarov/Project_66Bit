@@ -70,6 +70,29 @@ namespace RazorProject.Pages
             return RedirectToPage("Index");
         }
 
+        public async Task<IActionResult> OnPostDeleteAsync(int id, bool isProj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            if (isProj)
+            {
+                var delProject = await _context.Projects.FindAsync(id);
+                _context.Projects.Remove(delProject);
+            }
+            else
+            {
+                var delModule = await _context.Modules.FindAsync(id);
+                _context.Modules.Remove(delModule);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+        }
+
         public async Task<IActionResult> OnPostCopyprojectAsync(int id)
         {
             if (!ModelState.IsValid)
