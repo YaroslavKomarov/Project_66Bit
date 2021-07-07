@@ -37,6 +37,34 @@ namespace RazorProject.Pages
             Modules.Reverse();
         }
 
+        public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var delModule = await _context.Modules.FindAsync(id);
+            _context.Modules.Remove(delModule);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Mod", new { id = idProj });
+        }
+
+        public async Task<IActionResult> OnPostDeleteProjAsync(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var delProject = await _context.Projects.FindAsync(id);
+            _context.Projects.Remove(delProject);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Index");
+        }
+
         public async Task<IActionResult> OnPostModuleAsync(int id)
         {
             if (NewModule == null)
