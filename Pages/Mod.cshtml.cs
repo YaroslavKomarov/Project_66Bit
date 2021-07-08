@@ -38,6 +38,20 @@ namespace RazorProject.Pages
             Modules.Reverse();
         }
 
+        public async Task<IActionResult> OnPostDeleteProblemAsync(int id, int idProj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var delProblem = await _context.Problems.FindAsync(id);
+            _context.Problems.Remove(delProblem);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Mod", new { id = idProj });
+        }
+
         public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)
         {
             if (!ModelState.IsValid)

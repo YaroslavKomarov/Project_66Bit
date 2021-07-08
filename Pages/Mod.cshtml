@@ -15,61 +15,86 @@
         @{ int i = 0;
             if (Model.Modules.Count() == 0)
             {
-<div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div> }
-else
-{
-foreach (var module in Model.Modules)
-{
+                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
+            }
+            else
+            {
+                foreach (var module in Model.Modules)
+                {
+                    i++;
+                    if (module.Id == Model.IsOpenProblems)
+                    {
+                        <script type="text/javascript">
+                            var moduleId = `but-${@i}`;
+                        </script>
 
-    i++;
-    if (module.Id == Model.IsOpenProblems)
-    {
-<script type="text/javascript">
-                                var moduleId = `but-${@i}`;
-</script> }
-<div class="card1 card " id="card-@i">
-    <div class="nameProject"><p class="size">@module.Name</p></div>
-    <div class=""><p>Количество часов : @module.Hours</p></div>
-    <div>
-        <form method="post">
-            <input type="submit" class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="module-@i" value="Удалить модуль" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-isProj="@false" />
-        </form>
-        <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-        <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
-            <div id="card-@i">
-                <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
-                <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
-                <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
-                <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
-
-            </div>
-        </form>
-    </div>
-    <div class="line" id="line-@i"></div>
-    <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-    <div class="card-@i content" id="tel-@i">
-        @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
-        {
-<div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div> }
-else
-{
-@foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
-{
-<div class="card2 card">
-    <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-    <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-    <div class="timeTask"><p>@task.Hours</p></div>
-</div>}}
-    </div>
-</div> }
-} }
+                    }
+                    <div class="card1 card " id="card-@i">
+                        <div class="nameProject"><p class="size">@module.Name</p></div>
+                        <div class=""><p>Количество часов : @module.Hours</p></div>
+                        <div>
+                            <button class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteMod">Удалить модуль</button>
+                            <div class="confirm-space-mod">
+                                <div class="confirm-message">
+                                    <div class="warning-title">Вы действительно хотите безвозвратно удалить модуль?</div>
+                                    <form method="post">
+                                        <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
+                                    </form>
+                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelMod">Cancel</button>
+                                </div>
+                            </div>
+                            <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
+                            <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
+                                <div id="card-@i">
+                                    <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
+                                    <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+                                    <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
+                                    <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="line" id="line-@i"></div>
+                        <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
+                        <div class="card-@i content" id="tel-@i">
+                            @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
+                            {
+                                <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div>
+                            }
+                            else
+                            {
+                                @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
+                                {
+                                    <div class="card2 card">
+                                        <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+                                        <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+                                        <div class="timeTask"><p>@task.Hours</p></div>
+                                        <div>
+                                            <button class="redcolor deleteTask btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteProblem">Удалить задачу</button>
+                                            <div class="confirm-space-problem">
+                                                <div class="confirm-message">
+                                                    <div class="warning-title">Вы действительно хотите безвозвратно удалить задачу?</div>
+                                                    <form method="post">
+                                                        <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProblem" asp-route-id="@task.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
+                                                    </form>
+                                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProblem">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        }
         <div class="visit card">
             <div class="type">
                 <p>
                     Статус проекта : @Model.Project.Status.DisplayName();
                     @*<select asp-items="@Html.GetEnumSelectList<ProjectStatus>()" disabled>
-                            <option selected>@proj.Status.DisplayName()</option>
-                        </select>*@
+                        <option selected>@proj.Status.DisplayName()</option>
+                    </select>*@
                 </p>
             </div>
             <div class="type"><p>Тип :<input type="text" id="redact2" value=" @Model.Project.Type" disabled></p></div>
@@ -93,9 +118,16 @@ else
         </div>
         @*<button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>*@
         <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>
-        <form method="post">
-            <input type="submit" class="deleteProject form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить проект" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" asp-route-isProj="@true" />
-        </form>
+        <button class="deleteProject form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteProj">Удалить проект</button>
+        <div class="confirm-space-proj">
+            <div class="confirm-message">
+                <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
+                <form method="post">
+                    <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" asp-route-isProj="@true">Ok</button>
+                </form>
+                <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProj">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 <style>
@@ -125,6 +157,7 @@ else
     }
 </style>
 <script src="~/js/index2.js"></script>
+<script src="~/js/alertMssg.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(moduleId).click();

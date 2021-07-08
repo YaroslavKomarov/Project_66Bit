@@ -38,7 +38,7 @@ namespace RazorProject.Pages
             Customers.Reverse();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCreateProjAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,6 @@ namespace RazorProject.Pages
                     .OrderByDescending(t => t.Id)
                     .FirstOrDefaultAsync();
             }
-
 
             await _context.Projects.AddAsync(NewProject);
             await _context.SaveChangesAsync();
