@@ -115,10 +115,6 @@ a {
     box-shadow: inset 1px 1px 10px #f3faf7;
 }
 
-.btn {
-    border: 1px solid white;
-}
-
 .sub-menu {
     z-index: 0;
 }
@@ -145,9 +141,6 @@ a {
     height: 10px;
 }
 
-.nameTime {
-}
-
 .get {
     position: relative;
     top: -95px;
@@ -166,7 +159,7 @@ input[class="login"] {
 .addModule {
     display: none;
     top: 650px;
-    right: 775px;
+    right: 565px;
     background-color: white;
     position: fixed;
     height: 150px;
@@ -182,7 +175,7 @@ input[class="login"] {
 
 .getModule {
     position: fixed;
-    right: 860px;
+    right: 650px;
     top: 750px;
 }
 
@@ -192,8 +185,17 @@ input[class="login"] {
 }
 
 .nameofProject {
-    margin-top: 80px;
-    margin-left: 1px;
+    margin-top: 70px;
+    position: fixed;
+    text-align: center;
+    font-size: 30px;
+    border-bottom: 3px solid black;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 99.9%;
+    color: #1e88e5;
+    background-color: white;
+    z-index: 1;
 }
 
 .redact {
@@ -216,7 +218,12 @@ input[class="login"] {
     margin-top: 0px;
     width: 450px;
     font-size: 30px;
-    background-color: white;
+    background-color: #eef5f9;
+    padding: 0px;
+    border: 0px solid black;
+    text-transform: uppercase;
+    font-family: 'Playfair Display', serif;
+    font-size:40px;
 }
 
 .deleteProject {
@@ -229,4 +236,62 @@ input[class="login"] {
     position: relative;
     top: -105px;
     left: 415px;
+}
+#redact6 {
+    display:inline-block;
+    width: 300px;
+    margin-left:-36px;
+}
+
+.three {
+    background: #FCF2E5;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    margin-top: 55px;
+    position: fixed;
+    color: #FCF2E5;
+    background: #eef5f9;
+    font-size: 2.5em;
+    font-weight: normal;
+    padding: 10px 40px;
+    display: inline-block;
+    line-height: 1;
+    width: 100%;
+    height: 30px;
+}
+
+    .three:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        left: 0;
+        bottom: -15px;
+        background: #1e88e5;
+    }
+
+    .three:after {
+        content: "";
+        position: absolute;
+        height: 0;
+        width: 80%;
+        border-top: 10px solid #1e88e5;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -25px;
+    }
+
+@media (max-width: 500px) {
+    .three{
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 400px) {
+    .three{
+        font-size: 1.5em;
+        padding: 10px 30px;
+    }
 }

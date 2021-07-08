@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Project_66_bit.Pages.Auth
 {
