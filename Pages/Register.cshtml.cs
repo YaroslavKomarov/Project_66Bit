@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -17,6 +16,15 @@ namespace RazorProject.Pages
     public class RegisterModel : PageModel
     {
         public ApplicationDbContext db;
+
+        [BindProperty]
+        private string Name { get; set; }
+        [BindProperty]
+        private string Email { get; set; }
+        [BindProperty]
+        private string Password { get; set; }
+        [BindProperty]
+        private string ConfirmPassword { get; set; }
         
         public RegisterModel(ApplicationDbContext context)
         {
@@ -27,16 +35,11 @@ namespace RazorProject.Pages
         {
         }
 
-        public async Task<IActionResult> OnPostAsync(
-            string name,
-            string email,
-            string password,
-            string confirmPassword
-            )
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == this.Email);
                 if (user == null)
                 {
                     byte[] salt = new byte[128 / 8];
@@ -46,7 +49,7 @@ namespace RazorProject.Pages
                     }
 
                     string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: password,
+                        password: this.Password,
                         salt: salt,
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 10000,
@@ -55,14 +58,14 @@ namespace RazorProject.Pages
 
                     db.Users.Add(new User 
                     { 
-                        Name = name,
-                        Email = email,
+                        Name = this.Name,
+                        Email = this.Email,
                         Password = hashedPassword,
                         Salt = Convert.ToBase64String(salt)
                     });
                     await db.SaveChangesAsync();
  
-                    var id = Authentication.Authenticate(email);
+                    var id = Authentication.Authenticate(this.Email);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
 
                     return Redirect("/");

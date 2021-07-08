@@ -1,9 +1,15 @@
 ﻿body, html {
     background-color: #dedddd;
 }
-
-.dop {
-    border: 1px solid white;
+.hoverup {
+    position: fixed;
+    top: 0px;
+    background-color: #1e88e5;
+    height: 65px;
+    width: 100%;
+    left: 0px;
+    z-index: 3;
+    box-shadow:0 0 25px #1e88e5;
 }
 .display-4 {
     position: fixed;
@@ -22,15 +28,35 @@
     top: 10px;
     border-radius: 50px;
 }
+    .profile:hover {
+        cursor: pointer;
+    }
+.posi-cube {
+    position:fixed;
+    top:883px;
+    height:100px;
+}
 .Cube2 {
     position: fixed;
-    border: 1px solid #ffffff;
-    margin: 0px;
-    top: 95vh;
+    border: 3px solid #3944c6;
+    top: 96vh;
     width: 100%;
-    padding-left:20px;
-    left:-10px;
-    background-color:white;
+    padding-left: 30px;
+    background-color: white;
+    user-select: none;
+    height:50px;
+    left:-3px;
+}
+.photoTel {
+    position: fixed;
+    background: url("../img/telegramm.png") no-repeat center center #fff;
+    background-size: 70px;
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    border-radius: 30px;
+    top: 905px;
+    left: 510px;
 }
 .main-menu {
     position: fixed;
@@ -41,7 +67,6 @@
     border-radius: 10px;
     border: 2px solid gray;
     display: none;
-    z-index:2;
 }
 .photo {
     background: url("../img/7.jpg") no-repeat center center #fff;
@@ -98,6 +123,9 @@ li {
     border-radius: 50px;
     margin-right: 5px;
     margin-left:-30px;
+}
+.color{
+    color:#1c59a4;
 }
 li a{
     color:black;

@@ -3,9 +3,9 @@ var text = document.querySelector('.main-menu');
 var html = document.querySelector('html');
 
 btn.addEventListener('click', function () {
-    text.style.display = 'block';
-    text.style.transition = 'all 0s';
+    text.style.transition = 'all 0.5s';
     text.style.opacity = 1;
+    text.style.display = 'block';
 });
 
 html.addEventListener('click', function (e) {
