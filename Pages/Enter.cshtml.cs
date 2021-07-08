@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +17,19 @@ namespace RazorProject.Pages
     {
         public ApplicationDbContext db;
 
+        [BindProperty]
+        [Required(ErrorMessage ="Не указан Email")]
+        public string Email { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Не указан пароль")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [BindProperty]
+        public bool RememberMe { get; set; }
+
+
         public EnterModel(ApplicationDbContext context)
         {
             db = context;
@@ -25,11 +39,11 @@ namespace RazorProject.Pages
         {
         }
 
-        public async Task<IActionResult> OnPostAsync(string email, string password)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == this.Email);
 
                 if (user == null)
                 {
@@ -37,7 +51,7 @@ namespace RazorProject.Pages
                 }
 
                 string newHashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: password,
+                        password: this.Password,
                         salt: Convert.FromBase64String(user.Salt),
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 10000,
@@ -46,8 +60,17 @@ namespace RazorProject.Pages
 
                 if (newHashedPassword == user.Password)
                 {
-                    var id = Authentication.Authenticate(email);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+                    var id = Authentication.Authenticate(this.Email);
+                    int minutesToExpire = this.RememberMe ? 5 : 1;
+                    Console.WriteLine(this.RememberMe);
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(id),
+                        new AuthenticationProperties
+                        {
+                            IsPersistent = true,
+                            ExpiresUtc = DateTime.UtcNow.AddMinutes(minutesToExpire)
+                        });
 
                     return Redirect("/");
                 }
