@@ -62,7 +62,6 @@ namespace RazorProject.Pages
                 {
                     var id = Authentication.Authenticate(this.Email);
                     int daysToExpire = this.RememberMe ? 30 : 1;
-                    Console.WriteLine(this.RememberMe);
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(id),
