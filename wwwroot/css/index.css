@@ -3,18 +3,6 @@ body, html {
     margin-bottom: 0px;
     background-color: #eef5f9;
 }
-
-.hoverup {
-    position: fixed;
-    top: 0px;
-    border: 5px solid #ffffff;
-    background-color: #1e88e5;
-    height: 65px;
-    width: 99.5%;
-    left: 0px;
-    z-index: 2;
-}
-
 .card1 {
     border-radius: 5px;
     padding-left: 10px;
@@ -26,13 +14,45 @@ body, html {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.nameProject {
-    outline: 1px solid #00bfff;
-    padding: 0px 20px;
-    box-sizing: border-box;
+.post-cat a {
+    text-align: center;
     display: inline-block;
-    margin-left: 40%;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    letter-spacing: 0.1em;
+    background: #1e88e5;
+    line-height: 20px;
+    height: 19px;
+    position: relative;
+    border: 2px solid #1e88e5;
+    margin-top:10px;
 }
+
+    .post-cat a:before, .post-cat a:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 11px solid #1e88e5;
+        top: 0;
+    }
+
+    .post-cat a:before {
+        left: 0;
+        transform: translateX(-100%);
+        border-left-color: transparent;
+    }
+
+    .post-cat a:after {
+        right: 0;
+        transform: translateX(100%);
+        border-right-color: transparent;
+    }
 
 .line {
     position: relative;
@@ -103,7 +123,7 @@ a {
     padding: 0px;
 }
 
-input[type="text"], select, input[type="date"] {
+input[type="text"], select, input[type="date"], input[type="number"] {
     margin-top: 10px;
     border-radius: 10px;
     text-align: center;
@@ -221,7 +241,7 @@ input[type="text"], select, input[type="date"] {
     left: 850px;
     top: 40px;
     overflow-y: scroll;
-    height: 90vh;
+    height: 87.5vh;
     width: 540px;
     padding-left: 30px;
     margin-top: 40px;
@@ -264,6 +284,9 @@ input[type="text"], select, input[type="date"] {
     padding-bottom: 15px;
     margin-top: 10px;
 }
+.teg {
+    font-family: "Monotype Corsiva" Cursive;
+}
 
 .cardModule {
     height: 150px;
@@ -279,7 +302,7 @@ input[type="text"], select, input[type="date"] {
 .cardFix {
     padding-left: 80px;
     overflow-y: scroll;
-    height: 89vh;
+    height: 87.5vh;
     width: 760px;
     margin-top: 80px;
 }
@@ -298,7 +321,7 @@ input[type="text"], select, input[type="date"] {
 
 .positionproject {
     position: relative;
-    top: 55px;
+    top: 52px;
     left: 510px;
 }
 
@@ -306,4 +329,32 @@ input[type="text"], select, input[type="date"] {
     position: relative;
     top: 0px;
     left: 330px;
+}
+
+.confirm-space {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.confirm-message {
+    position: relative;
+    border-radius: 5px;
+    opacity: 1.0 !important;
+    top: 43%;
+    left: 35%;
+    width: 30%;
+    height: 14%;
+    background: white;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    z-index: 4;
+}
+.redcolor {
+    background-color: #ed4245;
+    border: 1px solid #ed4245;
 }

@@ -21,7 +21,6 @@ namespace RazorProject.Pages
         public Module NewModule { get; set; }
         [BindProperty]
         public Problem NewProblem { get; set; }
-
         public ModModel(ApplicationDbContext db)
         {
             _context = db;
