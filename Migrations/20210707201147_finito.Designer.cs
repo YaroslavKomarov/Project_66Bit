@@ -10,8 +10,8 @@ using Project_66_bit.Models;
 namespace Project_66_bit.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210620191209_Initial")]
-    partial class Initial
+    [Migration("20210707201147_finito")]
+    partial class finito
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,9 +1,9 @@
 ﻿let modal = document.getElementById("myModal");
-let btn = document.getElementById("myBtn");
-let button = document.getElementsByClassName("close")[0];
-btn.onclick = function () {
+let btn2 = document.getElementById("myBtn");
+let button2 = document.getElementsByClassName("close")[0];
+btn2.onclick = function () {
     modal.style.display = "block";
 }
-button.onclick = function () {
+button2.onclick = function () {
     modal.style.display = "none";
 }
