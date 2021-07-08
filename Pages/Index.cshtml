@@ -35,15 +35,30 @@
                             </form>
                         </div>
                         <div class="line"></div>
-                         
                         <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteProj-@j">Удалить проект</button>
-                        <div class="confirm-message">
-                            <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
-                            <form method="post">
-                                <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ok</button>
-                            </form>
-                            <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProj-@j">Cancel</button>
+                        <div class="confirm-space" id="confirm-space-proj-@j">
+                            <div class="confirm-message">
+                                <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
+                                <form method="post">
+                                    <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ok</button>
+                                </form>
+                                <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProj-@j">Cancel</button>
+                            </div>
                         </div>
+                        <script type="text/javascript">
+                            var deleteProj = document.getElementById("deleteProj-@j");
+                            var cancelProj = document.getElementById("cancelProj-@j");
+                            var confirmSpaceProj = document.getElementById("confirm-space-proj-@j");
+                            confirmSpaceProj.style.display = "none";
+
+                            deleteProj.onclick = function () {
+                                confirmSpaceProj.style.display = "block";
+                            }
+
+                            cancelProj.onclick = function () {
+                                confirmSpaceProj.style.display = "none";
+                            }
+                        </script>
                     </div>
                 }
             }
@@ -101,13 +116,8 @@
                         <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
                         <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                         <div class="line lineModule" id="line-@i"></div>
-                        <script type="text/javascript">
-                            var deleteModId = "deleteMod-@i";
-                            var cancelModId = "cancelMod-@i";
-                            var confirmSpaceID = ''
-                        </script>
                         <button class="tel-@i positionModule module form MOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteMod-@i">Удалить модуль</button>
-                        <div class="confirm-space-@i confirm-space">
+                        <div class="confirm-space" id="confirm-space-mod-@i">
                             <div class="confirm-message">
                                 <div class="warning-title">Вы действительно хотите безвозвратно удалить модуль?</div>
                                 <form method="post">
@@ -116,6 +126,20 @@
                                 <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelMod-@i">Cancel</button>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            var deleteMod = document.getElementById("deleteMod-@i");
+                            var cancelMod = document.getElementById("cancelMod-@i");
+                            var confirmSpaceMod = document.getElementById("confirm-space-mod-@i");
+                            confirmSpaceMod.style.display = "none";
+
+                            deleteMod.onclick = function () {
+                                confirmSpaceMod.style.display = "block";
+                            }
+
+                            cancelMod.onclick = function () {
+                                confirmSpaceMod.style.display = "none";
+                            }
+                        </script>
                         <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
                         <div class="card-@i contentMOdule" id="tel-@i">
                             @{
@@ -150,7 +174,6 @@
 <script src="~/js/search.js"></script>
 <script src="~/js/phoneFormat.js"></script>
 <script src="~/js/Home.js"></script>
-<script src="~/js/alertMssg.js"></script>
 <style>
     .fixed {
         position: fixed;
