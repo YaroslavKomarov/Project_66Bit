@@ -61,7 +61,7 @@ namespace RazorProject.Pages
                 if (newHashedPassword == user.Password)
                 {
                     var id = Authentication.Authenticate(this.Email);
-                    int minutesToExpire = this.RememberMe ? 5 : 1;
+                    int daysToExpire = this.RememberMe ? 30 : 1;
                     Console.WriteLine(this.RememberMe);
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
@@ -69,7 +69,7 @@ namespace RazorProject.Pages
                         new AuthenticationProperties
                         {
                             IsPersistent = true,
-                            ExpiresUtc = DateTime.UtcNow.AddMinutes(minutesToExpire)
+                            ExpiresUtc = DateTime.UtcNow.AddDays(daysToExpire)
                         });
 
                     return Redirect("/");
