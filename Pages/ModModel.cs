@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -34,6 +36,14 @@ namespace RazorProject.Pages
             Problems = await _context.Problems.ToListAsync();
 
             Modules.Reverse();
+        }
+
+        public async Task<ContentResult> OnGetModulesAsync()
+        {
+            var allModules = await _context.Modules.ToListAsync();
+            Console.WriteLine(allModules);
+            
+            return Content(JsonSerializer.Serialize(allModules));
         }
 
         public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)

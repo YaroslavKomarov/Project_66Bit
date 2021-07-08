@@ -4,7 +4,6 @@ let searchInput = document.querySelector(".search");
 let projectNames = [];
 for (let i = 0; i < projects.length; i++) {
     projectNames.push(projects[i].children[0].firstChild.text.toLowerCase());
-
 }
 
 searchInput.oninput = function() {
