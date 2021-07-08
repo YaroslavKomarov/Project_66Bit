@@ -12,6 +12,7 @@
     height: 10px;
     position: relative;
     top: -10px;
+    pointer-events: none;
 }
 
 .line {
@@ -26,7 +27,7 @@
 
 .form {
     top: -100px;
-    left: 400px;
+    left: 370px;
 }
 
 .visit {
@@ -42,7 +43,7 @@
 .zakaz {
     text-align: center;
     width: 240px;
-    margin-left: 100px;
+    margin-left: 90px;
 }
 
 .type {
@@ -69,8 +70,8 @@ a {
 
 .tests {
     position: relative;
-    top: -200px;
-    left: 600px;
+    top: -250px; 
+    left: 650px;
     height: 30px;
     width: 30px;
     background: url("/img/images.png") no-repeat center center #fff;
@@ -79,22 +80,23 @@ a {
 }
 
 .content {
+    position: relative;
     display: none;
     overflow-y: scroll;
     height: 250px;
-    position: relative;
-    top: -100px;
-    margin-top: 50px;
+    border-radius:10px;
+    top:-150px !important;
 }
 
 .card2 {
     background-color: white;
     border-radius: 5px;
     padding-left: 10px;
-    height: 100px;
-    width: 600px;
-    margin-left: 10px;
-    border: 2px solid black;
+    height: 115px !important;
+    width: 610px;
+    margin-left: 20px;
+    margin-right:20px;
+    border: 2px solid rgba(0,0,0,0.25);
 }
 
 .timeTask {
@@ -129,7 +131,7 @@ a {
 .card3 {
     display: none;
     position: relative;
-    left: 0px;
+    top:-100px;
     height: 110px;
 }
 
@@ -143,9 +145,8 @@ a {
 
 .get {
     position: relative;
-    top: -95px;
+    top: -65px;
     left: 450px;
-    height: 100px;
 }
 
 input[type="text"], input[type="date"] {
@@ -181,7 +182,8 @@ input[class="login"] {
 
 .card1 {
     margin-left: 100px;
-    height: 160px;
+    height: 140px;
+    z-index:0;
 }
 
 .nameofProject {
@@ -195,7 +197,7 @@ input[class="login"] {
     width: 99.9%;
     color: #1e88e5;
     background-color: white;
-    z-index: 1;
+    z-index: 0;
 }
 
 .redact {
@@ -203,6 +205,7 @@ input[class="login"] {
     top: 150px;
     left: 1600px;
     width: 200px;
+    font-size:15px;
 }
 
 .redact1 {
@@ -211,6 +214,7 @@ input[class="login"] {
     top: 150px;
     left: 1600px;
     width: 200px;
+    font-size: 15px;
 }
 
 #redact1 {
@@ -218,12 +222,12 @@ input[class="login"] {
     margin-top: 0px;
     width: 450px;
     font-size: 30px;
-    background-color: #eef5f9;
+    background-color: white;
     padding: 0px;
-    border: 0px solid black;
+    border: 1px solid black;
     text-transform: uppercase;
     font-family: 'Playfair Display', serif;
-    font-size:40px;
+    font-size: 40px;
 }
 
 .deleteProject {
@@ -234,8 +238,8 @@ input[class="login"] {
 
 .deleteModule {
     position: relative;
-    top: -105px;
-    left: 415px;
+    top: -29px;
+    left: 540px;
 }
 #redact6 {
     display:inline-block;
@@ -247,7 +251,7 @@ input[class="login"] {
     background: #FCF2E5;
     text-align: center;
     font-family: 'Merriweather', serif;
-    margin-top: 55px;
+    margin-top: 65px;
     position: fixed;
     color: #FCF2E5;
     background: #eef5f9;
@@ -257,7 +261,8 @@ input[class="login"] {
     display: inline-block;
     line-height: 1;
     width: 100%;
-    height: 30px;
+    height: 50px;
+    z-index:2;
 }
 
     .three:before {
@@ -266,7 +271,7 @@ input[class="login"] {
         width: 100%;
         height: 4px;
         left: 0;
-        bottom: -15px;
+        top: 65px;
         background: #1e88e5;
     }
 
@@ -280,7 +285,7 @@ input[class="login"] {
         border-right: 12px solid transparent;
         left: 50%;
         transform: translateX(-50%);
-        bottom: -25px;
+        bottom: -9px;
     }
 
 @media (max-width: 500px) {
@@ -294,4 +299,14 @@ input[class="login"] {
         font-size: 1.5em;
         padding: 10px 30px;
     }
+}
+.CustomerCard{
+    margin-left:90px;
+}
+.Vso{
+    margin-left:30px;
+}
+.deleteTask{
+    margin-left:450px;
+    margin-top:-170px;
 }

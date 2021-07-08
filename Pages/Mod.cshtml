@@ -18,27 +18,27 @@
                 if (Model.Modules.Count() == 0)
                 {
     <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div> }
-    else
-    {
-    foreach (var module in Model.Modules)
-    {
+                else
+                {
+                    foreach (var module in Model.Modules)
+                    {
 
-        i++;
-        if (module.Id == Model.IsOpenProblems)
-        {
+                        i++;
+                        if (module.Id == Model.IsOpenProblems)
+                        {
     <script type="text/javascript">
                                     var moduleId = `but-${@i}`;
     </script> }
     <div class="card1 card " id="card-@i">
-        <div class="nameProject"><p class="size">@module.Name</p></div>
+        <div class="nameProject post-cat"><a class="size">@module.Name</a></div>
         <div class=""><p>Количество часов : @module.Hours</p></div>
         <div>
             <form method="post">
-                <input type="submit" class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="module-@i" value="Удалить модуль" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-isProj="@false" />
+                <input type="submit" class="redcolor deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="module-@i" value="Удалить модуль" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-isProj="@false" />
             </form>
             <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
             <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
-                <div id="card-@i">
+                <div>
                     <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
                     <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
                     <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
@@ -48,23 +48,25 @@
             </form>
         </div>
         <div class="line" id="line-@i"></div>
-        <button class="card-@i tel-@i line-@i but-@i cardi-@i collapsible tests btn" id="but-@i"></button>
-        <div class="card-@i content" id="tel-@i">
+        <button class="collapsible tests btn" id="but-@i"></button>
+        <div class="card-@i puck-@i content" id="tel-@i">
             @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
             {
-    <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div> }
-    else
-    {
-    @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
-    {
-    <div class="card2 card">
-        <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-        <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-        <div class="timeTask"><p>@task.Hours</p></div>
-    </div>}}
-        </div>
-    </div> }
-    } }
+                <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div> }
+            else
+            {
+                @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
+                {
+        <div class="card2 card">
+            <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
+            <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
+            <div class="timeTask"><p>@task.Hours</p></div>
+            <div><button class="redcolor deleteTask btn btn-info btn-rounded waves-effect waves-light m-b-40">Удалить задачу</button></div>
+        </div>}}
+                    </div>
+                </div> }
+                    }
+                }
             <div class="visit card">
                 <div class="type">
                     <p>
@@ -74,7 +76,7 @@
                          </select>*@
                     </p>
                 </div>
-                <div class="type"><p>Тип :<input type="text" id="redact2" value="@Model.Project.Type" disabled></p></div>
+                <div class="type"><p>Тип : <input type="text" id="redact2" value="@Model.Project.Type" disabled></p></div>
                 <div class="type"><p>Стоимость часа : <input type="text" id="redact3" value="@Model.Project.Cost P" disabled></p></div>
                 <div class="type"><p>Срок действия : <input type="date" id="redact4" value="@String.Format("0:MM/dd/yyyy", Model.Project.StartDate)" disabled> - <input type="date" id="redact5" value="@Html.DisplayFor(modelItem => @Model.Project.EndDate)" disabled></p></div>
                 <div class="Vso"><p class="pos">Заказчик</p></div>
@@ -130,18 +132,17 @@
                 if (content.style.display === "block") {
                     content.style.display = "none";
                     document.getElementById(content.classList[1]).style.display = "none";
-                    document.getElementById(content.classList[0]).style.height = "160px";
-                    document.getElementById(content.classList[1]).style.top = "-100px";
+                    document.getElementById(content.classList[0]).style.height = "140px";
                     document.getElementById(content.classList[2]).style.top = "-130px";
-                    document.getElementById(content.classList[3]).style.top = "-200px";
+                    document.getElementById(content.classList[3]).style.top = "-250px";
                 }
                 else {
                     content.style.display = "block";
                     document.getElementById(content.classList[1]).style.display = "block";
-                    document.getElementById(content.classList[0]).style.height = "600px";
-                    document.getElementById(content.classList[1]).style.top = "0px";
-                    document.getElementById(content.classList[2]).style.top = "-225px";
-                    document.getElementById(content.classList[3]).style.top = "-344px";
+                    document.getElementById(content.classList[0]).style.height = "565px";
+                    document.getElementById(content.classList[1]).style.top = "400px";
+                    document.getElementById(content.classList[2]).style.top = "-279px";
+                    document.getElementById(content.classList[3]).style.top = "-399px";
                 }
             });
         }
