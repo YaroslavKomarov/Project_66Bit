@@ -27,8 +27,6 @@ namespace Project_66_bit
             {
                 options.Conventions.AuthorizePage("/Index");
                 options.Conventions.AuthorizePage("/Mod");
-                options.Conventions.AuthorizePage("/Module");
-                options.Conventions.AuthorizePage("/Directory");
                 options.Conventions.AddAreaPageRoute("Page", "/Index", "");
             });
             services.AddControllersWithViews();
@@ -43,8 +41,6 @@ namespace Project_66_bit
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Enter");
                 });
-
-            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
