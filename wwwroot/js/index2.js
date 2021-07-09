@@ -17,8 +17,6 @@ for (var i = 0; i < coll.length; i++) {
     });
 }
 
-
-
 function buttonClick() {
     for (let i = 1; i < 10; i++) {
         let b = 'redact' + i;
