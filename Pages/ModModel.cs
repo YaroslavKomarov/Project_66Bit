@@ -41,7 +41,11 @@ namespace RazorProject.Pages
         public async Task<ContentResult> OnGetModulesAsync()
         {
             var allModules = await _context.Modules.ToListAsync();
-            Console.WriteLine(allModules);
+            // var allProjects = await _context.Projects.Where(proj => proj.Id != Project.Id).Select(proj => proj.Name).ToListAsync();
+            foreach (var module in allModules)
+            {
+                Console.WriteLine(module.Project.Id);
+            }
             
             return Content(JsonSerializer.Serialize(allModules));
         }
