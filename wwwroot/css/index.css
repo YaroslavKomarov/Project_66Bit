@@ -363,6 +363,25 @@ input[type="text"], select, input[type="date"], input[type="number"] {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     z-index: 4;
 }
+
+.warning-title {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-left: 12%;
+}
+
+.confirm-position-ok {
+    margin-top: 7%;
+    margin-left: 70%;
+    float: left;
+}
+
+.confirm-position-cencel {
+    margin-top: 7%;
+    margin-left: 20px;
+    float: left;
+}
+
 .redcolor {
     background-color: #ed4245;
     border: 1px solid #ed4245;
