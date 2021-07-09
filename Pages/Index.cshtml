@@ -32,7 +32,7 @@
                         </div>
                         <div class="line"></div>
                         <button class="positionproject redcolor form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showAlertMessageOnClick()">Удалить проект</button>
-                        <div class="confirm-space">
+                        <div class="confirm-space" style="display: none">
                             <div class="confirm-message">
                                 <span class="warning-title">Вы действительно хотите безвозвратно удалить проект?</span>
                                 <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ок</button>
@@ -130,7 +130,6 @@
 <script src="~/js/Module.js"></script>
 <script src="~/js/search.js"></script>
 <script src="~/js/phoneFormat.js"></script>
-<script src="~/js/alertMssg.js"></script>
 <style>
     .fixed {
         position: fixed;
