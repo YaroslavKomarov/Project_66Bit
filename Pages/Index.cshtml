@@ -3,11 +3,13 @@
 @using Project_66_bit.Models.Extensions
 @model IndexModel
 @{
+    ViewData["Title"] = "Home page";
     Layout = "_Home";
 }
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 <link href="~/css/index.css" rel="stylesheet" />
+<div>
     <div class="cardFix">
         @{
             if (Model.Projects.Count() == 0)
@@ -16,8 +18,10 @@
             }
             else
             {
+                int j = 0;
                 foreach (var proj in Model.Projects)
                 {
+                    j++;
                     <div class="card1 card">
                         <div class="post-cat"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
                         <div class="type"><p>Тип : @proj.Type</p></div>
@@ -31,14 +35,27 @@
                             </form>
                         </div>
                         <div class="line"></div>
-                        <button class="positionproject redcolor form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showAlertMessageOnClick()">Удалить проект</button>
-                        <div class="confirm-space" style="display: none">
+                        <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmProj()">Удалить проект</button>
+                        <div class="confirm-space" id="confirm-space-proj-@j" style="display: none">
                             <div class="confirm-message">
-                                <span class="warning-title">Вы действительно хотите безвозвратно удалить проект?</span>
-                                <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ок</button>
-                                <button class="positionproject btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideAlertMessageOnClick()">Отмена</button>
+                                <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
+                                <form method="post">
+                                    <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ok</button>
+                                </form>
+                                <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmProj()">Cancel</button>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            let confirmSpaceProj = document.getElementById("confirm-space-proj-@j");
+
+                            function showConfirmProj() {
+                                confirmSpaceProj.style.display = "block";
+                            }
+
+                            function hideConfirmProj() {
+                                confirmSpaceProj.style.display = "none";
+                            }
+                        </script>
                     </div>
                 }
             }
@@ -74,7 +91,7 @@
                     <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
                     <div class="baton"><input class="login customerPhoneNumber" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
                 </div>
-                <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
+                <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект" asp-page-handler="CreateProj">
             </form>
         </div>
     </div>
@@ -96,9 +113,6 @@
                         <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
                         <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
                         <div class="line lineModule" id="line-@i"></div>
-                        <form method="post">
-                            <input type="submit" class="tel-@i positionModule redcolor module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить модуль" asp-page-handler="Delete" asp-route-id="@module.Id" asp-route-isProj="@false"/>
-                        </form>
                         <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
                         <div class="card-@i contentMOdule" id="tel-@i">
                             @{

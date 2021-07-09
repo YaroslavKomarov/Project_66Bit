@@ -100,6 +100,7 @@ namespace RazorProject.Pages
             }
 
             NewProblem.Module = await _context.Modules.FindAsync(id);
+            NewProblem.Module.Hours += NewProblem.Hours;
             await _context.Problems.AddAsync(NewProblem);
             await _context.SaveChangesAsync();
 

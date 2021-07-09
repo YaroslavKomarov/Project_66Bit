@@ -108,60 +108,59 @@
             position: relative;
         }
 
-        .fixfix {
-            z-index: 0;
-        }
+    .fixfix {
+        z-index: 0;
+    }
 
-        .index {
-            z-index: 10;
-        }
-    </style>
-    <script src="~/js/index2.js"></script>
-    <script>
-        if (@Model.IsOpenProblems) {
-            document.getElementById(moduleId).click();
-        }
-    </script>
-    <script>
-        var colls = document.getElementsByClassName("hitOne");
+    .index {
+        z-index: 10;
+    }
+</style>
+<script src="~/js/index2.js"></script>
+<script>
+    if (@Model.IsOpenProblems) {
+        document.getElementById(moduleId).click();
+    }
+</script>
+<script>
+    var colls = document.getElementsByClassName("hitOne");
 
-        for (var i = 0; i < colls.length; i++) {
-            colls[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                    document.getElementById(content.classList[1]).style.display = "none";
-                    document.getElementById(content.classList[0]).style.height = "140px";
-                    document.getElementById(content.classList[2]).style.top = "-130px";
-                    document.getElementById(content.classList[3]).style.top = "-250px";
-                }
-                else {
-                    content.style.display = "block";
-                    document.getElementById(content.classList[1]).style.display = "block";
-                    document.getElementById(content.classList[0]).style.height = "565px";
-                    document.getElementById(content.classList[1]).style.top = "400px";
-                    document.getElementById(content.classList[2]).style.top = "-279px";
-                    document.getElementById(content.classList[3]).style.top = "-399px";
-                }
-            });
-        }
-    </script>
-    <script>
-        var module = document.getElementsByClassName("className");
+    for (var i = 0; i < colls.length; i++) {
+        colls[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                document.getElementById(content.classList[1]).style.display = "none";
+                document.getElementById(content.classList[0]).style.height = "160px";
+                document.getElementById(content.classList[1]).style.top = "-100px";
+                document.getElementById(content.classList[2]).style.top = "-130px";
+                document.getElementById(content.classList[3]).style.top = "-200px";
+            }
+            else {
+                content.style.display = "block";
+                document.getElementById(content.classList[1]).style.display = "block";
+                document.getElementById(content.classList[0]).style.height = "600px";
+                document.getElementById(content.classList[1]).style.top = "0px";
+                document.getElementById(content.classList[2]).style.top = "-225px";
+                document.getElementById(content.classList[3]).style.top = "-344px";
+            }
+        });
+    }
+</script>
+<script>
+    var module = document.getElementsByClassName("className");
 
-        for (var i = 0; i < module.length; i++) {
-            module[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                }
-                else {
-                    content.style.display = "block";
-                }
-            });
-        }
-    </script>
-
-
+    for (var i = 0; i < module.length; i++) {
+        module[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            }
+            else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
