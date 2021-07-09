@@ -33,9 +33,6 @@
                         <div class="nameProject"><p class="size">@module.Name</p></div>
                         <div class=""><p>Количество часов : @module.Hours</p></div>
                         <div>
-                            <script type="text/javascript">
-                                var confirmSpaceModId = "confirm-space-mod-@i";
-                            </script>
                             <button class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmMod()">Удалить модуль</button>
                             <div class="confirm-space" id="confirm-space-mod-@i" style="display: none">
                                 <div class="confirm-message">
@@ -46,6 +43,17 @@
                                     <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmMod()">Cancel</button>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                let confirmSpaceMod = document.getElementById("confirm-space-mod-@i");
+
+                                function showConfirmMod() {
+                                    confirmSpaceMod.style.display = "block";
+                                }
+
+                                function hideConfirmMod() {
+                                    confirmSpaceMod.style.display = "none";
+                                }
+                            </script>
                             <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
                             <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
                                 <div id="card-@i">
@@ -65,23 +73,36 @@
                             }
                             else
                             {
+                                int k = 0;
                                 @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
                                 {
+                                    k++;
                                     <div class="card2 card">
                                         <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
                                         <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
                                         <div class="timeTask"><p>@task.Hours</p></div>
                                         <div>
-                                            <button class="redcolor deleteTask btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteProblem">Удалить задачу</button>
-                                            <div class="confirm-space-problem">
+                                            <button class="redcolor deleteTask btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmProblem()">Удалить задачу</button>
+                                            <div class="confirm-space" id="confirm-space-problem-@k" style="display: none">
                                                 <div class="confirm-message">
                                                     <div class="warning-title">Вы действительно хотите безвозвратно удалить задачу?</div>
                                                     <form method="post">
                                                         <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProblem" asp-route-id="@task.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
                                                     </form>
-                                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProblem">Cancel</button>
+                                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmProblem()">Cancel</button>
                                                 </div>
                                             </div>
+                                            <script type="text/javascript">
+                                                let confirmSpaceProblem = document.getElementById("confirm-space-problem-@k");
+
+                                                function showConfirmProblem() {
+                                                    confirmSpaceProblem.style.display = "block";
+                                                }
+
+                                                function hideConfirmProblem() {
+                                                    confirmSpaceProblem.style.display = "none";
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                 }
@@ -114,8 +135,7 @@
             <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
             <form class="addModule card" method="post" autocomplete="off">
                 <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
-                <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
-                <div class="baton"><input type="text" class="login" placeholder="Количество часов" asp-for="NewModule.Hours" required /></div>
+                <div class="baton"><input class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
                 <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
             </form>
         </div>
@@ -170,7 +190,6 @@
         z-index: 10;
     }
 </style>
-@*<script src="~/js/confirmMsgMod.js"></script>*@
 <script src="~/js/index2.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
