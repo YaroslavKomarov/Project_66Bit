@@ -33,14 +33,17 @@
                         <div class="nameProject"><p class="size">@module.Name</p></div>
                         <div class=""><p>Количество часов : @module.Hours</p></div>
                         <div>
-                            <button class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteMod">Удалить модуль</button>
-                            <div class="confirm-space-mod">
+                            <script type="text/javascript">
+                                var confirmSpaceModId = "confirm-space-mod-@i";
+                            </script>
+                            <button class="deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmMod()">Удалить модуль</button>
+                            <div class="confirm-space" id="confirm-space-mod-@i" style="display: none">
                                 <div class="confirm-message">
                                     <div class="warning-title">Вы действительно хотите безвозвратно удалить модуль?</div>
                                     <form method="post">
                                         <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
                                     </form>
-                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelMod">Cancel</button>
+                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmMod()">Cancel</button>
                                 </div>
                             </div>
                             <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
@@ -118,16 +121,27 @@
         </div>
         @*<button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>*@
         <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>
-        <button class="deleteProject form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="deleteProj">Удалить проект</button>
-        <div class="confirm-space-proj">
+        <button class="deleteProject form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmProj()">Удалить проект</button>
+        <div class="confirm-space" id="confirm-space-proj" style="display: none">
             <div class="confirm-message">
                 <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
                 <form method="post">
                     <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" asp-route-isProj="@true">Ok</button>
                 </form>
-                <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" id="cancelProj">Cancel</button>
+                <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmProj()">Cancel</button>
             </div>
         </div>
+        <script type="text/javascript">
+            let confirmSpaceProj = document.getElementById("confirm-space-proj");
+
+            function showConfirmProj() {
+                confirmSpaceProj.style.display = "block";
+            }
+
+            function hideConfirmProj() {
+                confirmSpaceProj.style.display = "none";
+            }
+        </script>
     </div>
 </div>
 <style>
@@ -156,8 +170,8 @@
         z-index: 10;
     }
 </style>
+@*<script src="~/js/confirmMsgMod.js"></script>*@
 <script src="~/js/index2.js"></script>
-<script src="~/js/alertMssg.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(moduleId).click();
