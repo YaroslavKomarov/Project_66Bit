@@ -1,17 +1,13 @@
-function reqReadyStateChange(){
-    if (request.readyState == 4 && request.status == 200){
-        modules = JSON.parse(request.responseText);
-        console.log(modules);
-    }
-}
-
-
-let modules;
 let moduleNameInput = document.querySelector(".addModule .baton .login");
+let modules;
 
 let request = new XMLHttpRequest();
 request.open("GET", "https://localhost:5001/Mod?handler=Modules", true);
-request.onreadystatechange = reqReadyStateChange;
+request.onreadystatechange = function(){
+    if (request.readyState == 4 && request.status == 200){
+        modules = JSON.parse(request.responseText);
+    }
+};
 
 moduleNameInput.onclick = function(){
     request.send();
