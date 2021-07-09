@@ -33,7 +33,7 @@
 .visit {
     position: fixed;
     left: 1000px;
-    top: 150px;
+    top: 170px;
     background-color: white;
     width: 550px;
     height: 480px;
@@ -202,10 +202,10 @@ input[class="login"] {
 
 .redact {
     position: fixed;
-    top: 150px;
+    top: 170px;
     left: 1600px;
-    width: 200px;
-    font-size:15px;
+    width: 210px;
+    font-size: 16px;
 }
 
 .redact1 {
@@ -237,8 +237,8 @@ input[class="login"] {
 
 .deleteProject {
     position: fixed;
-    top: 190px;
-    left: 1625px;
+    top: 210px;
+    left: 1600px;
 }
 
 .deleteModule {
