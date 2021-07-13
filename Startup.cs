@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Project_66_bit.Models;
+using Project_66_bit.Services.Auth;
+using Project_66_bit.Services.PdfConverter;
 
 namespace Project_66_bit
 {
@@ -40,6 +43,9 @@ namespace Project_66_bit
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Enter");
                 });
+
+            services.AddTransient<Authentication>();
+            services.AddTransient<IPdfConverter, PdfConverter>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+using Project_66_bit.Services;
 
 namespace RazorProject.Pages
 {

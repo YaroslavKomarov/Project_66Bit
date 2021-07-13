@@ -9,13 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
-using Project_66_bit.Pages.Auth;
+using Project_66_bit.Services.Auth;
 
 namespace RazorProject.Pages
 {
     public class EnterModel : PageModel
     {
         public ApplicationDbContext db;
+        public Authentication auth;
 
         [BindProperty]
         [Required(ErrorMessage ="Не указан Email")]
@@ -30,9 +31,10 @@ namespace RazorProject.Pages
         public bool RememberMe { get; set; }
 
 
-        public EnterModel(ApplicationDbContext context)
+        public EnterModel(ApplicationDbContext context, Authentication auth)
         {
             db = context;
+            this.auth = auth;
         }
 
         public void OnGet()
@@ -60,7 +62,7 @@ namespace RazorProject.Pages
 
                 if (newHashedPassword == user.Password)
                 {
-                    var id = Authentication.Authenticate(this.Email);
+                    var id = auth.Authenticate(this.Email);
                     int daysToExpire = this.RememberMe ? 30 : 1;
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
