@@ -69,7 +69,7 @@
                 <p class="status">Выберите дату проекта :</p>
                 <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
                 <div class="Customer"><p class="pos">Заказчик</p></div>
-                <div class=" CustomerCard">
+                <div class="CustomerCard">
                     <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
                     <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
                     <div class="baton"><input class="login customerPhoneNumber" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
@@ -131,6 +131,7 @@
 <script src="~/js/search.js"></script>
 <script src="~/js/phoneFormat.js"></script>
 <script src="~/js/alertMssg.js"></script>
+<script src="~/js/customerSearch.js"></script>
 <style>
     .fixed {
         position: fixed;
