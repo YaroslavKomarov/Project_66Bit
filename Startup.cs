@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Project_66_bit.Models;
 using Project_66_bit.Services.Auth;
-using Project_66_bit.Services.PdfConverter;
+using Project_66_bit.Services.ReportService;
 
 namespace Project_66_bit
 {
@@ -45,7 +45,7 @@ namespace Project_66_bit
                 });
 
             services.AddTransient<Authentication>();
-            services.AddTransient<IPdfConverter, PdfConverter>();
+            // services.AddTransient<IPdfConverter, PdfConverter>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
