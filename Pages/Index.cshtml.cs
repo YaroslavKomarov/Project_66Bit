@@ -104,7 +104,7 @@ namespace RazorProject.Pages
 
             Project copyProj = new Project()
             {
-                Name = tmpProj.Name,
+                Name = $"{tmpProj.Name} (copy)",
                 Status = tmpProj.Status,
                 Cost = tmpProj.Cost,
                 Type = tmpProj.Type,

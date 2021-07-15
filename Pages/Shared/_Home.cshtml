@@ -4,46 +4,78 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/css/Home.css" rel="stylesheet">
-    <link href="~/css/index.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/home.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="hoverup">
-        <a href="Index" class="display-4 dop btn btn-info btn-rounded waves-effect waves-light m-b-40">Главная страница</a>
-        <div>
-            <button class="profile" id="toggle-link"></button>
-            <div class="main-menu" id="message">
-                <ul class="dropdown-user">
-                    <li>
-                        <div class="dw-user-box">
-                            <div class="u-text">
-                                <div class="photo"></div>
-                                <h4><i class="photo1"></i>Kuznetsov Petya</h4>
-                                <p class="text-muted"><i class="photo2"></i>dady@gmail.com</p>
-                            </div>
+    <div class="page-wrapper">
+        <header class="page-header">
+            <div class="content-wrapper">
+                <div class="header-content">
+                    <div class="title-wrapper">
+                        <a href="Index" class="header-title">Friendly team project</a>
+                    </div>
+                    <div class="header-profile">
+                        <div class="user-icon-wrap">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <nav class="header-menu">
+                                <ul class="header-list">
+                                    <li>
+                                        <div class="user-info-space">
+                                            <div class="user-info-wrap">
+                                                <div class="user-info">Kuznetsov Petya</div>
+                                            </div>
+                                            <div class="user-info-wrap">
+                                                <div class="user-info">dady@gmail.com</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="menu-settings">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                            <a class="header-link">Account Setting</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="menu-settings">
+                                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                            <a href="Logout" class="header-link">Logout</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
-                    </li>
-                    <li class="hovercolor"><a href="#"><i class="hovers"></i> Account Setting</a></li>
-                    <li class="hovercolor"><a href="Logout"><i class="hovers1"></i> Logout</a></li>
-                </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div>
-        <div>
-            @RenderBody()
-        </div>
-        <div class="Cube2">
-            <h4 class="posi-cube">
-                Вы можете связаться с нами по нашему <a href="https://t.me/joinchat/fEUQlUBTqekyNDc6" class="color">телеграмм каналу</a> 
-            </h4>
-            <a class="photoTel" href="https://t.me/joinchat/fEUQlUBTqekyNDc6">
-            </a>
-        </div>
+        </header>
+        <main class="page-main">
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+        </main>
+        <footer class="page-footer">
+            <div class="content-wrapper">
+                <div class="contacts">
+                    <div class="tg-contact">
+                        <div>
+                            Вы можете написать в наш
+                            <a href="https://t.me/joinchat/fEUQlUBTqekyNDc6" class="contacts-link">телеграмм канал</a>
+                            <a href="https://t.me/joinchat/fEUQlUBTqekyNDc6" class=".logo-tg-link"></a>
+                        </div>
+                        <div class="logo"></div>
+                    </div>
+                    <div class="our-contacts">
+                        <div class="person-contact">Frontend разработчик - <a href="https://t.me/M0lodoy1" id="Dony">Данила Кунцевич <i class="logo-tg-link"></i></a></div>
+                        <div class="person-contact">Beckend разработчик - <a href="https://t.me/inclusion_star" id="Eldar">Эльдар Бадалбейли <i class="logo-tg-link"></i></a></div>
+                        <div class="person-contact">Beckend разработчик - <a href="https://t.me/JaroslaUUU" id="Yarik">Ярослав Комаров <i class="logo-tg-link"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
-
-
-<script src="~/js/Home.js"></script>
-

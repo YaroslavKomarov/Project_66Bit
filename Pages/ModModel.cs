@@ -12,7 +12,9 @@ namespace RazorProject.Pages
     {
         private readonly ApplicationDbContext _context;
         public int IsOpenProblems { get; set; }
+        [BindProperty]
         public Project Project { get; set; }
+        [BindProperty]
         public Customer Customer { get; set; }
         public List<Module> Modules { get; set; }
         public List<Problem> Problems { get; set; }
@@ -36,7 +38,7 @@ namespace RazorProject.Pages
             Modules.Reverse();
         }
 
-        public async Task<IActionResult> OnPostDeleteProblemAsync(int id, int idProj)
+        public async Task<IActionResult> OnPostDeleteProblemAsync(int id, int modId, int projId)
         {
             if (!ModelState.IsValid)
             {
@@ -44,13 +46,16 @@ namespace RazorProject.Pages
             }
 
             var delProblem = await _context.Problems.FindAsync(id);
+            var moduleParent = await _context.Modules.FindAsync(modId);
+            moduleParent.Hours -= delProblem.Hours;
+
             _context.Problems.Remove(delProblem);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Mod", new { id = idProj });
+            return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)
+        public async Task<IActionResult> OnPostDeleteModAsync(int id, int projId)
         {
             if (!ModelState.IsValid)
             {
@@ -61,7 +66,7 @@ namespace RazorProject.Pages
             _context.Modules.Remove(delModule);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Mod", new { id = idProj });
+            return RedirectToPage("Mod", new { id = projId });
         }
 
         public async Task<IActionResult> OnPostDeleteProjAsync(int id)
@@ -102,6 +107,23 @@ namespace RazorProject.Pages
             NewProblem.Module = await _context.Modules.FindAsync(id);
             NewProblem.Module.Hours += NewProblem.Hours;
             await _context.Problems.AddAsync(NewProblem);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Mod", new { id = projId });
+        }
+
+        public async Task<IActionResult> OnPostEditProjectAsync(int projId, int custId)
+        {
+            if (NewProblem == null)
+            {
+                return Page();
+            }
+
+            Project.Id = projId;
+            Customer.Id = custId;
+            Project.CustomerId = Customer.Id;
+            _context.Update(Project);
+            _context.Update(Customer);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Mod", new { id = projId });

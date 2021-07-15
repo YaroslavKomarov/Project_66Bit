@@ -1,13 +1,13 @@
-let projectParent = document.querySelector(".cardFix");
+let projectParent = document.querySelector(".project");
 let projects = [...projectParent.children];
-let searchInput = document.querySelector(".search");
+let searchInput = document.querySelector(".search-input");
 let projectNames = [];
-for (let i = 0; i < projects.length; i++) {
-    projectNames.push(projects[i].children[0].firstChild.text.toLowerCase());
 
+for (let i = 0; i < projects.length; i++) {
+    projectNames.push(projects[i].children[0].children[1].text.toLowerCase());
 }
 
-searchInput.oninput = function() {
+searchInput.oninput = function () {
     projectParent.innerHTML = '';
     let flag = true;
     if (searchInput.value != "") {
