@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -111,14 +112,14 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<IActionResult> OnPostDownloadPdfAsync(string projectId)
+        public async Task<IActionResult> OnPostDownloadExcelAsync(int projectId)
         {
-            var fileStream = await reportService.CreateReport(projectId);
-            // fileStream.Position = 0;
+            // var buffer = new MemoryStream();
+            var fileBytes = await reportService.CreateReport(projectId);
+            // await fileBytes.CopyToAsync(buffer);
 
-            var fileStreamResult = new FileStreamResult(fileStream, "application/pdf");
-            fileStreamResult.FileDownloadName = "haha.pdf";
-
+            var fileStreamResult = new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            fileStreamResult.FileDownloadName = $"Project-{projectId}.xlsx";
             return fileStreamResult;
         }
     }

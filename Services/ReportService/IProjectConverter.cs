@@ -5,6 +5,6 @@ namespace Project_66_bit.Services.ReportService
 {
     public interface IProjectConverter
     {
-        void FormDocument(ProjectObject project);
+        byte[] FormDocument(Project project);
     }
 }

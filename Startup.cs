@@ -46,6 +46,7 @@ namespace Project_66_bit
 
             services.AddTransient<Authentication>();
             services.AddTransient<ReportService>();
+            services.AddTransient<IProjectConverter, ExcelConverter>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
