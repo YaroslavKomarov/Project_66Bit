@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -55,7 +57,17 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<IActionResult> OnPostDeleteModAsync(int id, int projId)
+        
+        public async Task<ContentResult> OnGetModulesAsync()
+        {
+            var allModules = await _context.Modules
+                .Select(m => new { Id = m.Id, Name = m.Name, ProjectName = m.Project.Name})
+                .ToListAsync();
+            
+            return Content(JsonSerializer.Serialize(allModules));
+        }
+
+        public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)
         {
             if (!ModelState.IsValid)
             {
