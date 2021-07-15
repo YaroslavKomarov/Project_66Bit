@@ -29,7 +29,7 @@
                             <script type="text/javascript">
                                     var moduleId = `but-${@i}`;
                             </script>
- }
+                        }
                         <div class="card1 card " id="card-@i">
                             <div class="nameProject post-cat"><a class="size">@module.Name</a></div>
                             <div class=""><p>Количество часов : @module.Hours</p></div>
@@ -128,6 +128,7 @@
                 </div>
             </div>
             <div class="add">
+                <button class="btn btn-primary" type="submit" asp-page-handler="DownloadPdf" asp-route-projectId="@Model.Project.Id" style="width: 50px; height: 50px; ">ТЕСТОВАЯ КНОПКА ДЛЯ ВОЗВРАЩЕНИЯ ПДФ ФАЙЛА</button>
                 <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
                 <form class="addModule card" method="post" autocomplete="off">
                     <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>

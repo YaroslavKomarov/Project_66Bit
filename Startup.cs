@@ -45,7 +45,7 @@ namespace Project_66_bit
                 });
 
             services.AddTransient<Authentication>();
-            // services.AddTransient<IPdfConverter, PdfConverter>();
+            services.AddTransient<ReportService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

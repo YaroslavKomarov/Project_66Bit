@@ -6,7 +6,7 @@ namespace Project_66_bit.Services.ReportService
 {
     public class PdfConverter : IProjectConverter
     {
-        public void FormDocument(FileStream file, Project project)
+        public void FormDocument(ProjectObject project)
         {
             throw new System.NotImplementedException();
         }

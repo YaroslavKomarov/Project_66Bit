@@ -1,16 +1,19 @@
 using System.IO;
+using System.Threading.Tasks;
 using Project_66_bit.Models;
 
 namespace Project_66_bit.Services.ReportService
 {
     public class ReportService
     {
-        public FileStream CreateReport()
+        private IProjectConverter projectConverter;
+
+        public async Task<FileStream> CreateReport(string projectId)
         {
             throw new System.NotImplementedException();
         }
 
-        private Project GetData(string projectId)
+        private async Task<Project> GetData(string projectId)
         {
             throw new System.NotImplementedException();
         }

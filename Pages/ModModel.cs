@@ -1,16 +1,19 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
+using Project_66_bit.Services.ReportService;
 
 namespace RazorProject.Pages
 {
     public class ModModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private ReportService reportService;
         public int IsOpenProblems { get; set; }
         public Project Project { get; set; }
         public Customer Customer { get; set; }
@@ -20,9 +23,10 @@ namespace RazorProject.Pages
         public Module NewModule { get; set; }
         [BindProperty]
         public Problem NewProblem { get; set; }
-        public ModModel(ApplicationDbContext db)
+        public ModModel(ApplicationDbContext db, ReportService reportService)
         {
             _context = db;
+            this.reportService = reportService;
         }
 
         public async Task OnGetAsync(int id, int? modId)
@@ -105,6 +109,17 @@ namespace RazorProject.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Mod", new { id = projId });
+        }
+
+        public async Task<IActionResult> OnPostDownloadPdfAsync(string projectId)
+        {
+            var fileStream = await reportService.CreateReport(projectId);
+            // fileStream.Position = 0;
+
+            var fileStreamResult = new FileStreamResult(fileStream, "application/pdf");
+            fileStreamResult.FileDownloadName = "haha.pdf";
+
+            return fileStreamResult;
         }
     }
 }
