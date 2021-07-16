@@ -8,125 +8,128 @@
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 <link href="~/css/index.css" rel="stylesheet" />
-    <div class="cardFix">
-        @{
-            if (Model.Projects.Count() == 0)
+<div class="cardFix">
+    @{
+        if (Model.Projects.Count() == 0)
+        {
+            <div class="doNotHaveAnyProject">У вас пока нет проектов , добавьте новый проект</div>
+        }
+        else
+        {
+            foreach (var proj in Model.Projects)
             {
-                <div class="doNotHaveAnyProject">У вас пока нет проектов , добавьте новый проект</div>
-            }
-            else
-            {
-                foreach (var proj in Model.Projects)
-                {
-                    <div class="card1 card">
-                        <div class="post-cat"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
-                        <div class="type"><p>Тип : @proj.Type</p></div>
-                        <div class="type"><span>Заказчик : </span><span>@proj.Customer.Name</span></div>
-                        <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
-                        <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
-                        <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
-                        <div>
-                            <form method="post">
-                                <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего" asp-page-handler="Copyproject" asp-route-id="@proj.Id" />
-                            </form>
-                        </div>
-                        <div class="line"></div>
-                        <button class="positionproject redcolor form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showAlertMessageOnClick()">Удалить проект</button>
-                        <div class="confirm-space">
-                            <div class="confirm-message">
-                                <span class="warning-title">Вы действительно хотите безвозвратно удалить проект?</span>
-                                <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ок</button>
-                                <button class="positionproject btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideAlertMessageOnClick()">Отмена</button>
-                            </div>
+                <div class="card1 card">
+                    <div class="post-cat"><a asp-page="Mod" asp-route-id="@proj.Id" class="size">@proj.Name</a></div>
+                    <div class="type"><p>Тип : @proj.Type</p></div>
+                    <div class="type"><span>Заказчик : </span><span>@proj.Customer.Name</span></div>
+                    <div class="type"><p>Стоимость часа : @proj.Cost</p></div>
+                    <div class="type"><p>@Html.DisplayFor(modelItem => proj.StartDate) - @Html.DisplayFor(modelItem => proj.EndDate)</p></div>
+                    <div class="type2"><p>Статус : @proj.Status.DisplayName()</p></div>
+                    <div>
+                        <form method="post">
+                            <input type="submit" class="form btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Сформировать проект на базе текущего" asp-page-handler="Copyproject" asp-route-id="@proj.Id" />
+                        </form>
+                    </div>
+                    <div class="line"></div>
+                    <button class="positionproject redcolor form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showAlertMessageOnClick()">Удалить проект</button>
+                    <div class="confirm-space">
+                        <div class="confirm-message">
+                            <span class="warning-title">Вы действительно хотите безвозвратно удалить проект?</span>
+                            <button class="positionproject form btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="Delete" asp-route-id="@proj.Id" asp-route-isProj="@true">Ок</button>
+                            <button class="positionproject btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideAlertMessageOnClick()">Отмена</button>
                         </div>
                     </div>
-                }
+                </div>
             }
         }
+    }
+</div>
+<div class="did">
+    <form>
+        <input class="search" type="text" placeholder="Искать здесь...">
+        <button type="submit"></button>
+    </form>
+</div>
+<div asp-validation-summary="All"></div>
+<div class="AddProject fix">
+    <div class="add">
+        <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
     </div>
-    <div class="did">
-        <form>
-            <input class="search" type="text" placeholder="Искать здесь...">
-            <button type="submit"></button>
+    <div id="myModal" class="batton card">
+        <form method="post" autocomplete="off">
+            <a class="close btn waves-effect waves-light m-b-40" onclick="document.getElementById('myBtn').click()"></a>
+            <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
+            <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
+            <div class="baton"><input class="login" placeholder="Стоимость часа" min="0" asp-for="NewProject.Cost" required /></div>
+            <div class="baton">
+                <p class="status">Выберите статус проекта :</p>
+                <select asp-for="NewProject.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
+                </select>
+            </div>
+            <p class="status">Выберите дату проекта :</p>
+            <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
+            <div class="Customer"><p class="pos">Заказчик</p></div>
+            <div class=" CustomerCard">
+                <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
+                <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
+                <div class="baton"><input class="login customerPhoneNumber" asp-for="NewCustomer.PhoneNumber" id="online_phone" name="phone" type="tel" autofocus="autofocus"
+                       value="+7(___)___-__-__"
+                       pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
+                       placeholder="+7(___)___-__-__" required /></div>
+            </div>
+            <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
         </form>
     </div>
-    <div asp-validation-summary="All"></div>
-    <div class="AddProject fix">
-        <div class="add">
-            <button class="form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить проект</button>
-        </div>
-        <div id="myModal" class="batton card">
-            <form method="post" autocomplete="off">
-                <a class="close btn waves-effect waves-light m-b-40" onclick="document.getElementById('myBtn').click()"></a>
-                <div class="baton"><input class="login" placeholder="Название проекта" asp-for="NewProject.Name" required /></div>
-                <div class="baton"><input class="login" placeholder="Тип проекта" asp-for="NewProject.Type" required /></div>
-                <div class="baton"><input class="login" placeholder="Стоимость часа" asp-for="NewProject.Cost" required /></div>
-                <div class="baton">
-                    <p class="status">Выберите статус проекта :</p>
-                    <select asp-for="NewProject.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()">
-                    </select>
-                </div>
-                <p class="status">Выберите дату проекта :</p>
-                <div class="baton date"><input asp-for="NewProject.StartDate" asp-format="{0:dd/MM/yyyy}"> - <input asp-for="NewProject.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
-                <div class="Customer"><p class="pos">Заказчик</p></div>
-                <div class=" CustomerCard">
-                    <div class="baton"><input class="login customerName" placeholder="ФИО" asp-for="NewCustomer.Name" required /></div>
-                    <div class="baton"><input class="login" placeholder="email" asp-for="NewCustomer.Email" required /></div>
-                    <div class="baton"><input class="login customerPhoneNumber" placeholder="Телефон" asp-for="NewCustomer.PhoneNumber" required /></div>
-                </div>
-                <input type="submit" class="form22 btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Создать проект">
-            </form>
-        </div>
-    </div>
-    <div class="fixModule">
-        @{
+</div>
+<div class="fixModule">
+    @{
 
-            if (Model.Modules.Count() == 0)
+        if (Model.Modules.Count() == 0)
+        {
+            <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый проект</div>
+        }
+        else
+        {
+            int i = 0;
+            foreach (var module in Model.Modules)
             {
-                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый проект</div>
-            }
-            else
-            {
-                int i = 0;
-                foreach (var module in Model.Modules)
-                {
 
-                    i++;
-                    <div class="card card1 cardModule mod-@i" id="card-@i">
-                        <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
-                        <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
-                        <div class="line lineModule" id="line-@i"></div>
-                        <form method="post">
-                            <input type="submit" class="tel-@i positionModule redcolor module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить модуль" asp-page-handler="Delete" asp-route-id="@module.Id" asp-route-isProj="@false"/>
-                        </form>
-                        <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
-                        <div class="card-@i contentMOdule" id="tel-@i">
-                            @{
-                                var flag = true;
-                                foreach (var proj in Model.Projects)
+                i++;
+                <div class="card card1 cardModule mod-@i" id="card-@i">
+                    <div class="nameModule"><a class="size" asp-page="Mod" asp-route-id="@module.ProjectId" asp-route-modId="@module.Id">@module.Name (@module.Project.Name)</a></div>
+                    <div class="timeModule"><p>Количество часов : @module.Hours</p></div>
+                    <div class="line lineModule" id="line-@i"></div>
+                    <form method="post">
+                        <input type="submit" class="tel-@i positionModule redcolor module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" value="Удалить модуль" asp-page-handler="Delete" asp-route-id="@module.Id" asp-route-isProj="@false" />
+                    </form>
+                    <button class="tel-@i module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40">Проекты по схожему модулю</button>
+                    <div class="card-@i contentMOdule" id="tel-@i">
+                        @{
+                            var flag = true;
+                            foreach (var proj in Model.Projects)
+                            {
+                                foreach (var mod in Model.Modules)
                                 {
-                                    foreach (var mod in Model.Modules)
+                                    if (proj.Id == mod.ProjectId)
                                     {
-                                        if (proj.Id == mod.ProjectId)
-                                        {
-                                            <a class="card" asp-page="Mod" asp-route-id="@proj.Id" asp-route-modId="@module.Id">
-                                                <div class="nameModule1"><p class="teg">@mod.Name (@proj.Name)</p></div>
-                                            </a>
-                                            flag = false;
-                                        }
+                                        <a class="card" asp-page="Mod" asp-route-id="@proj.Id" asp-route-modId="@module.Id">
+                                            <div class="nameModule1"><p class="teg">@mod.Name (@proj.Name)</p></div>
+                                        </a>
+                                        flag = false;
                                     }
                                 }
-                                if (flag)
-                                {
-                                    <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
-                                }
                             }
-                        </div>
+                            if (flag)
+                            {
+                                <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div>
+                            }
+                        }
                     </div>
-                }
+                </div>
             }
         }
-    </div>
+    }
+</div>
 <script src="~/js/Module.js"></script>
 <script src="~/js/search.js"></script>
 <script src="~/js/phoneFormat.js"></script>
@@ -150,4 +153,38 @@
     button2.onclick = function () {
         modal.style.display = "none";
     }
+</script>
+<script type="text/javascript">
+    function setCursorPosition(pos, e) {
+        e.focus();
+        if (e.setSelectionRange) e.setSelectionRange(pos, pos);
+        else if (e.createTextRange) {
+            var range = e.createTextRange();
+            range.collapse(true);
+            range.moveEnd("character", pos);
+            range.moveStart("character", pos);
+            range.select()
+        }
+    }
+
+    function mask(e) {
+        var matrix = this.placeholder,
+            i = 0,
+            def = matrix.replace(/\D/g, ""),
+            val = this.value.replace(/\D/g, "");
+        def.length >= val.length && (val = def);
+        matrix = matrix.replace(/[_\d]/g, function (a) {
+            return val.charAt(i++) || "_"
+        });
+        this.value = matrix;
+        i = matrix.lastIndexOf(val.substr(-1));
+        i < matrix.length && matrix != this.placeholder ? i++ : i = matrix.indexOf("_");
+        setCursorPosition(i, this)
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+        var input = document.querySelector("#online_phone");
+        input.addEventListener("input", mask, false);
+        input.focus();
+        setCursorPosition(3, input);
+    });
 </script>

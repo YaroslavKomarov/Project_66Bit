@@ -368,3 +368,8 @@ input[type="text"], select, input[type="date"], input[type="number"] {
     border: 1px solid #ed4245;
     box-shadow: 5px #ed4245;
 }
+.customerPhoneNumber{
+    font-size:20px;
+    border-radius:10px;
+    text-align:center;
+}

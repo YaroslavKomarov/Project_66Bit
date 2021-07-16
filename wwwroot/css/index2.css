@@ -310,3 +310,11 @@ input[class="login"] {
     margin-left:450px;
     margin-top:-170px;
 }
+
+.chartjs-wrap {
+    margin-bottom: 100px;
+    width: 500px;
+    height: 500px;
+    padding-bottom: 100px;
+    padding-left: 100px;
+}
