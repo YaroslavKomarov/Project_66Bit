@@ -165,7 +165,8 @@ namespace RazorProject.Pages
             }
             await _context.SaveChangesAsync();
 
-            return new JsonResult(new { Url = $"Mod?id={projId}", status = "OK" });
+            var tmp = new JsonResult(new { Url = $"Mod?id={projId}", status = "OK" });
+            return tmp;
         }
     }
 }

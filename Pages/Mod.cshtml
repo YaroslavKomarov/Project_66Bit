@@ -232,7 +232,7 @@
                     <div class="input-wrap">
                         <input class="add-input module-name-input" placeholder="Название модуля..." asp-for="NewModule.Name" required />
                     </div>
-                    <div class="similar-modules-card similar-modules">
+                    <div class="copy-modules-card" style="display: none">
                     </div>
                     <div class="input-wrap">
                         <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id">
@@ -242,6 +242,7 @@
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/modulesSearch.js"></script>
 <script src="~/js/problemToggle.js"></script>
 <script src="~/js/showModuleForm.js"></script>
