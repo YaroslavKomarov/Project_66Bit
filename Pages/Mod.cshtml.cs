@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -6,12 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
+using Project_66_bit.Services.ReportService;
 
 namespace RazorProject.Pages
 {
     public class ModModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private ReportService reportService;
         public int IsOpenProblems { get; set; }
         [BindProperty]
         public Project Project { get; set; }
@@ -23,9 +27,10 @@ namespace RazorProject.Pages
         public Module NewModule { get; set; }
         [BindProperty]
         public Problem NewProblem { get; set; }
-        public ModModel(ApplicationDbContext db)
+        public ModModel(ApplicationDbContext db, ReportService reportService)
         {
             _context = db;
+            this.reportService = reportService;
         }
 
         public async Task OnGetAsync(int id, int? modId)
@@ -123,6 +128,18 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
+        public async Task<IActionResult> OnPostDownloadExcelAsync(int projectId)
+        {
+            // var buffer = new MemoryStream();
+            var fileBytes = await reportService.CreateReport(projectId);
+            // await fileBytes.CopyToAsync(buffer);
+
+            var fileStreamResult = new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            fileStreamResult.FileDownloadName = $"Project-{projectId}.xlsx";
+            return fileStreamResult;
+
+        }
+        
         public async Task<IActionResult> OnPostEditProjectAsync(int projId, int custId)
         {
             if (!ModelState.IsValid)
