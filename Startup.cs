@@ -20,7 +20,6 @@ namespace Project_66_bit
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
             {
@@ -44,19 +43,11 @@ namespace Project_66_bit
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("~/Pages/Index");
-                app.UseHsts();
-            }
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
+
+            app.UseStatusCodePagesWithRedirects("/Error?code={0}");
 
             app.UseAuthentication();
             app.UseAuthorization();
