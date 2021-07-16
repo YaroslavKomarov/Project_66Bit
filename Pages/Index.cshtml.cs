@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Project_66_bit.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Text.Json;
 
 namespace RazorProject.Pages
 {
@@ -36,6 +37,13 @@ namespace RazorProject.Pages
             Projects.Reverse();
             Modules.Reverse();
             Customers.Reverse();
+        }
+
+        public async Task<ContentResult> OnGetCustomersAsync()
+        {
+            var allCustomers = await _context.Customers.ToListAsync();
+            
+            return Content(JsonSerializer.Serialize(allCustomers));
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -104,7 +112,7 @@ namespace RazorProject.Pages
 
             Project copyProj = new Project()
             {
-                Name = tmpProj.Name,
+                Name = $"{tmpProj.Name} (copy)",
                 Status = tmpProj.Status,
                 Cost = tmpProj.Cost,
                 Type = tmpProj.Type,
