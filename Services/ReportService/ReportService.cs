@@ -22,11 +22,7 @@ namespace Project_66_bit.Services.ReportService
         public async Task<byte[]> CreateReport(int projectId)
         {
             var project = await GetData(projectId);
-            // MemoryStream stream = new MemoryStream();
-            // Console.WriteLine(stream.Length);
             return projectConverter.FormDocument(project);
-            // Console.WriteLine(stream.Length);
-            // return stream;
         }
 
         private async Task<Project> GetData(int projectId)
