@@ -1,6 +1,8 @@
 @page
+@using Microsoft.AspNetCore.Antiforgery
 @using Project_66_bit.Models
 @using Project_66_bit.Models.Extensions
+@inject IAntiforgery AntiForgery;
 @model RazorProject.Pages.ModModel
 @{
     Layout = "_Home";
@@ -227,7 +229,11 @@
             <div class="add-module-card add-card card" id="add-module-card-id" style="display: none">
                 <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('add-module-card-id').style.display = 'none'"></i>
                 <form class="add-form" method="post" autocomplete="off">
-                    <div class="input-wrap"><input class="add-input" placeholder="Название модуля..." asp-for="NewModule.Name" required /></div>
+                    <div class="input-wrap">
+                        <input class="add-input module-name-input" placeholder="Название модуля..." asp-for="NewModule.Name" required />
+                    </div>
+                    <div class="similar-modules-card similar-modules">
+                    </div>
                     <div class="input-wrap">
                         <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id">
                     </div>
@@ -236,11 +242,11 @@
         </div>
     </div>
 </div>
+<script src="~/js/modulesSearch.js"></script>
 <script src="~/js/problemToggle.js"></script>
 <script src="~/js/showModuleForm.js"></script>
 <script src="~/js/deleteModule.js"></script>
 <script src="~/js/deleteProblem.js"></script>
-<script src="~/js/modulesSearch.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(showProblemsListBtn).click();

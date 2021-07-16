@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -57,17 +56,17 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        
+
         public async Task<ContentResult> OnGetModulesAsync()
         {
             var allModules = await _context.Modules
-                .Select(m => new { Id = m.Id, Name = m.Name, ProjectName = m.Project.Name})
+                .Select(m => new { Id = m.Id, Name = m.Name, ProjId = m.Project.Id, ProjectName = m.Project.Name })
                 .ToListAsync();
-            
+
             return Content(JsonSerializer.Serialize(allModules));
         }
 
-        public async Task<IActionResult> OnPostDeleteModAsync(int id, int idProj)
+        public async Task<IActionResult> OnPostDeleteModAsync(int id, int projId)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +96,7 @@ namespace RazorProject.Pages
 
         public async Task<IActionResult> OnPostModuleAsync(int id)
         {
-            if (NewModule == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -111,7 +110,7 @@ namespace RazorProject.Pages
 
         public async Task<IActionResult> OnPostProblemAsync(int id, int projId)
         {
-            if (NewProblem == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -126,7 +125,7 @@ namespace RazorProject.Pages
 
         public async Task<IActionResult> OnPostEditProjectAsync(int projId, int custId)
         {
-            if (NewProblem == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -139,6 +138,34 @@ namespace RazorProject.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Mod", new { id = projId });
+        }
+
+        public async Task<JsonResult> OnPostCopyModuleAsync(int id, int projId)
+        {
+            var module = await _context.Modules.FindAsync(id);
+            var copyModule = new Module
+            {
+                Name = module.Name,
+                Hours = module.Hours,
+                Project = await _context.Projects.FindAsync(projId)
+            };
+            await _context.Modules.AddAsync(copyModule);
+
+            foreach (var problem in _context.Problems.Where(p => p.ModuleId == id))
+            {
+                var copyProblem = new Problem
+                {
+                    Name = problem.Name,
+                    Hours = problem.Hours,
+                    StartDate = problem.StartDate,
+                    EndDate = problem.EndDate,
+                    Module = copyModule
+                };
+                await _context.Problems.AddAsync(copyProblem);
+            }
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(new { Url = $"Mod?id={projId}", status = "OK" });
         }
     }
 }
