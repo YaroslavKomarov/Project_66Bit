@@ -1,150 +1,210 @@
 @page
+@using Microsoft.AspNetCore.Antiforgery
 @using Project_66_bit.Models
 @using Project_66_bit.Models.Extensions
+@inject IAntiforgery AntiForgery;
 @model RazorProject.Pages.ModModel
-@{ 
-    Layout = "_Home"; 
-    }
-<link href="~/css/style.css" rel="stylesheet">
-<link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
-<link href="~/css/index.css" rel="stylesheet">
-<link href="~/css/index2.css" rel="stylesheet">
-    <div class="text-center">
-        <div>
-            <div class="three"><input type="text" id="redact1" value="@Model.Project.Name" disabled></div>
-        </div>
-        <div class="fixfix">
-            @{ int i = 0;
-                if (Model.Modules.Count() == 0)
+@{
+    Layout = "_Home";
+}
+<link href="~/css/mainPage.css" rel="stylesheet">
+<link href="~/css/projPage.css" rel="stylesheet">
+<div class="page-content-proj">
+    <div class="scroll module">
+        @{
+            if (Model.Modules.Count() == 0)
+            {
+                <div class="not-have-elem card">У вас пока нет модулей, добавьте новый модуль</div> }
+            else
+            {
+                int k = 0;
+                foreach (var module in Model.Modules)
                 {
-                    <div class="doNotHaveAnyProject">У вас пока нет модулей , добавьте новый модуль</div> }
-                else
-                {
-                    foreach (var module in Model.Modules)
-                    {
 
-                        i++;
-                        if (module.Id == Model.IsOpenProblems)
-                        {
-                            <script type="text/javascript">
-                                    var moduleId = `but-${@i}`;
-                            </script>
-                        }
-                        <div class="card1 card " id="card-@i">
-                            <div class="nameProject post-cat"><a class="size">@module.Name</a></div>
-                            <div class=""><p>Количество часов : @module.Hours</p></div>
-                            <div>
-                                <button class="redcolor deleteModule module formMOdule btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmMod()">Удалить модуль</button>
-                                <div class="confirm-space" id="confirm-space-mod-@i" style="display: none">
-                                    <div class="confirm-message">
-                                        <div class="warning-title">Вы действительно хотите безвозвратно удалить модуль?</div>
-                                        <form method="post">
-                                            <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
-                                        </form>
-                                        <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmMod()">Cancel</button>
+                    k++;
+                    if (module.Id == Model.IsOpenProblems)
+                    {
+                        <script type="text/javascript">
+                                var showProblemsListBtn = 'show-problems-list-btn-@k';
+                        </script>
+                    }
+                    <div class="module-card card">
+                        <div class="name-wrap-mod"><div class="mod-name">@module.Name</div></div>
+                        <div class="info-wrap">
+                            <div class="info-title">Количество часов : </div>
+                            <div class="info">@module.Hours</div>
+                        </div>
+                        <div class="btn-wrap">
+                            <div class="module-btn-wrap">
+                                <div class="btn-card-wrap">
+                                    <button class="problem-list-btn blue-btn btn" id="show-problems-list-btn-@k">
+                                        <i class="fa fa-list-ul" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <i></i>
+                                <div class="btn-card-wrap">
+                                    <button class="blue-btn btn" id="add-problem-btn-@k">+ Добавить задачу</button>
+                                </div>
+                            </div>
+                            <div class="btn-card-wrap">
+                                <button class="red-btn btn" id="show-delete-mod-btn-@k">Удалить модуль</button>
+                            </div>
+                        </div>
+                        <div class="confirm-space" id="confirm-space-mod-@k" style="display: none">
+                            <div class="confirm-message-wrap">
+                                <div class="warning-title">Вы действительно хотите безвозвратно удалить модуль?</div>
+                                <div class="confirm-btn-wrap">
+                                    <form method="post">
+                                        <button class="delete-ok blue-btn btn" asp-page-handler="DeleteMod" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id">Ok</button>
+                                    </form>
+                                    <button class="delete-cancel blue-btn btn" id="hide-delete-mod-btn-@k">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-problem-card" id="add-problem-card-@k" style="display: none">
+                            <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('add-problem-card-@k').style.display = 'none'"></i>
+                            <form method="post" class="add-form" autocomplete="off">
+                                <div>
+                                    <div class="input-wrap"><input class="add-input" placeholder="Название задачи..." asp-for="NewProblem.Name" required /></div>
+                                    <div class="input-wrap"><input class="add-input" placeholder="Время выполнения задачи..." asp-for="NewProblem.Hours" required /></div>
+                                    <div class="input-wrap-date">
+                                        <input class="add-input-date" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}" required />
+                                        <i class="delimiter"></i>
+                                        <input class="add-input-date" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}" required />
+                                    </div>
+                                    <div class="input-wrap">
+                                        <input type="submit" class="blue-btn btn" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id">
                                     </div>
                                 </div>
-                                <script type="text/javascript">
-                let confirmSpaceMod = document.getElementById("confirm-space-mod-@i");
-
-                function showConfirmMod() {
-                    confirmSpaceMod.style.display = "block";
-                }
-
-                function hideConfirmMod() {
-                    confirmSpaceMod.style.display = "none";
-                }
-                                </script>
-                                <button class="hitOne form btn btn-info btn-rounded waves-effect waves-light m-b-40" id="puck-@i">Добавить задачу</button>
-                                <form method="post" class="card-@i tel-@i line-@i but-@i module-@i card2 card card3" id="card-@i" autocomplete="off">
-                                    <div>
-                                        <div class="nameInput"><input placeholder="Название задачи" asp-for="NewProblem.Name"></div>
-                                        <div class="dateInput"><input placeholder="Дата начала" asp-for="NewProblem.StartDate" asp-format="{0:dd/MM/yyyy}">-<input placeholder="Дата конца" asp-for="NewProblem.EndDate" asp-format="{0:dd/MM/yyyy}"></div>
-                                        <div class="timeInput"><input placeholder="Время задачи" asp-for="NewProblem.Hours"></div>
-                                        <div><input type="submit" class="puck-@i tel-@i get btn btn-info btn-rounded waves-effect waves-light" value="Создать задачу" asp-page-handler="Problem" asp-route-id="@module.Id" asp-route-projId="@Model.Project.Id"></div>
-
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="line" id="line-@i"></div>
-                            <button class="collapsible tests btn" id="but-@i"></button>
-                            <div class="card-@i puck-@i content" id="tel-@i">
-                                @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
+                            </form>
+                        </div>
+                        <div class="scroll-problem" id="scroll-problem-list-@k" style="display: none">
+                            @if (Model.Problems.Where(p => p.ModuleId == module.Id).FirstOrDefault() == null)
+                            {
+                                <div class="not-have-elem card">У вас пока нет задач, добавьте новую задачу</div> }
+                            else
+                            {
+                                int t = 0;
+                                @foreach (var problem in Model.Problems.Where(p => p.ModuleId == module.Id))
                                 {
-                                    <div class="doNotHaveAnyProject">У вас пока нет задач , добавьте новую задачу</div> }
-                                else
-                                {
-                                    int k = 0;
-                                    @foreach (var task in Model.Problems.Where(t => t.ModuleId == module.Id))
-                                    {
-                                        k++;
-                                        <div class="card2 card">
-                                            <div class="nameTask"><p class="sizeTask">@task.Name</p></div>
-                                            <div class="dateTask"><p>@task.StartDate.ToShortDateString()-@task.EndDate.ToShortDateString()</p></div>
-                                            <div class="timeTask"><p>@task.Hours</p></div>
-                                            <button class="redcolor deleteTask btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmProblem()">Удалить задачу</button>
-                                            <div class="confirm-space" id="confirm-space-problem-@k" style="display: none">
-                                                <div class="confirm-message">
-                                                    <div class="warning-title">Вы действительно хотите безвозвратно удалить задачу?</div>
+                                    t++;
+                                    <div class="problem-card">
+                                        <div class="info-wrap problem-name-wrap">
+                                            <div class="problem-name">@problem.Name</div>
+                                        </div>
+                                        <div class="info-wrap">
+                                            <div class="info-title">Количество часов : </div>
+                                            <div class="info">@problem.Hours</div>
+                                        </div>
+                                        <div class="info-wrap">
+                                            <div class="info-title">Даты выполнения задачи : </div>
+                                            <div class="info">@Html.DisplayFor(modelItem => problem.StartDate) - @Html.DisplayFor(modelItem => problem.EndDate)</div>
+                                        </div>
+                                        <div class="problem-btn-wrap">
+                                            <button class="red-btn btn" id="show-delete-problem-btn-@t">Удалить задачу</button>
+                                        </div>
+                                        <div class="confirm-space" id="confirm-space-problem-@t" style="display: none">
+                                            <div class="confirm-message-wrap">
+                                                <div class="warning-title">Вы действительно хотите безвозвратно удалить задачу?</div>
+                                                <div class="confirm-btn-wrap">
                                                     <form method="post">
-                                                        <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProblem" asp-route-id="@task.Id" asp-route-idProj="@Model.Project.Id">Ok</button>
+                                                        <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProblem" asp-route-id="@problem.Id" asp-route-modId="@module.Id" asp-route-projId="@Model.Project.Id">Ok</button>
                                                     </form>
-                                                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmProblem()">Cancel</button>
+                                                    <button class="delete-cancel blue-btn btn" id="hide-delete-problem-btn-@t">Cancel</button>
                                                 </div>
                                             </div>
-                                            <script type="text/javascript">
-                    let confirmSpaceProblem = document.getElementById("confirm-space-problem-@k");
-
-                    function showConfirmProblem() {
-                        confirmSpaceProblem.style.display = "block";
-                    }
-
-                    function hideConfirmProblem() {
-                        confirmSpaceProblem.style.display = "none";
-                    }
-                                            </script>
-                                        </div>}}
-                            </div>
-                        </div> }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
                 }
             }
-            <div class="visit card">
-                <div class="type">
-                    <p>
-                        Статус проекта : @Model.Project.Status.DisplayName();
-                        @*<select asp-items="@Html.GetEnumSelectList<ProjectStatus>()" disabled>
-                       <option selected>@proj.Status.DisplayName()</option>
-                    </select>*@
-                    </p>
+        }
+    </div>
+    <div class="setting-place">
+        <div class="proj-info card">
+            <div class="proj-card-name-wrap">
+                <div class="info-proj-name">@Model.Project.Name</div>
+            </div>
+            <div class="info-wrap">
+                <div class="info-title">Статус проекта : </div>
+                <div class="info">@Model.Project.Status.DisplayName()</div>
+            </div>
+            <div class="info-wrap">
+                <div class="info-title">Тип : </div>
+                <div class="info">@Model.Project.Type</div>
+            </div>
+            <div class="info-wrap">
+                <div class="info-title">Стоимость часа : </div>
+                <div class="info">@Model.Project.Cost P</div>
+            </div>
+            <div class="info-wrap">
+                <div class="info-title">Даты выполнения проекта : </div>
+                <div class="info">@Html.DisplayFor(modelItem => @Model.Project.StartDate) - @Html.DisplayFor(modelItem => @Model.Project.EndDate)</div>
+            </div>
+            <div class="customer-wrap">
+                <div class="info-title-customer">Заказчик : </div>
+                <div class="info-wrap">
+                    <div class="info-title">Имя заказчика : </div>
+                    <div class="info">@Model.Customer.Name</div>
                 </div>
-                <div class="type"><p>Тип : <input type="text" id="redact2" value="@Model.Project.Type" disabled></p></div>
-                <div class="type"><p>Стоимость часа : <input type="text" id="redact3" value="@Model.Project.Cost P" disabled></p></div>
-                <div class="type"><p>Срок действия : <input type="date" id="redact4" value="@String.Format("0:MM/dd/yyyy", Model.Project.StartDate)" disabled> - <input type="date" id="redact5" value="@Html.DisplayFor(modelItem => @Model.Project.EndDate)" disabled></p></div>
-                <div class="Vso"><p class="pos">Заказчик</p></div>
-                <div class="CustomerCard">
-                    <div class="zakaz"><input type="text" id="redact6" value="@Model.Customer.Name" disabled></div>
-                    <div class="zakaz"><input type="text" id="redact7" value="@Model.Customer.PhoneNumber" disabled></div>
-                    <div class="zakaz"><input type="text" id="redact8" value="@Model.Customer.Email" disabled></div>
+                <div class="info-wrap">
+                    <div class="info-title">Email заказчика : </div>
+                    <div class="info">@Model.Customer.Email</div>
+                </div>
+                <div class="info-wrap">
+                    <div class="info-title">Контактный номер заказчика : </div>
+                    <div class="info">@Model.Customer.PhoneNumber</div>
                 </div>
             </div>
-            <div class="add">
-                <button class="className fixe form12 btn btn-info btn-rounded waves-effect waves-light m-b-40" id="myBtn">+ Добавить Модуль</button>
-                <form class="addModule card" method="post" autocomplete="off">
-                    <a class="myBtn close btn waves-effect waves-light m-b-40" onclick="document.getElementById(this.classList[0]).click()"></a>
-                    <div class="baton"><input type="text" class="login" placeholder="Название модуля" asp-for="NewModule.Name" required /></div>
-                    <div><input type="submit" class="myBtn getModule btn btn-info btn-rounded waves-effect waves-light" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id"></div>
-                </form>
+            <div class="btn-wrap btn-wrap-marg">
+                <div class="btn-card-wrap">
+                    <button class="blue-btn btn" onclick="document.getElementById('edit-proj-info-card').style.display = 'block'">Редактировать данные о проекте</button>
+                </div>
+                <div class="confirm-space" id="edit-proj-info-card" style="display: none">
+                    <div class="edit-card card" id="add-proj-card-id">
+                        <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('edit-proj-info-card').style.display = 'none'"></i>
+                        <form method="post" autocomplete="off" class="add-form">
+                            <div class="input-wrap"><input class="add-input" placeholder="Название проекта..." asp-for="@Model.Project.Name" required /></div>
+                            <div class="input-wrap"><input class="add-input" placeholder="Тип проекта..." asp-for="@Model.Project.Type" required /></div>
+                            <div class="input-wrap"><input class="add-input" placeholder="Стоимость часа..." asp-for="@Model.Project.Cost" required /></div>
+                            <div class="add-proj-title">Выберите статус проекта :</div>
+                            <div class="select-wrap">
+                                <select class="add-select add-input" asp-for="@Model.Project.Status" asp-items="@Html.GetEnumSelectList<ProjectStatus>()"></select>
+                            </div>
+                            <div class="add-proj-title">Выберите даты проекта :</div>
+                            <div class="input-wrap-date">
+                                <input class="add-input-date" asp-for="@Model.Project.StartDate">
+                                <i class="delimiter"></i>
+                                <input class="add-input-date" asp-for="@Model.Project.EndDate">
+                            </div>
+                            <div class="add-proj-title">Заказчик :</div>
+                            <div class="customer-card">
+                                <div class="input-wrap"><input class="add-input" placeholder="ФИО..." asp-for="@Model.Customer.Name" required /></div>
+                                <div class="input-wrap"><input class="add-input" placeholder="Email..." asp-for="@Model.Customer.Email" required /></div>
+                                <div class="input-wrap"><input class="add-input customerPhoneNumber" placeholder="Телефон..." asp-for="@Model.Customer.PhoneNumber" required /></div>
+                            </div>
+                            <div class="input-wrap">
+                                <input type="submit" class="create-proj blue-btn btn" value="Подтвердить изменения" asp-page-handler="EditProject" asp-route-projId="@Model.Project.Id" asp-route-custId="@Model.Customer.Id">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="btn-card-wrap">
+                    <button class="red-btn btn" onclick="showConfirmProj()">Удалить проект</button>
+                </div>
             </div>
-            <button class="redact btn btn-info btn-rounded waves-effect waves-light" id="clickhere" onclick="buttonClick()"> Редактировать данные</button>
-            <button class="clickhere redact1 btn btn-info btn-rounded waves-effect waves-light" onclick="buttonClick1()"> Сохранить данные</button>
-            <button class="deleteProject redcolor form btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="showConfirmProj()">Удалить проект</button>
             <div class="confirm-space" id="confirm-space-proj" style="display: none">
-                <div class="confirm-message">
+                <div class="confirm-message-wrap">
                     <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
-                    <form method="post">
-                        <button class="confirm-position-ok btn btn-info btn-rounded waves-effect waves-light m-b-40" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id" asp-route-isProj="@true">Ok</button>
-                    </form>
-                    <button class="confirm-position-cencel btn btn-info btn-rounded waves-effect waves-light m-b-40" onclick="hideConfirmProj()">Cancel</button>
+                    <div class="confirm-btn-wrap">
+                        <form method="post">
+                            <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id">Ok</button>
+                        </form>
+                        <button class="delete-cancel blue-btn btn" onclick="hideConfirmProj()">Cancel</button>
+                    </div>
                 </div>
             </div>
             <script type="text/javascript">
@@ -159,67 +219,36 @@
                 }
             </script>
         </div>
+        <div class="btn-space-wrap">
+            <div class="btn-space">
+                <button class="doc-btn blue-btn btn">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
+            </div>
+            <div class="btn-space">
+                <button class="doc-btn blue-btn btn" onclick="showModuleFormToggle()">+ Добавить Модуль</button>
+            </div>
+            <div class="add-module-card add-card card" id="add-module-card-id" style="display: none">
+                <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('add-module-card-id').style.display = 'none'"></i>
+                <form class="add-form" method="post" autocomplete="off">
+                    <div class="input-wrap">
+                        <input class="add-input module-name-input" placeholder="Название модуля..." asp-for="NewModule.Name" required />
+                    </div>
+                    <div class="similar-modules-card similar-modules">
+                    </div>
+                    <div class="input-wrap">
+                        <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <style>
-        .card3 {
-            display: none;
-            position: relative;
-        }
-
-        .fixfix {
-            z-index: 0;
-        }
-
-        .index {
-            z-index: 10;
-        }
-    </style>
-    <script src="~/js/index2.js"></script>
-    <script>
-        if (@Model.IsOpenProblems) {
-            document.getElementById(moduleId).click();
-        }
-    </script>
-    <script>
-        var colls = document.getElementsByClassName("hitOne");
-
-        for (var i = 0; i < colls.length; i++) {
-            colls[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                    document.getElementById(content.classList[1]).style.display = "none";
-                    document.getElementById(content.classList[0]).style.height = "140px";
-                    document.getElementById(content.classList[2]).style.top = "-130px";
-                    document.getElementById(content.classList[3]).style.top = "-250px";
-                }
-                else {
-                    content.style.display = "block";
-                    document.getElementById(content.classList[1]).style.display = "block";
-                    document.getElementById(content.classList[0]).style.height = "565px";
-                    document.getElementById(content.classList[1]).style.top = "400px";
-                    document.getElementById(content.classList[2]).style.top = "-279px";
-                    document.getElementById(content.classList[3]).style.top = "-399px";
-                }
-            });
-        }
-    </script>
-    <script>
-        var module = document.getElementsByClassName("className");
-
-        for (var i = 0; i < module.length; i++) {
-            module[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                }
-                else {
-                    content.style.display = "block";
-                }
-            });
-        }
-    </script>
-
-
+</div>
+<script src="~/js/modulesSearch.js"></script>
+<script src="~/js/problemToggle.js"></script>
+<script src="~/js/showModuleForm.js"></script>
+<script src="~/js/deleteModule.js"></script>
+<script src="~/js/deleteProblem.js"></script>
+<script>
+    if (@Model.IsOpenProblems) {
+        document.getElementById(showProblemsListBtn).click();
+    }
+</script>
