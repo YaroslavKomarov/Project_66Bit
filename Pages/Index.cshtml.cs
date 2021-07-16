@@ -6,12 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
-<<<<<<< HEAD
-=======
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Text.Json;
->>>>>>> main
 
 namespace RazorProject.Pages
 {
