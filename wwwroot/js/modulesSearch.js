@@ -34,8 +34,7 @@ moduleNameInput.oninput = function () {
                     },
                     dataType: "json",
                     data: {
-                        'id': module['Id'],
-                        'projId': module['ProjId']
+                        'id': module['Id']
                     },
                     success: function (response) {
                         if (response.status === 'OK') {

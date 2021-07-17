@@ -65,7 +65,7 @@ namespace RazorProject.Pages
         public async Task<ContentResult> OnGetModulesAsync()
         {
             var allModules = await _context.Modules
-                .Select(m => new { Id = m.Id, Name = m.Name, ProjId = m.Project.Id, ProjectName = m.Project.Name })
+                .Select(m => new { Id = m.Id, Name = m.Name, ProjectName = m.Project.Name })
                 .ToListAsync();
 
             return Content(JsonSerializer.Serialize(allModules));
@@ -157,14 +157,14 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<JsonResult> OnPostCopyModuleAsync(int id, int projId)
+        public async Task<JsonResult> OnPostCopyModuleAsync(int id)
         {
             var module = await _context.Modules.FindAsync(id);
             var copyModule = new Module
             {
                 Name = module.Name,
                 Hours = module.Hours,
-                Project = await _context.Projects.FindAsync(projId)
+                Project = await _context.Projects.FindAsync(Project.Id)
             };
             await _context.Modules.AddAsync(copyModule);
 
@@ -182,8 +182,7 @@ namespace RazorProject.Pages
             }
             await _context.SaveChangesAsync();
 
-            var tmp = new JsonResult(new { Url = $"Mod?id={projId}", status = "OK" });
-            return tmp;
+            return new JsonResult(new { Url = $"Mod?id={Project.Id}", status = "OK" });
         }
     }
 }
