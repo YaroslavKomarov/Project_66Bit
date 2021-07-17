@@ -148,9 +148,29 @@ namespace RazorProject.Pages
                 return Page();
             }
 
+            var existCustomer = await _context.Customers
+                .Where(c => c.Name == Customer.Name && c.Email == Customer.Email && c.PhoneNumber == Customer.PhoneNumber)
+                .FirstOrDefaultAsync();
+
+            if (existCustomer == null)
+            {
+                await _context.Customers.AddAsync(Customer);
+                await _context.SaveChangesAsync();
+
+                var newCustomer = await _context.Customers
+                    .OrderByDescending(t => t.Id)
+                    .FirstOrDefaultAsync();
+                Project.CustomerId = newCustomer.Id;
+            }
+            else
+            {
+                Customer.Id = custId;
+                Project.CustomerId = custId;
+            }
+
+
             Project.Id = projId;
-            Customer.Id = custId;
-            Project.CustomerId = Customer.Id;
+
             _context.Update(Project);
             _context.Update(Customer);
             await _context.SaveChangesAsync();
