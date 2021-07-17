@@ -17,6 +17,7 @@ namespace RazorProject.Pages
         private readonly ApplicationDbContext _context;
         public List<Project> Projects { get; set; }
         public List<Module> Modules { get; set; }
+        [BindProperty]
         public List<Customer> Customers { get; set; }
         [BindProperty]
         public Project NewProject { get; set; }
@@ -44,7 +45,7 @@ namespace RazorProject.Pages
         public async Task<ContentResult> OnGetCustomersAsync()
         {
             var allCustomers = await _context.Customers.ToListAsync();
-            
+
             return Content(JsonSerializer.Serialize(allCustomers));
         }
 

@@ -150,3 +150,35 @@
     color: white;
     padding-left: 10px;
 }
+
+.input-wrap {
+    display: flex;
+    width: 20em;
+}
+
+.copy-modules-card {
+    overflow-y: scroll;
+    margin-top: 15px;
+    padding: 0 15px;
+    padding-left: 0;
+    border-top: 1px solid #1976d2;
+    height: 10vh;
+    border-bottom: 1px solid #1976d2;
+}
+
+.copy-modules-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.copy-modules-card::-webkit-scrollbar-track {
+    background: white;
+}
+
+.copy-modules-card::-webkit-scrollbar-thumb {
+    border: none;
+}
+
+.module-name {
+    font-size: 16px;
+    cursor: pointer;
+}

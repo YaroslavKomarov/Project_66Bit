@@ -159,9 +159,10 @@
                 </div>
                 <div class="add-proj-title">Заказчик :</div>
                 <div class="customer-card">
-                    <div class="input-wrap"><input class="add-input" placeholder="ФИО..." asp-for="NewCustomer.Name" required /></div>
-                    <div class="input-wrap"><input class="add-input" placeholder="Email..." asp-for="NewCustomer.Email" required /></div>
-                    <div class="input-wrap"><input class="add-input customerPhoneNumber" placeholder="Телефон..." asp-for="NewCustomer.PhoneNumber" required /></div>
+                    <div class="input-wrap"><input class="add-input customer-name-input" placeholder="ФИО..." asp-for="NewCustomer.Name" required /></div>
+                    <div class="exist-customers-card" style="display: none"></div>
+                    <div class="input-wrap"><input class="add-input customer-email-input" placeholder="Email..." asp-for="NewCustomer.Email" required /></div>
+                    <div class="input-wrap"><input class="add-input customer-phone-input" placeholder="Телефон..." asp-for="NewCustomer.PhoneNumber" required /></div>
                 </div>
                 <div class="input-wrap">
                     <input type="submit" class="create-proj blue-btn btn" value="Создать проект">
@@ -172,9 +173,8 @@
 </div>
 <script src="~/js/addProjectToggle.js"></script>
 <script src="~/js/similarModToggle.js"></script>
-<script src="~/js/search.js"></script>
+<script src="~/js/customerSearch.js"></script>
+<script src="~/js/mainSearch.js"></script>
 <script src="~/js/phoneFormat.js"></script>
 <script src="~/js/deleteProj.js"></script>
 <script src="~/js/deleteModule.js"></script>
-<script src="~/js/alertMssg.js"></script>
-<script src="~/js/customerSearch.js"></script>
