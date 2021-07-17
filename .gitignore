@@ -450,3 +450,6 @@ $RECYCLE.BIN/
 
 # Migrations
 Migrations
+
+# Logging
+DBLog.txt
