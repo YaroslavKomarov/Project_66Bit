@@ -221,7 +221,9 @@
         </div>
         <div class="btn-space-wrap">
             <div class="btn-space">
-                <button class="doc-btn blue-btn btn">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
+                <form method="post">
+                    <button class="doc-btn blue-btn btn" asp-page-handler="DownloadExcel" asp-route-projectId="@Model.Project.Id">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
+                </form>
             </div>
             <div class="btn-space">
                 <button class="doc-btn blue-btn btn" onclick="showModuleFormToggle()">+ Добавить Модуль</button>
