@@ -116,6 +116,9 @@ namespace Project_66_bit.Services.ReportService
             var startModule = j;
             foreach (var module in modules)
             {
+                if (module.Problems.Count == 0)
+                    continue;
+
                 problemSheet.Cells[j, 2].Value = module.Name;
                 problemSheet.Cells[j, 2].Style.Font.Bold = true;
 
