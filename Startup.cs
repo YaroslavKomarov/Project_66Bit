@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,10 @@ namespace Project_66_bit
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+            services.AddAntiforgery(option => {
+                option.HeaderName = "XSRF-TOKEN";
+                option.SuppressXFrameOptionsHeader = false;
+            });
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizePage("/Index");

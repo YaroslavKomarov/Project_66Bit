@@ -19,13 +19,13 @@ namespace RazorProject.Pages
         public Authentication auth;
 
         [BindProperty]
-        private string Name { get; set; }
+        public string Name { get; set; }
         [BindProperty]
-        private string Email { get; set; }
+        public string Email { get; set; }
         [BindProperty]
-        private string Password { get; set; }
+        public string Password { get; set; }
         [BindProperty]
-        private string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
         
         public RegisterModel(ApplicationDbContext context, Authentication auth)
         {

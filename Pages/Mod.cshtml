@@ -9,6 +9,8 @@
 }
 <link href="~/css/mainPage.css" rel="stylesheet">
 <link href="~/css/projPage.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<i id="project-id-hidden" style="display: none">@Model.Project.Id</i>
 <div class="page-content-proj">
     <div class="scroll module">
         @{
@@ -184,10 +186,15 @@
                             <div class="customer-card">
                                 <div class="input-wrap"><input class="add-input" placeholder="ФИО..." asp-for="@Model.Customer.Name" required /></div>
                                 <div class="input-wrap"><input class="add-input" placeholder="Email..." asp-for="@Model.Customer.Email" required /></div>
-                                <div class="input-wrap"><input class="add-input customerPhoneNumber" placeholder="Телефон..." asp-for="@Model.Customer.PhoneNumber" required /></div>
+                                <div class="input-wrap">
+                                    <input class="add-input customerPhoneNumber" asp-for="@Model.Customer.PhoneNumber" id="online_phone" type="tel" autofocus="autofocus"
+                                           value="+7(___)___-__-__"
+                                           pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
+                                           placeholder="+7(___)___-__-__" required />
+                                </div>
                             </div>
                             <div class="input-wrap">
-                                <input type="submit" class="create-proj blue-btn btn" value="Подтвердить изменения" asp-page-handler="EditProject" asp-route-projId="@Model.Project.Id" asp-route-custId="@Model.Customer.Id">
+                                <input type="submit" class="create-proj blue-btn btn" value="Подтвердить изменения" asp-page-handler="EditProject" asp-route-custId="@Model.Customer.Id" asp-route-projId="@Model.Project.Id">
                             </div>
                         </form>
                     </div>
@@ -201,7 +208,7 @@
                     <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
                     <div class="confirm-btn-wrap">
                         <form method="post">
-                            <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id">Ok</button>
+                            <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProj" asp-route-projId="@Model.Project.Id">Ok</button>
                         </form>
                         <button class="delete-cancel blue-btn btn" onclick="hideConfirmProj()">Cancel</button>
                     </div>
@@ -222,7 +229,7 @@
         <div class="btn-space-wrap">
             <div class="btn-space">
                 <form method="post">
-                    <button class="doc-btn blue-btn btn" asp-page-handler="DownloadExcel" asp-route-projectId="@Model.Project.Id">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
+                    <button class="doc-btn blue-btn btn" asp-page-handler="DownloadExcel" asp-route-projId="@Model.Project.Id">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
                 </form>
             </div>
             <div class="btn-space">
@@ -234,23 +241,67 @@
                     <div class="input-wrap">
                         <input class="add-input module-name-input" placeholder="Название модуля..." asp-for="NewModule.Name" required />
                     </div>
-                    <div class="similar-modules-card similar-modules">
+                    <div class="copy-modules-card" style="display: none">
                     </div>
                     <div class="input-wrap">
-                        <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id">
+                        <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-projId="@Model.Project.Id">
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/modulesSearch.js"></script>
 <script src="~/js/problemToggle.js"></script>
 <script src="~/js/showModuleForm.js"></script>
 <script src="~/js/deleteModule.js"></script>
 <script src="~/js/deleteProblem.js"></script>
+<script src="~/js/phoneFormat.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(showProblemsListBtn).click();
     }
+</script>
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: @Json.Serialize(Model.Modules.Select(t => t.Name).ToArray()),
+        datasets: [{
+            label: 'Количество часов в модуле',
+            data: @Json.Serialize(Model.Modules.Select(t => t.Hours).ToArray()),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ] ,
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Количество часов в модулях'
+            }
+        }
+    },
+});
 </script>

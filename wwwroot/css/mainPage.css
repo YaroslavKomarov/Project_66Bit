@@ -154,9 +154,11 @@ project-card {
 .similar-modules {
     overflow-y: scroll;
     margin: 1px 30px 10px;
-    padding: 5px 15px 0;
+    padding: 0 15px;
+    padding-left: 0;
     border-top: 1px solid #1976d2;
     height: 10vh;
+    border-bottom: 1px solid #1976d2;
 }
 
 .similar-modules::-webkit-scrollbar {
@@ -173,7 +175,7 @@ project-card {
 
 .module-info {
     margin: 3px 0;
-    padding: 5px 0 5px 15px;
+    padding: 5px 15px;
 }
 
 .module-name {
@@ -373,4 +375,18 @@ project-card {
 
 .delete-cancel {
     margin-left: 20px;
+}
+
+.exist-customers-card {
+    overflow-y: scroll;
+    margin-top: 12px;
+    padding: 0 15px;
+    padding-left: 0;
+    border-top: 1px solid #1976d2;
+    height: 12vh;
+    border-bottom: 1px solid #1976d2;
+}
+
+.exist-customers-card .module-name div {
+    font-size: 16px;
 }
