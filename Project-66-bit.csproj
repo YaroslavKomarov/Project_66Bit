@@ -13,7 +13,8 @@
     <_ContentIncludedByDefault Remove="Views\Index6.cshtml"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6"/>
+    <PackageReference Include="Chart.js" Version="2.9.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,16 +23,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.6"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0"/>
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2"/>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0"/>
-    <PackageReference Include="EPPlus" Version="5.7.1"/>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="EPPlus" Version="5.7.1" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties appsettings_1json__JsonSchema=""/>
+      <UserProperties appsettings_1json__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
