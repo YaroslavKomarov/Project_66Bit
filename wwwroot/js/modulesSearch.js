@@ -3,7 +3,7 @@ let copyModulesCard = document.querySelector('.copy-modules-card');
 let modules;
 
 let getRequest = new XMLHttpRequest();
-getRequest.open("GET", `https://localhost:${location.port}/Mod?handler=Modules`, true);
+getRequest.open("GET", `https://localhost:${location.port}/Mod?handler=Modules`);
 getRequest.onreadystatechange = function () {
     if (getRequest.readyState == 4 && getRequest.status == 200) {
         modules = JSON.parse(getRequest.responseText);

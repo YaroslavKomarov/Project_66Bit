@@ -1,8 +1,11 @@
-let customerNameInput = document.querySelector(".CustomerCard .baton .customerName");
+let customerNameInput = document.querySelector(".customer-name-input");
+let customerEmailInput = document.querySelector(".customer-email-input");
+let customerPhoneInput = document.querySelector(".customer-phone-input");
+let existCustomersCard = document.querySelector('.exist-customers-card');
 let customers;
 
 let request = new XMLHttpRequest();
-request.open("GET", "https://localhost:5001/Index?handler=Customers", true);
+request.open("GET", `https://localhost:${location.port}/Index?handler=Customers`);
 request.onreadystatechange = function(){
     if (request.readyState == 4 && request.status == 200){
         customers = JSON.parse(request.responseText);
@@ -14,11 +17,23 @@ customerNameInput.onclick = function(){
     this.onclick = null;
 }
 
-customerNameInput.oninput = function(){
+customerNameInput.oninput = function () {
+    existCustomersCard.innerHTML = "";
     for (let customer of customers){
-        if (customer["Name"].toLowerCase().includes(customerNameInput.value.toLowerCase())){
-            console.log(customer);
-            // Выводим модуль в списке поиска
+        if (customer["Name"].toLowerCase().includes(customerNameInput.value.toLowerCase()) && customerNameInput.value !== ""){
+            existCustomersCard.style.display = 'block';
+            let addExistCustomer = document.createElement('a');
+            addExistCustomer.classList.add('module-name', 'module-info');
+            addExistCustomer.innerHTML = `<div>${customer['Name']}</div><div>${customer['Email']}</div><div>${customer['PhoneNumber']}</div>`;
+            existCustomersCard.append(addExistCustomer);
+
+            addExistCustomer.addEventListener('click', function () {
+                customerNameInput.value = customer['Name'];
+                customerEmailInput.value = customer['Email'];
+                customerPhoneInput.value = customer['PhoneNumber'];
+            });
+        } else {
+            existCustomersCard.style.display = 'none';
         }
     }
 }

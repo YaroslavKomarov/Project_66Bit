@@ -1,8 +1,8 @@
+let searchInput = document.querySelector(".search-input");
 let projectParent = document.querySelector(".project");
 let moduleParent = document.querySelector(".module");
 let projects = [...projectParent.children];
 let modules = [...moduleParent.children];
-let searchInput = document.querySelector(".search-input");
 let projectNames = [];
 let moduleNames = [];
 
@@ -17,18 +17,41 @@ for (let i = 0; i < modules.length; i++) {
 searchInput.oninput = function () {
     projectParent.innerHTML = '';
     moduleParent.innerHTML = '';
-    let flag = true;
+    let flagProj = true;
+    let flagMod = true;
     if (searchInput.value != "") {
         for (let i = 0; i < projectNames.length; i++) {
-            if (projectNames[i].includes(searchInput.value.toLowerCase())){
+            if (projectNames[i].includes(searchInput.value.toLowerCase())) {
                 projectParent.appendChild(projects[i]);
-                flag = false;
+                flagProj = false;
             }
         }
-    }
-    if (flag) {
+        if (flagProj) {
+            let messageCard = document.createElement('div');
+            messageCard.classList.add('card', 'not-have-elem');
+            messageCard.innerHTML = 'Проектов с данным именем не найдено';
+            projectParent.append(messageCard);
+        }
+
+        for (let j = 0; j < moduleNames.length; j++) {
+            if (moduleNames[j].includes(searchInput.value.toLowerCase())) {
+                moduleParent.appendChild(modules[j]);
+                flagMod = false;
+            }
+        }
+        if (flagMod && searchInput.value != "") {
+            let messageCard = document.createElement('div');
+            messageCard.classList.add('card', 'not-have-elem');
+            messageCard.innerHTML = 'Модулей с данным именем не найдено';
+            moduleParent.append(messageCard);
+        }
+    } else {
         for (let i = 0; i < projectNames.length; i++) {
             projectParent.appendChild(projects[i]);
+        }
+
+        for (let i = 0; i < moduleNames.length; i++) {
+            moduleParent.appendChild(modules[i]);
         }
     }
 };

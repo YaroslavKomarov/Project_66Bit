@@ -376,3 +376,18 @@ project-card {
 .delete-cancel {
     margin-left: 20px;
 }
+
+
+.exist-customers-card {
+    overflow-y: scroll;
+    margin-top: 12px;
+    padding: 0 15px;
+    padding-left: 0;
+    border-top: 1px solid #1976d2;
+    height: 12vh;
+    border-bottom: 1px solid #1976d2;
+}
+
+.exist-customers-card .module-name div {
+    font-size: 16px;
+}
