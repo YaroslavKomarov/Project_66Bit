@@ -154,7 +154,7 @@ namespace Project_66_bit.Migrations
             modelBuilder.Entity("Project_66_bit.Models.Module", b =>
                 {
                     b.HasOne("Project_66_bit.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("Modules")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -165,7 +165,7 @@ namespace Project_66_bit.Migrations
             modelBuilder.Entity("Project_66_bit.Models.Problem", b =>
                 {
                     b.HasOne("Project_66_bit.Models.Module", "Module")
-                        .WithMany()
+                        .WithMany("Problems")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -182,6 +182,16 @@ namespace Project_66_bit.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Project_66_bit.Models.Module", b =>
+                {
+                    b.Navigation("Problems");
+                });
+
+            modelBuilder.Entity("Project_66_bit.Models.Project", b =>
+                {
+                    b.Navigation("Modules");
                 });
 #pragma warning restore 612, 618
         }

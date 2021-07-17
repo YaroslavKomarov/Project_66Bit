@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Project_66_bit.Models;
+using Project_66_bit.Services.Auth;
+using Project_66_bit.Services.ReportService;
 
 namespace Project_66_bit
 {
@@ -21,14 +23,12 @@ namespace Project_66_bit
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddRazorPages();
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizePage("/Index");
                 options.Conventions.AuthorizePage("/Mod");
-                options.Conventions.AuthorizePage("/Module");
-                options.Conventions.AuthorizePage("/Directory");
                 options.Conventions.AddAreaPageRoute("Page", "/Index", "");
             });
             services.AddControllersWithViews();
@@ -44,24 +44,18 @@ namespace Project_66_bit
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Enter");
                 });
 
-            services.AddControllersWithViews();
+            services.AddTransient<Authentication>();
+            services.AddTransient<ReportService>();
+            services.AddTransient<IProjectConverter, ExcelConverter>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("~/Pages/Index");
-                app.UseHsts();
-            }
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
+
+            app.UseStatusCodePagesWithRedirects("/Error?code={0}");
 
             app.UseAuthentication();
             app.UseAuthorization();

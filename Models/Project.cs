@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project_66_bit.Models
@@ -14,7 +15,10 @@ namespace Project_66_bit.Models
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
+        
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+        public List<Module> Modules { get; set; } = new List<Module>();
     }
 }

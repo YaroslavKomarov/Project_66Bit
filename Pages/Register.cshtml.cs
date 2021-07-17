@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -10,33 +9,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
-using Project_66_bit.Pages.Auth;
+using Project_66_bit.Services.Auth;
 
 namespace RazorProject.Pages
 {
     public class RegisterModel : PageModel
     {
         public ApplicationDbContext db;
+        public Authentication auth;
+
+        [BindProperty]
+        public string Name { get; set; }
+        [BindProperty]
+        public string Email { get; set; }
+        [BindProperty]
+        public string Password { get; set; }
+        [BindProperty]
+        public string ConfirmPassword { get; set; }
         
-        public RegisterModel(ApplicationDbContext context)
+        public RegisterModel(ApplicationDbContext context, Authentication auth)
         {
             db = context;
+            this.auth = auth;
         }
 
         public void OnGet()
         {
         }
 
-        public async Task<IActionResult> OnPostAsync(
-            string name,
-            string email,
-            string password,
-            string confirmPassword
-            )
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == this.Email);
                 if (user == null)
                 {
                     byte[] salt = new byte[128 / 8];
@@ -46,7 +51,7 @@ namespace RazorProject.Pages
                     }
 
                     string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: password,
+                        password: this.Password,
                         salt: salt,
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 10000,
@@ -55,14 +60,14 @@ namespace RazorProject.Pages
 
                     db.Users.Add(new User 
                     { 
-                        Name = name,
-                        Email = email,
+                        Name = this.Name,
+                        Email = this.Email,
                         Password = hashedPassword,
                         Salt = Convert.ToBase64String(salt)
                     });
                     await db.SaveChangesAsync();
  
-                    var id = Authentication.Authenticate(email);
+                    var id = auth.Authenticate(this.Email);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
 
                     return Redirect("/");
