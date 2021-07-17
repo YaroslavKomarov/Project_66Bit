@@ -9,6 +9,7 @@
 }
 <link href="~/css/mainPage.css" rel="stylesheet">
 <link href="~/css/projPage.css" rel="stylesheet">
+<i id="project-id-hidden" style="display: none">@Model.Project.Id</i>
 <div class="page-content-proj">
     <div class="scroll module">
         @{
@@ -187,7 +188,7 @@
                                 <div class="input-wrap"><input class="add-input customerPhoneNumber" placeholder="Телефон..." asp-for="@Model.Customer.PhoneNumber" required /></div>
                             </div>
                             <div class="input-wrap">
-                                <input type="submit" class="create-proj blue-btn btn" value="Подтвердить изменения" asp-page-handler="EditProject" asp-route-projId="@Model.Project.Id" asp-route-custId="@Model.Customer.Id">
+                                <input type="submit" class="create-proj blue-btn btn" value="Подтвердить изменения" asp-page-handler="EditProject" asp-route-custId="@Model.Customer.Id" asp-route-projId="@Model.Project.Id">
                             </div>
                         </form>
                     </div>
@@ -201,7 +202,7 @@
                     <div class="warning-title">Вы действительно хотите безвозвратно удалить проект?</div>
                     <div class="confirm-btn-wrap">
                         <form method="post">
-                            <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProj" asp-route-id="@Model.Project.Id">Ok</button>
+                            <button class="delete-ok blue-btn btn" asp-page-handler="DeleteProj" asp-route-projId="@Model.Project.Id">Ok</button>
                         </form>
                         <button class="delete-cancel blue-btn btn" onclick="hideConfirmProj()">Cancel</button>
                     </div>
@@ -222,7 +223,7 @@
         <div class="btn-space-wrap">
             <div class="btn-space">
                 <form method="post">
-                    <button class="doc-btn blue-btn btn" asp-page-handler="DownloadExcel" asp-route-projectId="@Model.Project.Id">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
+                    <button class="doc-btn blue-btn btn" asp-page-handler="DownloadExcel" asp-route-projId="@Model.Project.Id">Сформировать отчет по проекту<i class="fa fa-file-text" aria-hidden="true"></i></button>
                 </form>
             </div>
             <div class="btn-space">
@@ -237,7 +238,7 @@
                     <div class="copy-modules-card" style="display: none">
                     </div>
                     <div class="input-wrap">
-                        <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-id="@Model.Project.Id">
+                        <input type="submit" class="create-proj blue-btn btn" value="Создать модуль" asp-page-handler="Module" asp-route-projId="@Model.Project.Id">
                     </div>
                 </form>
             </div>

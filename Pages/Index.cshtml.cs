@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project_66_bit.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Text.Json;
 
 namespace RazorProject.Pages
@@ -18,11 +16,11 @@ namespace RazorProject.Pages
         public List<Project> Projects { get; set; }
         public List<Module> Modules { get; set; }
         [BindProperty]
-        public List<Customer> Customers { get; set; }
-        [BindProperty]
         public Project NewProject { get; set; }
         [BindProperty]
         public Customer NewCustomer { get; set; }
+        [BindProperty]
+        public List<Customer> Customers { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {

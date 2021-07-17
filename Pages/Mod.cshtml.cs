@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,16 +15,17 @@ namespace RazorProject.Pages
         private readonly ApplicationDbContext _context;
         private ReportService reportService;
         public int IsOpenProblems { get; set; }
-        [BindProperty]
-        public Project Project { get; set; }
-        [BindProperty]
-        public Customer Customer { get; set; }
         public List<Module> Modules { get; set; }
         public List<Problem> Problems { get; set; }
         [BindProperty]
         public Module NewModule { get; set; }
         [BindProperty]
         public Problem NewProblem { get; set; }
+        [BindProperty]
+        public Project Project { get; set; }
+        [BindProperty]
+        public Customer Customer { get; set; }
+
         public ModModel(ApplicationDbContext db, ReportService reportService)
         {
             _context = db;
@@ -42,6 +41,16 @@ namespace RazorProject.Pages
             Problems = await _context.Problems.ToListAsync();
 
             Modules.Reverse();
+            Problems.Reverse();
+        }
+
+        public async Task<ContentResult> OnGetModulesAsync()
+        {
+            var allModules = await _context.Modules
+                .Select(m => new { Id = m.Id, Name = m.Name, ProjectName = m.Project.Name })
+                .ToListAsync();
+
+            return Content(JsonSerializer.Serialize(allModules));
         }
 
         public async Task<IActionResult> OnPostDeleteProblemAsync(int id, int modId, int projId)
@@ -61,16 +70,6 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-
-        public async Task<ContentResult> OnGetModulesAsync()
-        {
-            var allModules = await _context.Modules
-                .Select(m => new { Id = m.Id, Name = m.Name, ProjectName = m.Project.Name })
-                .ToListAsync();
-
-            return Content(JsonSerializer.Serialize(allModules));
-        }
-
         public async Task<IActionResult> OnPostDeleteModAsync(int id, int projId)
         {
             if (!ModelState.IsValid)
@@ -85,32 +84,32 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<IActionResult> OnPostDeleteProjAsync(int id)
+        public async Task<IActionResult> OnPostDeleteProjAsync(int projId)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var delProject = await _context.Projects.FindAsync(id);
+            var delProject = await _context.Projects.FindAsync(projId);
             _context.Projects.Remove(delProject);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
 
-        public async Task<IActionResult> OnPostModuleAsync(int id)
+        public async Task<IActionResult> OnPostModuleAsync(int projId)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            NewModule.Project = await _context.Projects.FindAsync(id);
+            NewModule.Project = await _context.Projects.FindAsync(projId);
             await _context.Modules.AddAsync(NewModule);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Mod", new { id = id });
+            return RedirectToPage("Mod", new { id = projId });
         }
 
         public async Task<IActionResult> OnPostProblemAsync(int id, int projId)
@@ -128,19 +127,19 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<IActionResult> OnPostDownloadExcelAsync(int projectId)
+        public async Task<IActionResult> OnPostDownloadExcelAsync(int projId)
         {
             // var buffer = new MemoryStream();
-            var fileBytes = await reportService.CreateReport(projectId);
+            var fileBytes = await reportService.CreateReport(projId);
             // await fileBytes.CopyToAsync(buffer);
 
             var fileStreamResult = new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            fileStreamResult.FileDownloadName = $"Project-{projectId}.xlsx";
+            fileStreamResult.FileDownloadName = $"Project-{projId}.xlsx";
             return fileStreamResult;
 
         }
         
-        public async Task<IActionResult> OnPostEditProjectAsync(int projId, int custId)
+        public async Task<IActionResult> OnPostEditProjectAsync(int custId, int projId)
         {
             if (!ModelState.IsValid)
             {
@@ -157,14 +156,14 @@ namespace RazorProject.Pages
             return RedirectToPage("Mod", new { id = projId });
         }
 
-        public async Task<JsonResult> OnPostCopyModuleAsync(int id)
+        public async Task<JsonResult> OnPostCopyModuleAsync(int id, int projId)
         {
             var module = await _context.Modules.FindAsync(id);
             var copyModule = new Module
             {
                 Name = module.Name,
                 Hours = module.Hours,
-                Project = await _context.Projects.FindAsync(Project.Id)
+                Project = await _context.Projects.FindAsync(projId)
             };
             await _context.Modules.AddAsync(copyModule);
 
@@ -182,7 +181,7 @@ namespace RazorProject.Pages
             }
             await _context.SaveChangesAsync();
 
-            return new JsonResult(new { Url = $"Mod?id={Project.Id}", status = "OK" });
+            return new JsonResult(new { Url = $"Mod?id={projId}", status = "OK" });
         }
     }
 }

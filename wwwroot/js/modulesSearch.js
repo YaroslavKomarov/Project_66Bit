@@ -1,5 +1,6 @@
 let moduleNameInput = document.querySelector('.module-name-input');
 let copyModulesCard = document.querySelector('.copy-modules-card');
+let projId = document.getElementById('project-id-hidden').innerHTML;
 let modules;
 
 let getRequest = new XMLHttpRequest();
@@ -34,7 +35,8 @@ moduleNameInput.oninput = function () {
                     },
                     dataType: "json",
                     data: {
-                        'id': module['Id']
+                        'id': module['Id'],
+                        'projId': projId
                     },
                     success: function (response) {
                         if (response.status === 'OK') {
