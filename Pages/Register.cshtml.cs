@@ -9,13 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_66_bit.Models;
-using Project_66_bit.Pages.Auth;
+using Project_66_bit.Services.Auth;
 
 namespace RazorProject.Pages
 {
     public class RegisterModel : PageModel
     {
         public ApplicationDbContext db;
+        public Authentication auth;
 
         [BindProperty]
         private string Name { get; set; }
@@ -26,9 +27,10 @@ namespace RazorProject.Pages
         [BindProperty]
         private string ConfirmPassword { get; set; }
         
-        public RegisterModel(ApplicationDbContext context)
+        public RegisterModel(ApplicationDbContext context, Authentication auth)
         {
             db = context;
+            this.auth = auth;
         }
 
         public void OnGet()
@@ -65,7 +67,7 @@ namespace RazorProject.Pages
                     });
                     await db.SaveChangesAsync();
  
-                    var id = Authentication.Authenticate(this.Email);
+                    var id = auth.Authenticate(this.Email);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
 
                     return Redirect("/");

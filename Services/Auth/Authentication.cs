@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Project_66_bit.Pages.Auth
+namespace Project_66_bit.Services.Auth
 {
-    public static class Authentication
+    public class Authentication
     {
-        public static ClaimsIdentity Authenticate(string email)
+        public ClaimsIdentity Authenticate(string email)
         {
             var claims = new List<Claim>
             {
