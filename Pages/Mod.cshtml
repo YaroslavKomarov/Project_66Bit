@@ -19,6 +19,7 @@
                 <div class="not-have-elem card">У вас пока нет модулей, добавьте новый модуль</div> }
             else
             {
+                int t = 0;
                 int k = 0;
                 foreach (var module in Model.Modules)
                 {
@@ -86,7 +87,6 @@
                                 <div class="not-have-elem card">У вас пока нет задач, добавьте новую задачу</div> }
                             else
                             {
-                                int t = 0;
                                 @foreach (var problem in Model.Problems.Where(p => p.ModuleId == module.Id))
                                 {
                                     t++;
@@ -248,9 +248,26 @@
                     </div>
                 </form>
             </div>
+            @{
+                if (Model.Modules.Count() != 0)
+                {
+                    <div class="chart-space card" style="padding: 30px">
+                        <div class="chart-title" style="margin: 0 auto; width: max-content; margin-bottom: 15px; font-size: 20px; color: #6c757d;">
+                            Продолжительность работы над модулями :
+                        </div>
+                        <div style="width: 100%; height: 100%">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>
+<script>
+    var labelsArr = @Json.Serialize(Model.Modules.Select(t => t.Name).ToArray());
+    var dataArr = @Json.Serialize(Model.Modules.Select(t => t.Hours).ToArray());
+</script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/modulesSearch.js"></script>
 <script src="~/js/problemToggle.js"></script>
@@ -258,50 +275,9 @@
 <script src="~/js/deleteModule.js"></script>
 <script src="~/js/deleteProblem.js"></script>
 <script src="~/js/phoneFormat.js"></script>
+<script src="~/js/doughnutChart.js"></script>
 <script>
     if (@Model.IsOpenProblems) {
         document.getElementById(showProblemsListBtn).click();
     }
-</script>
-<script>
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: @Json.Serialize(Model.Modules.Select(t => t.Name).ToArray()),
-        datasets: [{
-            label: 'Количество часов в модуле',
-            data: @Json.Serialize(Model.Modules.Select(t => t.Hours).ToArray()),
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ] ,
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Количество часов в модулях'
-            }
-        }
-    },
-});
 </script>
