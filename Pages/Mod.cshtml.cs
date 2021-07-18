@@ -157,15 +157,13 @@ namespace RazorProject.Pages
                 await _context.Customers.AddAsync(Customer);
                 await _context.SaveChangesAsync();
 
-                var newCustomer = await _context.Customers
+                Project.Customer = await _context.Customers
                     .OrderByDescending(t => t.Id)
                     .FirstOrDefaultAsync();
-                Project.CustomerId = newCustomer.Id;
             }
             else
             {
-                Customer.Id = custId;
-                Project.CustomerId = custId;
+                Project.Customer = existCustomer;
             }
 
 
