@@ -142,7 +142,7 @@
             <button class="add-proj-btn blue-btn btn" onclick="addProjectCardToggle()">+ Добавить проект</button>
         </div>
         <div class="add-card card" id="add-proj-card-id" style="display: none">
-            <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('add-proj-card-id').style.display = 'none'"></i>
+            <i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('add-proj-card-id').style.display = 'none'; clearInput()"></i>
             <form method="post" autocomplete="off" class="add-form">
                 <div class="input-wrap"><input class="add-input" placeholder="Название проекта..." asp-for="NewProject.Name" required /></div>
                 <div class="input-wrap"><input class="add-input" placeholder="Тип проекта..." asp-for="NewProject.Type" required /></div>
@@ -183,3 +183,4 @@
 <script src="~/js/phoneFormat.js"></script>
 <script src="~/js/deleteModule.js"></script>
 <script src="~/js/deleteProj.js"></script>
+<script src="~/js/cleanForm.js"></script>
