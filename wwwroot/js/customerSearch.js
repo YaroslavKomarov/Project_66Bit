@@ -18,10 +18,10 @@ customerNameInput.onclick = function(){
 }
 
 customerNameInput.oninput = function () {
+    existCustomersCard.style.display = 'none';
     existCustomersCard.innerHTML = "";
     if (customerNameInput.value !== "") {
         for (let customer of customers) {
-            let existIncludes = false;
             if (customer["Name"].toLowerCase().includes(customerNameInput.value.toLowerCase())) {
                 existCustomersCard.style.display = 'block';
                 let addExistCustomer = document.createElement('a');
