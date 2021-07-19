@@ -19,21 +19,22 @@ customerNameInput.onclick = function(){
 
 customerNameInput.oninput = function () {
     existCustomersCard.innerHTML = "";
-    for (let customer of customers){
-        if (customer["Name"].toLowerCase().includes(customerNameInput.value.toLowerCase()) && customerNameInput.value !== ""){
-            existCustomersCard.style.display = 'block';
-            let addExistCustomer = document.createElement('a');
-            addExistCustomer.classList.add('module-name', 'module-info');
-            addExistCustomer.innerHTML = `<div>${customer['Name']}</div><div>${customer['Email']}</div><div>${customer['PhoneNumber']}</div>`;
-            existCustomersCard.append(addExistCustomer);
+    if (customerNameInput.value !== "") {
+        for (let customer of customers) {
+            let existIncludes = false;
+            if (customer["Name"].toLowerCase().includes(customerNameInput.value.toLowerCase())) {
+                existCustomersCard.style.display = 'block';
+                let addExistCustomer = document.createElement('a');
+                addExistCustomer.classList.add('module-name', 'module-info');
+                addExistCustomer.innerHTML = `<div>${customer['Name']}</div><div>${customer['Email']}</div><div>${customer['PhoneNumber']}</div>`;
+                existCustomersCard.append(addExistCustomer);
 
-            addExistCustomer.addEventListener('click', function () {
-                customerNameInput.value = customer['Name'];
-                customerEmailInput.value = customer['Email'];
-                customerPhoneInput.value = customer['PhoneNumber'];
-            });
-        } else {
-            existCustomersCard.style.display = 'none';
+                addExistCustomer.addEventListener('click', function () {
+                    customerNameInput.value = customer['Name'];
+                    customerEmailInput.value = customer['Email'];
+                    customerPhoneInput.value = customer['PhoneNumber'];
+                });
+            }
         }
     }
 }
