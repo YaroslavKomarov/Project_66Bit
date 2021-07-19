@@ -36,5 +36,7 @@ customerNameInput.oninput = function () {
                 });
             }
         }
+    } else {
+        existCustomersCard.style.display = 'none';
     }
 }
