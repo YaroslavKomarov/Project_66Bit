@@ -17,7 +17,7 @@ namespace Project_66_bit.Models
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {}
+        { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,7 +29,7 @@ namespace Project_66_bit.Models
             base.Dispose();
             logStream.Dispose();
         }
- 
+
         public override async ValueTask DisposeAsync()
         {
             await base.DisposeAsync();
