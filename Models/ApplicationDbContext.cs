@@ -1,14 +1,16 @@
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Project_66_bit.Models
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IDataProtectionKeyContext
     {
         private readonly StreamWriter logStream = new StreamWriter("DBLog.txt", true);
 
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Module> Modules { get; set; }

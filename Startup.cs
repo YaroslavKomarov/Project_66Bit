@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace Project_66_bit
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
             services.AddAntiforgery(option => {
                 option.HeaderName = "XSRF-TOKEN";
                 option.SuppressXFrameOptionsHeader = false;
@@ -34,9 +36,8 @@ namespace Project_66_bit
             });
             services.AddControllersWithViews();
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connection)
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
