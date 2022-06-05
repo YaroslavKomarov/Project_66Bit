@@ -24,10 +24,6 @@ namespace Project_66_bit
         {
             services.AddRazorPages();
 
-            services.AddAntiforgery(option => {
-                option.HeaderName = "XSRF-TOKEN";
-                option.SuppressXFrameOptionsHeader = false;
-            });
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizePage("/Index");
