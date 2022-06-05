@@ -2,15 +2,18 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Project_66_bit</RootNamespace>
+    <UserSecretsId>cfb62d87-a1c3-4859-beef-ca28bc38e36d</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Views\Index6.cshtml"/>
+    <Content Remove="Views\Index6.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Index6.cshtml"/>
+    <UpToDateCheckInput Remove="Views\Index6.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Index6.cshtml"/>
+    <_ContentIncludedByDefault Remove="Views\Index6.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Chart.js" Version="2.9.3" />
@@ -23,6 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
