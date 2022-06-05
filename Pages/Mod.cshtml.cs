@@ -131,14 +131,17 @@ namespace RazorProject.Pages
 
         public async Task<IActionResult> OnPostDownloadExcelAsync(int projId)
         {
-            // var buffer = new MemoryStream();
             var fileBytes = await reportService.CreateReport(projId);
-            // await fileBytes.CopyToAsync(buffer);
 
-            var fileStreamResult = new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            fileStreamResult.FileDownloadName = $"Project-{projId}.xlsx";
-            return fileStreamResult;
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\reports", $"Project-{projId}.xlsx");
 
+            System.IO.File.WriteAllBytes(filePath, fileBytes);
+
+            return RedirectToPage("Mod", new { id = projId });
+
+            //var fileStreamResult = new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            //fileStreamResult.FileDownloadName = $"Project-{projId}.xlsx";
+            //return fileStreamResult;
         }
         
         public async Task<IActionResult> OnPostEditProjectAsync(int custId, int projId)

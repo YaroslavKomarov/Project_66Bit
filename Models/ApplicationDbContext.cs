@@ -8,7 +8,7 @@ namespace Project_66_bit.Models
 {
     public class ApplicationDbContext : DbContext, IDataProtectionKeyContext
     {
-        private readonly StreamWriter logStream = new StreamWriter("DBLog.txt", true);
+        private readonly StreamWriter logStream = new StreamWriter("wwwroot/DBLog.txt", true);
 
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
         public DbSet<Customer> Customers { get; set; }

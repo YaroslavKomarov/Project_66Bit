@@ -35,6 +35,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     <PackageReference Include="EPPlus" Version="5.7.1" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\reports\" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties appsettings_1json__JsonSchema="" />
